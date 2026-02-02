@@ -1,0 +1,48 @@
+name = "ity-domain-router"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+# ==========================================
+# LOCAL DEVELOPMENT (default)
+# ==========================================
+[vars]
+VERCEL_URL = "http://localhost:3000"
+
+# ==========================================
+# STAGING ENVIRONMENT
+# ==========================================
+[env.staging]
+name = "ity-domain-router-staging"
+vars = { VERCEL_URL = "https://ity-staging.vercel.app" }
+
+# KV namespace for staging - will be created and ID added here
+# [[env.staging.kv_namespaces]]
+# binding = "DOMAIN_MAPPING"
+# id = "staging-kv-id"
+
+# R2 bucket for staging - will be created and binding added here
+# [[env.staging.r2_buckets]]
+# binding = "UPLOADS"
+# bucket_name = "ity-staging-uploads"
+
+# ==========================================
+# PRODUCTION ENVIRONMENT
+# ==========================================
+[env.production]
+name = "ity-domain-router"
+vars = { VERCEL_URL = "https://ity.vercel.app" }
+
+# KV namespace for production - will be created and ID added here
+# [[env.production.kv_namespaces]]
+# binding = "DOMAIN_MAPPING"
+# id = "production-kv-id"
+
+# R2 bucket for production - will be created and binding added here
+# [[env.production.r2_buckets]]
+# binding = "UPLOADS"
+# bucket_name = "ity-prod-uploads"
+
+# Custom domain routes (add when domain is purchased)
+# routes = [
+#   { pattern = "*.ity.com", zone_name = "ity.com" }
+# ]
