@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@ity/config": "workspace:*",
+    "dotenv": "^16.4.0",
     "drizzle-orm": "^0.38.0",
     "postgres": "^3.4.0"
   },
