@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--<< Header Area >>-->
+    <head>
+        <!-- ========== Meta Tags ========== -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="ITY">
+        <meta name="description" content="Create, sell, and manage online courses with your own branded school. Everything you need to teach the world.">
+        <!-- ======== Page title ============ -->
+        <title>ITY - I Teach You | Build Your Online School</title>
+        <!--<< Favcion >>-->
+        <link rel="shortcut icon" href="assets/img/favicon.svg">
+        <!--<< Bootstrap min.css >>-->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!--<< All Min Css >>-->
+        <link rel="stylesheet" href="assets/css/all.min.css">
+        <!--<< Animate.css >>-->
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <!--<< Icomoon.css >>-->
+        <link rel="stylesheet" href="assets/css/icomoon.css">
+        <!--<< Magnific Popup.css >>-->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <!--<< MeanMenu.css >>-->
+        <link rel="stylesheet" href="assets/css/meanmenu.css">
+        <!--<< Swiper Bundle.css >>-->
+        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+        <!--<< Nice Select.css >>-->
+        <link rel="stylesheet" href="assets/css/nice-select.css">
+        <!--<< Color.css >>-->
+        <link rel="stylesheet" href="assets/css/color.css">
+        <!--<< Main.css >>-->
+        <link rel="stylesheet" href="assets/css/main.css">
+        <!--<< Language Selector Styles >>-->
+        <style>
+            .lang-selector-wrapper {
+                display: flex;
+                align-items: center;
+                position: relative;
+            }
+            .lang-toggle {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                background: rgba(255,255,255,0.1);
+                border: 1px solid rgba(255,255,255,0.2);
+                color: #fff;
+                padding: 8px 14px;
+                border-radius: 50px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+            .lang-toggle:hover {
+                background: rgba(255,255,255,0.15);
+                border-color: rgba(255,255,255,0.4);
+            }
+            .lang-toggle svg {
+                width: 18px;
+                height: 18px;
+                opacity: 0.9;
+            }
+            .lang-toggle .lang-code {
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .lang-toggle .arrow {
+                width: 10px;
+                height: 10px;
+                transition: transform 0.3s ease;
+            }
+            .lang-selector-wrapper.open .lang-toggle .arrow {
+                transform: rotate(180deg);
+            }
+            .lang-dropdown {
+                position: absolute;
+                top: calc(100% + 8px);
+                right: 0;
+                background: #1a1a2e;
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 12px;
+                padding: 8px 0;
+                min-width: 140px;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                z-index: 1000;
+            }
+            .lang-selector-wrapper.open .lang-dropdown {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            .lang-option {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 16px;
+                color: rgba(255,255,255,0.8);
+                cursor: pointer;
+                transition: all 0.2s ease;
+                font-size: 14px;
+            }
+            .lang-option:hover {
+                background: rgba(89, 210, 243, 0.1);
+                color: #fff;
+            }
+            .lang-option.active {
+                background: rgba(89, 210, 243, 0.15);
+                color: #59D2F3;
+            }
+            .lang-option .flag {
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body >
+
+         <!-- Preloader Start -->
+         <div id="preloader" class="preloader">
+            <div class="animation-preloader">
+                <div class="spinner">
+                </div>
+                <div class="txt-loading">
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                    <span data-text-preloader="T" class="letters-loading">
+                        T
+                    </span>
+                    <span data-text-preloader="Y" class="letters-loading">
+                        Y
+                    </span>
+                </div>
+                <p class="text-center" data-i18n="preloader.loading">Loading</p>
+            </div>
+            <div class="loader">
+                <div class="row">
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back To Top Start -->
+        <button id="back-top" class="back-to-top">
+            <i class="fa-regular fa-arrow-up"></i>
+        </button>
+
+        <!--<< Mouse Cursor Start >>-->
+        <div class="mouse-cursor cursor-outer"></div>
+        <div class="mouse-cursor cursor-inner"></div>
+
+        <!-- Offcanvas Area Start -->
+        <div class="fix-area">
+            <div class="offcanvas__info">
+                <div class="offcanvas__wrapper">
+                    <div class="offcanvas__content">
+                        <div class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
+                            <div class="offcanvas__logo">
+                                <a href="index.html">
+                                    <h2 style="color: #000; font-weight: 700; margin: 0;">ITY</h2>
+                                </a>
+                            </div>
+                            <div class="offcanvas__close">
+                                <button>
+                                <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <h3 class="offcanvas-title" data-i18n="offcanvas.aboutTitle">About ITY</h3>
+                        <p data-i18n="offcanvas.aboutText">
+                            ITY is the simplest way to create your online school. Build courses, grow your audience, and earn from your knowledge.
+                        </p>
+                        <div class="social-icon d-flex align-items-center">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                        <div class="mobile-menu fix mb-3"></div>
+                        <div class="offcanvas__contact">
+                            <h3 data-i18n="offcanvas.infoTitle">Information</h3>
+                            <ul class="contact-list">
+                                <li>
+                                    <span data-i18n="offcanvas.email">
+                                        Email:
+                                    </span>
+                                    <a href="mailto:info@ity.com">info@ity.com</a>
+                                </li>
+                                <li>
+                                    <span data-i18n="offcanvas.website">
+                                        Website:
+                                    </span>
+                                    <a href="https://app.ity.com">app.ity.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas__overlay"></div>
+
+        <!-- Header Section Start -->
+        <header id="header-sticky" class="header-1">
+            <div class="container-fluid">
+                <div class="mega-menu-wrapper">
+                    <div class="header-main">
+                        <div class="logo">
+                            <a href="index.html" class="header-logo">
+                                <h2 style="color: #fff; font-weight: 700; margin: 0; font-size: 28px;">ITY</h2>
+                            </a>
+                        </div>
+                        <div class="mean__menu-wrapper">
+                            <div class="main-menu">
+                                <nav id="mobile-menu">
+                                    <ul>
+                                        <li class="active">
+                                            <a href="index.html" data-i18n="nav.home">
+                                                Home
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#features" data-i18n="nav.features">
+                                               Features
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#pricing" data-i18n="nav.pricing">
+                                                Pricing
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#about" data-i18n="nav.about">
+                                                About
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#contact" data-i18n="nav.contact">
+                                                Contact
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="header-right d-flex justify-content-end align-items-center">
+                            <div class="lang-selector-wrapper me-3" id="lang-selector-wrapper">
+                                <button class="lang-toggle" id="lang-toggle" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                    </svg>
+                                    <span class="lang-code" id="current-lang">EN</span>
+                                    <svg class="arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                    </svg>
+                                </button>
+                                <div class="lang-dropdown" id="lang-dropdown">
+                                    <div class="lang-option" data-lang="en">
+                                        <span class="flag">🇺🇸</span>
+                                        <span>English</span>
+                                    </div>
+                                    <div class="lang-option" data-lang="es">
+                                        <span class="flag">🇪🇸</span>
+                                        <span>Español</span>
+                                    </div>
+                                    <div class="lang-option" data-lang="fr">
+                                        <span class="flag">🇫🇷</span>
+                                        <span>Français</span>
+                                    </div>
+                                    <div class="lang-option" data-lang="pt">
+                                        <span class="flag">🇧🇷</span>
+                                        <span>Português</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="header-button">
+                                <a href="https://app.ity.com/login" class="theme-btn border-white">
+                                    <span class="icon-1">
+                                        <img src="assets/img/icon/10.svg" alt="img">
+                                    </span>
+                                    <span data-i18n="nav.login">Log In</span>
+                                    <span class="icon-2">
+                                        <img src="assets/img/icon/11.svg" alt="img">
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="header__hamburger d-xl-none my-auto">
+                                <div class="sidebar__toggle">
+                                    <div class="header-bar">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="smooth-wrapper">
+            <div id="smooth-content">
+                 <!-- Hero Section Start -->
+                <section class="hero-section hero-1 bg-cover" style="background-image: url('assets/img/hero/hero-1.jpg');">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-7">
+                                <div class="hero-content">
+                                    <p class="text-1 wow fadeInUp" data-i18n="hero.tagline">The #1 Platform for</p>
+                                    <p class="text-2 wow fadeInUp" data-i18n="hero.tagline2">Course Creators</p>
+                                    <h1 class="wow fadeInUp" data-wow-delay=".3s">
+                                        <span data-i18n="hero.title1">Build Your</span> <br>
+                                        <span data-i18n="hero.title2">Online School</span> <br>
+                                        <strong id="typing-text"></strong><span>.</span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="icon-text wow">
+                        <a href="https://app.ity.com/register" class="icon">
+                            <img src="assets/img/icon/01.svg" alt="img">
+                        </a>
+                        <p data-i18n="hero.cta">Start For Free</p>
+                    </div>
+                    <ul class="hero-list">
+                        <li data-i18n="hero.feature1">
+                            Course Builder
+                        </li>
+                        <li data-i18n="hero.feature2">
+                            Student Management
+                        </li>
+                        <li data-i18n="hero.feature3">
+                            Built-in Payments
+                        </li>
+                    </ul>
+                    <div class="client-info">
+                        <h4>10,000+ <span data-i18n="hero.clients">Creators Worldwide</span></h4>
+                        <img src="assets/img/hero/client-img.png" alt="img">
+                    </div>
+                </section>
+
+                <!-- Brand Section Start -->
+                <section class="brand-section fix section-padding">
+                    <div class="container">
+                        <div class="brand-wrapper">
+                            <h4><span data-i18n="brand.trusted">Trusted by creators from</span> <span class="count">100</span><span>+</span> <span data-i18n="brand.countries">countries</span> </h4>
+                            <div class="swiper brand-slider">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="brand-image">
+                                            <img src="assets/img/brand/01.png" alt="img">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="brand-image">
+                                            <img src="assets/img/brand/02.png" alt="img">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="brand-image">
+                                            <img src="assets/img/brand/03.png" alt="img">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="brand-image">
+                                            <img src="assets/img/brand/04.png" alt="img">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="brand-image">
+                                            <img src="assets/img/brand/05.png" alt="img">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="brand-image">
+                                            <img src="assets/img/brand/06.png" alt="img">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About Section Start -->
+                <section id="about" class="about-section fix section-padding bg-cover" style="background-image: url('assets/img/about/about-bg-1.jpg');">
+                    <div class="container">
+                        <div class="about-wrapper">
+                            <div class="section-title-area">
+                                <div class="section-title">
+                                    <h6 data-i18n="about.subtitle">about us</h6>
+                                    <h2 class="text-white tp-char-animation" data-i18n="about.title">
+                                        Empowering educators to <br> share their knowledge
+                                    </h2>
+                                </div>
+                                <a href="#features" class="theme-btn border-white wow fadeInUp" data-wow-delay=".5s">
+                                    <span class="icon-1">
+                                        <img src="assets/img/icon/10.svg" alt="img">
+                                    </span>
+                                    <span data-i18n="about.cta">know more</span>
+                                    <span class="icon-2">
+                                        <img src="assets/img/icon/11.svg" alt="img">
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="row justify-content-between">
+                                <div class="col-lg-4">
+                                    <div class="about-content wow fadeInUp" data-wow-delay=".5s">
+                                        <ul>
+                                            <li class="about-list">
+                                                <div class="icon">
+                                                    <img src="assets/img/icon/02.svg" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <h3 data-i18n="about.mission">our mission</h3>
+                                                    <p data-i18n="about.missionText">Empower anyone to create and monetize their knowledge through beautiful online schools</p>
+                                                </div>
+                                            </li>
+                                            <li class="about-list">
+                                                <div class="icon">
+                                                    <img src="assets/img/icon/03.svg" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <h3 data-i18n="about.vision">our vision</h3>
+                                                    <p data-i18n="about.visionText">A world where every expert can reach students globally, regardless of geography or resources</p>
+                                                </div>
+                                            </li>
+                                            <li class="about-list">
+                                                <div class="icon">
+                                                    <img src="assets/img/icon/04.svg" alt="img">
+                                                </div>
+                                                <div class="content">
+                                                    <h3 data-i18n="about.impact">our impact</h3>
+                                                    <p data-i18n="about.impactText">Over 10,000 creators have launched schools, served 50,000+ students across 100+ countries</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="about-image-items">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-lg-6">
+                                                <div class="about-items">
+                                                    <div class="thumb wow fix img-custom-anim-left">
+                                                        <img src="assets/img/about/01.jpg" alt="img">
+                                                    </div>
+                                                    <p class="wow fadeInUp" data-wow-delay=".3s" data-i18n="about.description">
+                                                        ITY gives you everything you need to build a thriving online school -- from course creation and student management to payments and analytics, all in one platform.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="about-thumb fix wow img-custom-anim-right" data-wow-duration="1.5s" data-wow-delay="0.3s">
+                                                    <img src="assets/img/about/02.jpg" alt="img">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Service Section Start -->
+                <section id="features" class="service-section fix section-padding">
+                    <div class="container">
+                        <div class="section-title-area bor-bottom">
+                            <div class="section-title">
+                                <h6 class="wow" data-i18n="features.subtitle">our features</h6>
+                                <h2 class="tp-char-animation"><span data-i18n="features.titleEverything">Everything you</span> <img src="assets/img/asterisk.svg" alt="img"><span data-i18n="features.titleNeed">need</span></h2>
+                            </div>
+                            <a href="https://app.ity.com/register" class="theme-btn wow fadeInUp" data-wow-delay=".5s">
+                                <span class="icon-1">
+                                    <img src="assets/img/icon/10.svg" alt="img">
+                                </span>
+                                <span data-i18n="features.cta">get started free</span>
+                                <span class="icon-2">
+                                    <img src="assets/img/icon/11.svg" alt="img">
+                                </span>
+                            </a>
+                        </div>
+                        <div class="service-wrapper">
+                            <ul>
+                                <li class="service-list">
+                                    <div class="content">
+                                        <h4 class="wow fadeInUp">001</h4>
+                                        <h3 class="wow tp_reveal_anim"><a href="https://app.ity.com/register" data-i18n="features.course.title">Course Builder</a></h3>
+                                    </div>
+                                    <p class="wow img-custom-anim-right" data-wow-duration="1.5s" data-wow-delay="0.4s" data-i18n="features.course.description">
+                                        Create structured courses with modules, lessons, videos, quizzes, and downloadable resources. Our drag-and-drop builder makes it easy to organize your content and deliver an engaging learning experience for your students.
+                                    </p>
+                                </li>
+                                <li class="service-list">
+                                    <p class="wow img-custom-anim-left" data-wow-duration="1.5s" data-wow-delay="0.3s" data-i18n="features.schools.description">
+                                        Launch your own branded online school with a custom domain, logo, and colors. Your school, your brand -- students see your identity, not ours. Create a professional learning environment that reflects your expertise.
+                                    </p>
+                                    <div class="content">
+                                        <h4 class="wow fadeInUp">002</h4>
+                                        <h3 class="wow tp_reveal_anim" data-wow-duration="1.5s" data-wow-delay="0.4s"><a href="https://app.ity.com/register" data-i18n="features.schools.title">Custom Schools</a></h3>
+                                    </div>
+                                </li>
+                                <li class="service-list">
+                                    <div class="content">
+                                        <h4 class="wow fadeInUp">003</h4>
+                                        <h3 class="wow tp_reveal_anim"><a href="https://app.ity.com/register" data-i18n="features.payments.title">Built-in Payments</a></h3>
+                                    </div>
+                                    <p class="wow img-custom-anim-right" data-wow-duration="1.5s" data-wow-delay="0.4s" data-i18n="features.payments.description">
+                                        Start selling courses instantly with integrated Stripe payments. Accept credit cards, set up one-time or subscription pricing, offer coupons, and track your revenue -- all without any third-party payment plugins or complicated setup.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Case Study Section Start -->
+                <section class="case-study-section fix section-padding bg-cover" style="background-image: url('assets/img/case-study/bg.jpg');">
+                    <div class="container">
+                        <div class="case-study-wrapper">
+                            <div class="section-title-area mb-0 section-padding pt-0">
+                                <div class="section-title">
+                                    <h6 class="wow fadeInUp" data-i18n="caseStudy.subtitle">Success Stories</h6>
+                                    <h2 class="text-white fix tp-char-animation" data-i18n="caseStudy.title">
+                                        Creators building <br>
+                                        thriving online schools
+                                    </h2>
+                                </div>
+                                <p class="max-310 text-white wow fadeInUp" data-wow-delay=".3s" data-i18n="caseStudy.description">
+                                    See how educators around the world are using ITY to share their knowledge and grow their businesses
+                                </p>
+                            </div>
+                            <div class="video-image section-padding bg-cover"  style="background-image: url('assets/img/case-study/video-bg.jpg');">
+                                <div class="video-button">
+                                    <a href="https://www.youtube.com/watch?v=Cn4G2lZ_g2I" class="video-icon video-popup">
+                                        <i class="fa-solid fa-play"></i>
+                                </a>
+                                <div class="text-cirle">
+                                        <img src="assets/img/about/text-circle.png" alt="img">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row gx-40 gy-40">
+                                <div class="col-xl-6 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                    <div class="project-box-items">
+                                        <div class="thumb fix">
+                                            <img src="assets/img/case-study/01.jpg" alt="img">
+                                        </div>
+                                        <div class="content">
+                                            <h3><a href="#" data-i18n="caseStudy.case1.title">Spanish Academy Online</a></h3>
+                                            <p data-i18n="caseStudy.case1.category">LANGUAGE COURSES</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
+                                    <div class="project-box-items">
+                                        <div class="thumb">
+                                            <img src="assets/img/case-study/02.jpg" alt="img">
+                                        </div>
+                                        <div class="content">
+                                            <h3><a href="#" data-i18n="caseStudy.case2.title">TechSkills Pro</a></h3>
+                                            <p data-i18n="caseStudy.case2.category">PROGRAMMING COURSES</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                    <div class="project-box-items">
+                                        <div class="thumb">
+                                            <img src="assets/img/case-study/03.jpg" alt="img">
+                                        </div>
+                                        <div class="content">
+                                            <h3><a href="#" data-i18n="caseStudy.case3.title">FitLife Academy</a></h3>
+                                            <p data-i18n="caseStudy.case3.category">FITNESS & WELLNESS</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- News Section Start -->
+                <section class="news-section fix section-padding section-bg">
+                    <div class="container">
+                        <div class="section-title-area">
+                            <div class="section-title">
+                                <h6 class="wow fadeInUp" data-i18n="blog.subtitle">creator resources</h6>
+                                <h2 class="tp-char-animation" data-i18n="blog.title">tips & insights</h2>
+                            </div>
+                            <a href="#" class="theme-btn wow fadeInUp" data-wow-delay=".5s">
+                                <span class="icon-1">
+                                    <img src="assets/img/icon/10.svg" alt="img">
+                                </span>
+                                <span data-i18n="blog.cta">view all articles</span>
+                                <span class="icon-2">
+                                    <img src="assets/img/icon/11.svg" alt="img">
+                                </span>
+                            </a>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".3s">
+                                <div class="news-box-items">
+                                    <div class="thumb">
+                                        <img  src="assets/img/news/01.jpg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <ul class="cat-list">
+                                            <li>
+                                                <a href="#" data-i18n="blog.post1.category">GETTING STARTED</a>
+                                            </li>
+                                            <li>
+                                                <span>15 January 2025</span>
+                                            </li>
+                                        </ul>
+                                        <h4><a href="#" data-i18n="blog.post1.title">How to launch your first online course in a weekend</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".5s">
+                                <div class="news-box-items">
+                                    <div class="thumb">
+                                        <img src="assets/img/news/02.jpg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <ul class="cat-list">
+                                            <li>
+                                                <a href="#" data-i18n="blog.post2.category">MONETIZATION</a>
+                                            </li>
+                                            <li>
+                                                <span>22 January 2025</span>
+                                            </li>
+                                        </ul>
+                                        <h4><a href="#" data-i18n="blog.post2.title">5 pricing strategies that work for online course creators</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay=".7s">
+                                <div class="news-box-items">
+                                    <div class="thumb">
+                                        <img src="assets/img/news/03.jpg" alt="img">
+                                    </div>
+                                    <div class="content">
+                                        <ul class="cat-list">
+                                            <li>
+                                                <a href="#" data-i18n="blog.post3.category">COMMUNITY</a>
+                                            </li>
+                                            <li>
+                                                <span>05 February 2025</span>
+                                            </li>
+                                        </ul>
+                                        <h4><a href="#" data-i18n="blog.post3.title">Building a community around your online school</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cta Section Start -->
+                <section class="cta-section fix section-padding section-bg margin-top-10 pt-0">
+                    <div class="container">
+                        <div class="cta-wrapper bg-cover" style="background-image: url('assets/img/cta/cta-bg.jpg');">
+                            <h2 class="wow fadeInUp" data-wow-delay=".3s" data-i18n="cta.title">Ready to start teaching? Create your school today -- it's free</h2>
+                            <a href="https://app.ity.com/register" class="theme-btn border-white wow fadeInUp" data-wow-delay=".5s">
+                                <span class="icon-1">
+                                    <img src="assets/img/icon/10.svg" alt="img">
+                                </span>
+                                <span data-i18n="cta.button">Get Started Free</span>
+                                <span class="icon-2">
+                                    <img src="assets/img/icon/11.svg" alt="img">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer Section Start -->
+                <footer id="contact" class="footer-section">
+                    <div class="container custom-container">
+                        <div class="footer-wrapper">
+                            <div class="footer-wrapper-items">
+                                <div class="footer-social-contact wow fadeInUp" data-wow-delay=".3s">
+                                    <ul class="contact-list">
+                                        <li>
+                                            <a href="mailto:info@ity.com">info@ity.com</a>
+                                        </li>
+                                    </ul>
+                                    <div class="social-icon d-flex align-items-center">
+                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#"><i class="fab fa-twitter"></i></a>
+                                        <a href="#"><i class="fab fa-youtube"></i></a>
+                                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                                <div class="footer-author wow fadeInUp" data-wow-delay=".5s">
+                                    <span data-i18n="footer.poweredBy">Powered by</span>
+                                    <h4><a href="index.html">ITY</a></h4>
+                                </div>
+                                <p class="wow fadeInUp" data-wow-delay=".7s">
+                                    &copy;2025 <br>
+                                    ITY - I Teach You <br>
+                                    <span data-i18n="footer.copyright">All rights reserved</span>
+                                </p>
+                            </div>
+                            <a href="index.html" class="exolax-text">
+                                <h1 style="font-size: 15vw; font-weight: 900; color: #000; opacity: 0.05; margin: 0; line-height: 1;" class="wow img-custom-anim-bottom">ITY</h1>
+                            </a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+
+
+        <!--<< All JS Plugins >>-->
+        <script src="assets/js/jquery-3.7.1.min.js"></script>
+        <!--<< Viewport Js >>-->
+        <script src="assets/js/viewport.jquery.js"></script>
+        <!--<< Bootstrap Js >>-->
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <!-- Parallax Js -->
+        <script src="assets/js/parallax.js"></script>
+        <!--<< Gsap Js >>-->
+        <script src="assets/js/gsap.js"></script>
+        <!--<< Gsap Scroll Plugin Js >>-->
+        <script src="assets/js/gsap-scroll-to-plugin.js"></script>
+        <!--<< Gsap Scroll Snoother Js >>-->
+        <script src="assets/js/gsap-scroll-smoother.js"></script>
+        <!--<< Gsap Scroll Trigger Js >>-->
+        <script src="assets/js/gsap-scroll-trigger.js"></script>
+        <!--<< Gsap Scroll Split Text Js >>-->
+        <script src="assets/js/gsap-split-text.js"></script>
+        <!--<< Choma Min Js >>-->
+        <script src="assets/js/chroma.min.js"></script>
+        <!--<< Nice Select Js >>-->
+        <script src="assets/js/jquery.nice-select.min.js"></script>
+        <!--<< Waypoints Js >>-->
+        <script src="assets/js/jquery.waypoints.js"></script>
+        <!--<< Counterup Js >>-->
+        <script src="assets/js/jquery.counterup.min.js"></script>
+        <!--<< Swiper Slider Js >>-->
+        <script src="assets/js/swiper-bundle.min.js"></script>
+        <!--<< MeanMenu Js >>-->
+        <script src="assets/js/jquery.meanmenu.min.js"></script>
+        <!--<< Magnific Popup Js >>-->
+        <script src="assets/js/jquery.magnific-popup.min.js"></script>
+        <!--<< GSAP Animation Js >>-->
+        <script src="assets/js/animation.js"></script>
+        <!--<< Wow Animation Js >>-->
+        <script src="assets/js/wow.min.js"></script>
+        <!--<< Wow Animation Js >>-->
+        <script src="assets/js/customer-gsap-animation.js"></script>
+        <!--<< i18n.js >>-->
+        <script src="assets/js/i18n.js"></script>
+        <!--<< Main.js >>-->
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>

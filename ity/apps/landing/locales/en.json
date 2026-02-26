@@ -1,0 +1,172 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log In"
+  },
+  "hero": {
+    "tagline": "The #1 Platform for",
+    "tagline2": "Course Creators",
+    "title1": "Build Your",
+    "title2": "Online School",
+    "cta": "Start For Free",
+    "feature1": "Course Builder",
+    "feature2": "Student Management",
+    "feature3": "Built-in Payments",
+    "clients": "Creators Worldwide"
+  },
+  "brand": {
+    "trusted": "Trusted by creators from",
+    "countries": "countries"
+  },
+  "about": {
+    "subtitle": "about us",
+    "title": "Empowering educators to share their knowledge",
+    "cta": "know more",
+    "mission": "our mission",
+    "missionText": "Empower anyone to create and monetize their knowledge through beautiful online schools",
+    "vision": "our vision",
+    "visionText": "A world where every expert can reach students globally, regardless of geography or resources",
+    "impact": "our impact",
+    "impactText": "Over 10,000 creators have launched schools, served 50,000+ students across 100+ countries",
+    "description": "ITY gives you everything you need to build a thriving online school -- from course creation and student management to payments and analytics, all in one platform."
+  },
+  "features": {
+    "subtitle": "our features",
+    "title": "Everything you need",
+    "titleEverything": "Everything you",
+    "titleNeed": "need",
+    "cta": "get started free",
+    "course": {
+      "title": "Course Builder",
+      "description": "Create structured courses with modules, lessons, videos, quizzes, and downloadable resources. Our drag-and-drop builder makes it easy to organize your content and deliver an engaging learning experience for your students."
+    },
+    "schools": {
+      "title": "Custom Schools",
+      "description": "Launch your own branded online school with a custom domain, logo, and colors. Your school, your brand -- students see your identity, not ours. Create a professional learning environment that reflects your expertise."
+    },
+    "payments": {
+      "title": "Built-in Payments",
+      "description": "Start selling courses instantly with integrated Stripe payments. Accept credit cards, set up one-time or subscription pricing, offer coupons, and track your revenue -- all without any third-party payment plugins or complicated setup."
+    }
+  },
+  "caseStudy": {
+    "subtitle": "Success Stories",
+    "title": "Creators building thriving online schools",
+    "description": "See how educators around the world are using ITY to share their knowledge and grow their businesses",
+    "case1": {
+      "title": "Spanish Academy Online",
+      "category": "LANGUAGE COURSES"
+    },
+    "case2": {
+      "title": "TechSkills Pro",
+      "category": "PROGRAMMING COURSES"
+    },
+    "case3": {
+      "title": "FitLife Academy",
+      "category": "FITNESS & WELLNESS"
+    }
+  },
+  "testimonials": {
+    "subtitle": "testimonials",
+    "title": "What our creators are saying",
+    "reviews": "Creator Reviews",
+    "testimonial1": {
+      "name": "Maria Gonzalez",
+      "role": "Language Teacher",
+      "text": "ITY helped me grow my Spanish school to over 500 students in just one year. The course builder is incredibly intuitive, and my students love the learning experience. I never thought teaching online could be this easy!"
+    },
+    "testimonial2": {
+      "name": "James Chen",
+      "role": "Tech Educator",
+      "text": "Having my own custom domain makes my coding school feel completely professional. Students trust the platform, and the built-in analytics help me understand exactly which lessons resonate most."
+    },
+    "testimonial3": {
+      "name": "Sarah Williams",
+      "role": "Fitness Coach",
+      "text": "Setting up payments was a breeze with the Stripe integration. I went from zero to selling my fitness programs within a day. ITY handles everything so I can focus on what I love -- coaching!"
+    },
+    "testimonial4": {
+      "name": "David Kim",
+      "role": "Music Instructor",
+      "text": "The analytics dashboard showed me that students were dropping off at a specific lesson. I restructured it, and completion rates jumped by 40%. ITY gives you the insights to constantly improve your courses."
+    }
+  },
+  "awards": {
+    "title": "Recognition",
+    "award1": {
+      "title": "Product of the Year",
+      "source": "EdTech Awards"
+    },
+    "award2": {
+      "title": "Best LMS Platform",
+      "source": "G2 Reviews"
+    },
+    "award3": {
+      "title": "Top Creator Tool",
+      "source": "Creator Economy"
+    },
+    "award4": {
+      "title": "Innovation Award",
+      "source": "SaaS Awards"
+    }
+  },
+  "team": {
+    "subtitle": "our team",
+    "title": "Meet Our Team",
+    "member1": {
+      "name": "Alex Rivera",
+      "role": "CEO / Founder"
+    },
+    "member2": {
+      "name": "Jordan Park",
+      "role": "CTO"
+    },
+    "member3": {
+      "name": "Priya Sharma",
+      "role": "Head of Product"
+    },
+    "member4": {
+      "name": "Sam Nguyen",
+      "role": "Head of Growth"
+    }
+  },
+  "blog": {
+    "subtitle": "creator resources",
+    "title": "tips & insights",
+    "cta": "view all articles",
+    "post1": {
+      "category": "GETTING STARTED",
+      "title": "How to launch your first online course in a weekend"
+    },
+    "post2": {
+      "category": "MONETIZATION",
+      "title": "5 pricing strategies that work for online course creators"
+    },
+    "post3": {
+      "category": "COMMUNITY",
+      "title": "Building a community around your online school"
+    }
+  },
+  "cta": {
+    "title": "Ready to start teaching? Create your school today -- it's free",
+    "button": "Get Started Free"
+  },
+  "footer": {
+    "poweredBy": "Powered by",
+    "copyright": "All rights reserved"
+  },
+  "offcanvas": {
+    "aboutTitle": "About ITY",
+    "aboutText": "ITY is the simplest way to create your online school. Build courses, grow your audience, and earn from your knowledge.",
+    "infoTitle": "Information",
+    "email": "Email:",
+    "website": "Website:"
+  },
+  "preloader": {
+    "loading": "Loading"
+  }
+}

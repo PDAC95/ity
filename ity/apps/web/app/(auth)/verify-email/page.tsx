@@ -1,0 +1,85 @@
+'use client';
+
+import { Suspense, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense>
+      <VerifyEmailContent />
+    </Suspense>
+  );
+}
+
+function VerifyEmailContent() {
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email') ?? '';
+  const [resent, setResent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const supabase = createClient();
+
+  const handleResend = async () => {
+    if (!email) return;
+    setLoading(true);
+    await supabase.auth.resend({
+      type: 'signup',
+      email,
+    });
+    setResent(true);
+    setLoading(false);
+  };
+
+  return (
+    <div className="text-center">
+      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-50">
+        <Mail className="h-7 w-7 text-blue-600" />
+      </div>
+
+      <h2 className="text-2xl font-bold text-gray-900">Check your email</h2>
+      <p className="mt-2 text-sm text-gray-500">
+        We sent a verification link to
+      </p>
+      {email && (
+        <p className="mt-1 text-sm font-semibold text-gray-900">{email}</p>
+      )}
+      <p className="mt-4 text-sm text-gray-400">
+        Click the link in the email to verify your account and start using ITY.
+      </p>
+
+      <div className="mt-6 space-y-3">
+        {resent ? (
+          <div className="flex items-center justify-center gap-2 text-sm text-green-600">
+            <CheckCircle className="h-4 w-4" />
+            Verification email resent!
+          </div>
+        ) : (
+          <button
+            onClick={handleResend}
+            disabled={loading || !email}
+            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50"
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
+                Resending...
+              </span>
+            ) : (
+              "Didn't receive the email? Resend"
+            )}
+          </button>
+        )}
+
+        <Link
+          href="/login"
+          className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-500"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to login
+        </Link>
+      </div>
+    </div>
+  );
+}

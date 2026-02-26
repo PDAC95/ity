@@ -1,0 +1,2 @@
+[    3359ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3002/favicon.ico:0
+[   11109ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ https://grifirzazwmovtzzxera.supabase.co/auth/v1/signup?redirect_to=http%3A%2F%2Flocalhost%3A3002%2Fcallback%3Fnext%3D%2Fdashboard:0

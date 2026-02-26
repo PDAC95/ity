@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(pnpm db:push:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: add Supabase Auth pages and database config\n\n- Add login and register pages with Supabase Auth\n- Add auth callback route for OAuth flows\n- Add signout API route\n- Add protected dashboard page with auth guard\n- Configure drizzle-kit to load env from monorepo root\n- Push database schema to Supabase staging\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push)",
+      "Bash(pnpm --filter @ity/web dev:*)",
+      "Bash(timeout:*)",
+      "Bash(pnpm install:*)",
+      "Bash(ping:*)",
+      "mcp__filesystem__list_directory",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(pnpm dev:*)",
+      "mcp__playwright__browser_fill_form",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_navigate",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(node -e \"\nconst { createClient } = require\\(''@supabase/supabase-js''\\);\nconst supabase = createClient\\(\n  ''https://grifirzazwmovtzzxera.supabase.co'',\n  ''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyaWZpcnphendtb3Z0enp4ZXJhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MDA1NzkxMCwiZXhwIjoyMDg1NjMzOTEwfQ.hVFW08LG6wZzvsInpOlYc1i3U9jGYm4ApJOvitS0uIE''\n\\);\nsupabase.auth.admin.listUsers\\(\\).then\\(\\({data, error}\\) => {\n  if \\(error\\) { console.log\\(''ERROR:'', error.message\\); return; }\n  data.users.forEach\\(u => console.log\\(u.id, u.email, u.email_confirmed_at || ''NOT CONFIRMED''\\)\\);\n}\\);\n\")",
+      "Bash(node -e \"\nconst { createClient } = require\\(''@supabase/supabase-js''\\);\nconst supabase = createClient\\(\n  ''https://grifirzazwmovtzzxera.supabase.co'',\n  ''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdyaWZpcnphendtb3Z0enp4ZXJhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MDA1NzkxMCwiZXhwIjoyMDg1NjMzOTEwfQ.hVFW08LG6wZzvsInpOlYc1i3U9jGYm4ApJOvitS0uIE''\n\\);\nsupabase.auth.admin.updateUserById\\(''2f5cc5e4-6156-446c-9b2c-dc69f235d561'', {\n  email_confirm: true\n}\\).then\\(\\({data, error}\\) => {\n  if \\(error\\) { console.log\\(''ERROR:'', error.message\\); return; }\n  console.log\\(''Confirmed:'', data.user.email, data.user.email_confirmed_at\\);\n}\\);\n\")",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__filesystem__directory_tree",
+      "mcp__filesystem__list_directory_with_sizes",
+      "mcp__filesystem__list_allowed_directories",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(npx tsc:*)",
+      "mcp__playwright__browser_press_key",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_wait_for",
+      "Bash(del:*)",
+      "mcp__playwright__browser_close",
+      "Bash(npm install:*)",
+      "mcp__filesystem__read_text_file",
+      "Bash(find:*)"
+    ]
+  }
+}
