@@ -1,0 +1,76 @@
+# Roadmap: 12ity Auth & Security
+
+## Overview
+
+This milestone hardens an already-scaffolded but partially broken auth system. The callback route is the hub for every auth flow, so it must be secured before anything else is built on top of it. The four phases follow a strict dependency order: fix the broken foundation first, then complete each auth flow end-to-end, then add abuse protection, then add session UX polish. No phase can be parallelized — each is a hard prerequisite for the next.
+
+## Phases
+
+**Phase Numbering:**
+- Integer phases (1, 2, 3): Planned milestone work
+- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+
+Decimal phases appear between their surrounding integers in numeric order.
+
+- [ ] **Phase 1: Security Foundation** - Fix the five critical security defects that block all other phases
+- [ ] **Phase 2: Complete Auth Flows** - Wire Google OAuth, email verification, and password reset end-to-end
+- [ ] **Phase 3: Rate Limiting** - Add brute-force and abuse protection across all auth endpoints
+- [ ] **Phase 4: Session Management** - Graceful session expiry, consistent error messaging, and user-visible auth feedback
+
+## Phase Details
+
+### Phase 1: Security Foundation
+**Goal**: The auth infrastructure layer is secure and correctly functioning, with no exploitable vulnerabilities in the callback route, middleware, or tRPC context
+**Depends on**: Nothing (first phase)
+**Requirements**: SEC-01, SEC-02, SEC-03, SEC-04, SEC-05, SEC-06, SEC-07
+**Success Criteria** (what must be TRUE):
+  1. Navigating to `/callback?next=//evil.com` does not redirect outside the app — the `next` param is validated against an allowlist of known app paths
+  2. An unauthenticated POST to `auth.createCreator` with an arbitrary UUID returns a 401 — the procedure requires a verified session
+  3. In development mode, a cookie operation failure produces a console warning instead of silently swallowing the error
+  4. The Next.js middleware makes one Supabase API call per request (not two), and the tRPC context receives the same Supabase client created in middleware
+  5. After sign-out, the response includes `Cache-Control: no-store` so the browser does not serve a cached authenticated page
+**Plans**: TBD
+
+### Phase 2: Complete Auth Flows
+**Goal**: Every auth flow — Google OAuth, email/password login and registration, email verification, and password reset — works end-to-end with creator provisioning handled safely in the server-side callback
+**Depends on**: Phase 1
+**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07, AUTH-08, AUTH-09
+**Success Criteria** (what must be TRUE):
+  1. A new user who clicks "Continue with Google" lands in the dashboard with a creator record created — completing the flow twice does not create a duplicate record
+  2. A new user who registers with email/password receives a verification email, clicks the link, and lands in the dashboard with a creator record created — no client-side tRPC call for creator creation occurs
+  3. A user who submits "Forgot Password" receives a reset email; clicking the link lands on the reset-password page and allows setting a new password; a direct navigation to `/reset-password` without a valid recovery session does not allow password changes
+  4. A user who navigates to a protected route while unauthenticated is redirected to login and returned to the intended route after successful login — the PKCE verifier is not consumed by middleware before the callback route receives it
+**Plans**: TBD
+
+### Phase 3: Rate Limiting
+**Goal**: Auth endpoints are protected against brute-force and abuse via Upstash Redis sliding window rate limits that survive Vercel serverless cold starts
+**Depends on**: Phase 2
+**Requirements**: RATE-01, RATE-02, RATE-03, RATE-04, RATE-05
+**Success Criteria** (what must be TRUE):
+  1. Submitting login with wrong credentials 6 times within 15 minutes from the same IP returns a clear "Too many attempts" error message (not a generic 500) on the 6th attempt
+  2. Submitting the forgot-password form 4 times within one hour with the same email address returns a rate limit error message on the 4th attempt
+  3. Requesting email verification resend 4 times within one hour with the same email address returns a rate limit error message on the 4th attempt
+  4. Hitting the `/callback` route 11 times within one minute from the same IP returns a rate limit error on the 11th request
+**Plans**: TBD
+
+### Phase 4: Session Management
+**Goal**: Users receive clear feedback when sessions expire and auth errors are surfaced consistently across all three layers — no silent failures or confusing blank errors
+**Depends on**: Phase 3
+**Requirements**: SESS-01, SESS-02, SESS-03, SESS-04
+**Success Criteria** (what must be TRUE):
+  1. A user with an expired access token but valid refresh token continues their session without being redirected to login — the token is silently refreshed in middleware
+  2. A user with both tokens expired is redirected to the login page with `?reason=session_expired` in the URL, and the login page displays "Your session has expired" as a visible message
+  3. Auth errors across all three layers (browser client, middleware, tRPC) surface the same user-readable message for the same underlying condition — no `message.includes()` string matching in production code
+**Plans**: TBD
+
+## Progress
+
+**Execution Order:**
+Phases execute in strict dependency order: 1 → 2 → 3 → 4
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. Security Foundation | 0/TBD | Not started | - |
+| 2. Complete Auth Flows | 0/TBD | Not started | - |
+| 3. Rate Limiting | 0/TBD | Not started | - |
+| 4. Session Management | 0/TBD | Not started | - |
