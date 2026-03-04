@@ -3,16 +3,16 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_plan: 2
-status: executing
-stopped_at: Completed 01-01-PLAN.md — ready to execute 01-02
-last_updated: "2026-03-04T19:03:29.255Z"
-last_activity: 2026-03-04 — Plan 01-01 complete (5 security wiring fixes)
+status: verifying
+stopped_at: Completed 01-02-PLAN.md — Phase 1 security foundation complete
+last_updated: "2026-03-04T19:09:19.310Z"
+last_activity: 2026-03-04
 progress:
   total_phases: 1
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 50
+  completed_plans: 2
+  percent: 100
 ---
 
 # Project State
@@ -29,10 +29,10 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 **Phase:** 1 of 4 (Security Foundation)
 **Current Plan:** 2
 **Total Plans in Phase:** 2
-**Status:** In progress — plan 01 complete, plan 02 pending
-**Last activity:** 2026-03-04 — Plan 01-01 complete (5 security wiring fixes)
+**Status:** Phase complete — ready for verification
+**Last activity:** 2026-03-04
 
-**Progress:** [█████░░░░░] 50%
+**Progress:** [██████████] 100%
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 
 *Updated after each plan completion*
 | Phase 01 P01 | 2min | 2 tasks | 7 files |
+| Phase 01-security-foundation P02 | 3min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -67,6 +68,9 @@ Recent decisions affecting current work:
 - [01-01]: SEC-03: Cookie errors THROW in development and console.warn in production — throw in dev intentional per CONTEXT.md locked decision
 - [01-01]: SEC-04: updateSession() return type changed to { response, user } — single getUser() call serves both session refresh and auth state needs
 - [01-01]: SEC-05: tRPC context supabase field was already in Context type signature — needed to be passed at both call sites (API route + RSC caller)
+- [Phase 01-02]: SEC-01: Redirect allowlist uses prefix-based matching with decodeURIComponent before validation — blocks //evil.com and %2F%2Fevil.com encoding bypasses
+- [Phase 01-02]: SEC-01: Creator provisioning in callback changed to idempotent upsert with onConflict ignoreDuplicates — eliminates TOCTOU race condition
+- [Phase 01-02]: SEC-02: createCreator now protectedProcedure using ctx.user.id — unauthenticated callers get 401; dashboard safety-net uses Supabase client (not Drizzle) as it is a server component layout
 
 ### Pending Todos
 
@@ -80,6 +84,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-03-04T19:03:29.253Z
-**Stopped at:** Completed 01-01-PLAN.md — ready to execute 01-02
+**Last session:** 2026-03-04T19:09:19.308Z
+**Stopped at:** Completed 01-02-PLAN.md — Phase 1 security foundation complete
 Resume file: None

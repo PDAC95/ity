@@ -7,8 +7,8 @@
 
 ### Security Fixes
 
-- [ ] **SEC-01**: Auth callback validates `next` parameter against allowlist of known app paths before redirecting (no open redirect)
-- [ ] **SEC-02**: `auth.createCreator` is a protected procedure that uses `ctx.user.id` from verified session (not user-supplied UUID)
+- [x] **SEC-01**: Auth callback validates `next` parameter against allowlist of known app paths before redirecting (no open redirect)
+- [x] **SEC-02**: `auth.createCreator` is a protected procedure that uses `ctx.user.id` from verified session (not user-supplied UUID)
 - [x] **SEC-03**: Cookie errors in Supabase server client surface as warnings in development mode (not silently swallowed)
 - [x] **SEC-04**: Middleware creates one Supabase client per request, returning user from `updateSession()` without double API call
 - [x] **SEC-05**: Supabase client is passed to tRPC context (not null) for use in procedures
@@ -73,8 +73,8 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SEC-01 | Phase 1 | Pending |
-| SEC-02 | Phase 1 | Pending |
+| SEC-01 | Phase 1 | Complete |
+| SEC-02 | Phase 1 | Complete |
 | SEC-03 | Phase 1 | Complete |
 | SEC-04 | Phase 1 | Complete |
 | SEC-05 | Phase 1 | Complete |
