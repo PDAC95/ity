@@ -9,11 +9,11 @@
 
 - [ ] **SEC-01**: Auth callback validates `next` parameter against allowlist of known app paths before redirecting (no open redirect)
 - [ ] **SEC-02**: `auth.createCreator` is a protected procedure that uses `ctx.user.id` from verified session (not user-supplied UUID)
-- [ ] **SEC-03**: Cookie errors in Supabase server client surface as warnings in development mode (not silently swallowed)
-- [ ] **SEC-04**: Middleware creates one Supabase client per request, returning user from `updateSession()` without double API call
-- [ ] **SEC-05**: Supabase client is passed to tRPC context (not null) for use in procedures
-- [ ] **SEC-06**: Sign-out route returns `Cache-Control: no-store` header to prevent edge caching
-- [ ] **SEC-07**: Post-login navigation uses `window.location.href` instead of `router.push` to ensure cookies are flushed
+- [x] **SEC-03**: Cookie errors in Supabase server client surface as warnings in development mode (not silently swallowed)
+- [x] **SEC-04**: Middleware creates one Supabase client per request, returning user from `updateSession()` without double API call
+- [x] **SEC-05**: Supabase client is passed to tRPC context (not null) for use in procedures
+- [x] **SEC-06**: Sign-out route returns `Cache-Control: no-store` header to prevent edge caching
+- [x] **SEC-07**: Post-login navigation uses `window.location.href` instead of `router.push` to ensure cookies are flushed
 
 ### Authentication Flows
 
@@ -75,11 +75,11 @@
 |-------------|-------|--------|
 | SEC-01 | Phase 1 | Pending |
 | SEC-02 | Phase 1 | Pending |
-| SEC-03 | Phase 1 | Pending |
-| SEC-04 | Phase 1 | Pending |
-| SEC-05 | Phase 1 | Pending |
-| SEC-06 | Phase 1 | Pending |
-| SEC-07 | Phase 1 | Pending |
+| SEC-03 | Phase 1 | Complete |
+| SEC-04 | Phase 1 | Complete |
+| SEC-05 | Phase 1 | Complete |
+| SEC-06 | Phase 1 | Complete |
+| SEC-07 | Phase 1 | Complete |
 | AUTH-01 | Phase 2 | Pending |
 | AUTH-02 | Phase 2 | Pending |
 | AUTH-03 | Phase 2 | Pending |
