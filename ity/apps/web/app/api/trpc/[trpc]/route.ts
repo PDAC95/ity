@@ -15,6 +15,7 @@ const handler = async (req: Request) => {
     createContext: () =>
       createTRPCContext({
         headers: req.headers,
+        supabase,
         user,
       }),
     onError:
