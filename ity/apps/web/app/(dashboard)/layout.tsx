@@ -16,6 +16,28 @@ export default async function DashboardLayout({
     redirect('/login');
   }
 
+  // Safety net: ensure creator record exists for authenticated user
+  // Catches edge cases from old registration flow or direct OAuth
+  const { data: existingCreator } = await supabase
+    .from('creators')
+    .select('id')
+    .eq('id', user.id)
+    .single();
+
+  if (!existingCreator) {
+    await supabase.from('creators').upsert(
+      {
+        id: user.id,
+        email: user.email ?? '',
+        name:
+          (user.user_metadata?.full_name as string) ??
+          user.email?.split('@')[0] ??
+          'Creator',
+      },
+      { onConflict: 'id', ignoreDuplicates: true }
+    );
+  }
+
   const userEmail = user.email ?? '';
   const userName =
     (user.user_metadata?.full_name as string) ?? userEmail.split('@')[0];

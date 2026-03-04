@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createClient } from '@/lib/supabase/client';
-import { trpc } from '@/lib/trpc/client';
 import { registerSchema, type RegisterInput } from '@/lib/validations/auth';
 import { GoogleAuthButton, AuthDivider, PasswordInput } from '@/components/auth';
 import Link from 'next/link';
@@ -14,7 +13,6 @@ export default function RegisterPage() {
   const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
   const supabase = createClient();
-  const createCreator = trpc.auth.createCreator.useMutation();
 
   const {
     register,
@@ -28,36 +26,18 @@ export default function RegisterPage() {
     setServerError(null);
 
     try {
-      const { data: authData, error: authError } =
-        await supabase.auth.signUp({
-          email: data.email,
-          password: data.password,
-          options: {
-            data: { full_name: data.name },
-            emailRedirectTo: `${window.location.origin}/callback?next=/dashboard`,
-          },
-        });
+      const { error: authError } = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: {
+          data: { full_name: data.name },
+          emailRedirectTo: `${window.location.origin}/callback?next=/dashboard`,
+        },
+      });
 
       if (authError) {
         setServerError(authError.message);
         return;
-      }
-
-      if (authData.user) {
-        try {
-          await createCreator.mutateAsync({
-            id: authData.user.id,
-            email: data.email,
-            name: data.name,
-          });
-        } catch (err: unknown) {
-          const message =
-            err instanceof Error ? err.message : 'Failed to create profile';
-          if (!message.includes('already')) {
-            setServerError(message);
-            return;
-          }
-        }
       }
 
       router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);

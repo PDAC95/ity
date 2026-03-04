@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createClient } from '@/lib/supabase/client';
@@ -8,6 +8,7 @@ import { loginSchema, type LoginInput } from '@/lib/validations/auth';
 import { GoogleAuthButton, AuthDivider, PasswordInput } from '@/components/auth';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { toast } from 'sonner';
 
 export default function LoginPage() {
   return (
@@ -25,6 +26,12 @@ function LoginForm() {
 
   const errorParam = searchParams.get('error');
   const message = searchParams.get('message');
+
+  useEffect(() => {
+    if (errorParam) {
+      toast.error('Something went wrong. Please try again.');
+    }
+  }, [errorParam]);
 
   const {
     register,

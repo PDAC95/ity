@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { Toaster } from 'sonner';
 import { TRPCProvider } from '@/lib/trpc/provider';
 import './globals.css';
 
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <TRPCProvider>{children}</TRPCProvider>
+        <Toaster position="top-right" />
       </body>
     </html>
   );

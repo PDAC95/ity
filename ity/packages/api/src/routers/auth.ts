@@ -62,35 +62,23 @@ export const authRouter = router({
     }),
 
   // Create creator record after Supabase Auth signup
-  createCreator: publicProcedure
+  createCreator: protectedProcedure
     .input(
       z.object({
-        id: z.string().uuid(),
-        email: z.string().email(),
         name: z.string().min(2).max(255),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const existing = await ctx.db.query.creators.findFirst({
-        where: eq(creators.email, input.email),
-      });
-
-      if (existing) {
-        throw new TRPCError({
-          code: 'CONFLICT',
-          message: 'Email already in use',
-        });
-      }
-
       const [creator] = await ctx.db
         .insert(creators)
         .values({
-          id: input.id,
-          email: input.email,
+          id: ctx.user.id,
+          email: ctx.user.email!,
           name: input.name,
         })
+        .onConflictDoNothing()
         .returning();
 
-      return creator;
+      return creator ?? null;
     }),
 });
