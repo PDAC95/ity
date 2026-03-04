@@ -29,7 +29,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. In development mode, a cookie operation failure produces a console warning instead of silently swallowing the error
   4. The Next.js middleware makes one Supabase API call per request (not two), and the tRPC context receives the same Supabase client created in middleware
   5. After sign-out, the response includes `Cache-Control: no-store` so the browser does not serve a cached authenticated page
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Fix auth plumbing: sign-out caching, login navigation, cookie errors, middleware double-client, tRPC context wiring
+- [ ] 01-02-PLAN.md — Close open redirect in callback, convert createCreator to protectedProcedure, add dashboard safety net, install sonner
 
 ### Phase 2: Complete Auth Flows
 **Goal**: Every auth flow — Google OAuth, email/password login and registration, email verification, and password reset — works end-to-end with creator provisioning handled safely in the server-side callback
@@ -70,7 +74,7 @@ Phases execute in strict dependency order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Security Foundation | 0/TBD | Not started | - |
+| 1. Security Foundation | 0/2 | Planned | - |
 | 2. Complete Auth Flows | 0/TBD | Not started | - |
 | 3. Rate Limiting | 0/TBD | Not started | - |
 | 4. Session Management | 0/TBD | Not started | - |
