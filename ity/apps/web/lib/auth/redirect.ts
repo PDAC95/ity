@@ -1,4 +1,4 @@
-const ALLOWED_PREFIXES = ['/dashboard', '/courses', '/settings', '/school'] as const;
+const ALLOWED_PREFIXES = ['/dashboard', '/courses', '/settings', '/school', '/reset-password'] as const;
 
 /**
  * Validates a redirect path against the allowlist of known app paths.
