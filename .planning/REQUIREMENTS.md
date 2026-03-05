@@ -20,10 +20,10 @@
 - [x] **AUTH-01**: User can log in with Google OAuth and land in dashboard (creator record auto-created if new)
 - [x] **AUTH-02**: User can log in with email/password and land in dashboard
 - [x] **AUTH-03**: User can register with email/password and receive verification email from Supabase
-- [ ] **AUTH-04**: User clicking email verification link lands in dashboard with creator record created via callback
-- [ ] **AUTH-05**: Creator provisioning happens only in server-side callback route (not client-side), using idempotent upsert
+- [x] **AUTH-04**: User clicking email verification link lands in dashboard with creator record created via callback
+- [x] **AUTH-05**: Creator provisioning happens only in server-side callback route (not client-side), using idempotent upsert
 - [x] **AUTH-06**: User can request password reset email from forgot-password page
-- [ ] **AUTH-07**: User clicking password reset link lands on reset-password page with valid recovery session
+- [x] **AUTH-07**: User clicking password reset link lands on reset-password page with valid recovery session
 - [x] **AUTH-08**: Reset-password page validates recovery session exists before allowing password change
 - [x] **AUTH-09**: After successful password reset, user is redirected to login with success message
 
@@ -83,10 +83,10 @@
 | AUTH-01 | Phase 2 | Complete |
 | AUTH-02 | Phase 2 | Complete |
 | AUTH-03 | Phase 2 | Complete |
-| AUTH-04 | Phase 2 | Pending |
-| AUTH-05 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Complete |
+| AUTH-05 | Phase 2 | Complete |
 | AUTH-06 | Phase 2 | Complete |
-| AUTH-07 | Phase 2 | Pending |
+| AUTH-07 | Phase 2 | Complete |
 | AUTH-08 | Phase 2 | Complete |
 | AUTH-09 | Phase 2 | Complete |
 | RATE-01 | Phase 3 | Pending |
