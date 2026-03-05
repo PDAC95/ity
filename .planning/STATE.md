@@ -4,15 +4,15 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: Not started
 status: completed
-stopped_at: Phase 2 context gathered
-last_updated: "2026-03-05T20:58:28.134Z"
+stopped_at: Completed 02-03-PLAN.md
+last_updated: "2026-03-05T21:32:00.676Z"
 last_activity: 2026-03-04
 progress:
   total_phases: 2
   completed_phases: 1
-  total_plans: 2
-  completed_plans: 2
-  percent: 100
+  total_plans: 6
+  completed_plans: 5
+  percent: 83
 ---
 
 # Project State
@@ -32,7 +32,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 **Status:** Milestone complete
 **Last activity:** 2026-03-04
 
-**Progress:** [██████████] 100%
+**Progress:** [████████░░] 83%
 
 ## Performance Metrics
 
@@ -54,6 +54,9 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 *Updated after each plan completion*
 | Phase 01 P01 | 2min | 2 tasks | 7 files |
 | Phase 01-security-foundation P02 | 3min | 2 tasks | 8 files |
+| Phase 02 P02 | 2min | 2 tasks | 3 files |
+| Phase 02-complete-auth-flows P01 | 5min | 2 tasks | 3 files |
+| Phase 02-complete-auth-flows P03 | 1min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -71,6 +74,14 @@ Recent decisions affecting current work:
 - [Phase 01-02]: SEC-01: Redirect allowlist uses prefix-based matching with decodeURIComponent before validation — blocks //evil.com and %2F%2Fevil.com encoding bypasses
 - [Phase 01-02]: SEC-01: Creator provisioning in callback changed to idempotent upsert with onConflict ignoreDuplicates — eliminates TOCTOU race condition
 - [Phase 01-02]: SEC-02: createCreator now protectedProcedure using ctx.user.id — unauthenticated callers get 401; dashboard safety-net uses Supabase client (not Drizzle) as it is a server component layout
+- [Phase 02-complete-auth-flows]: 02-01-D1: /auth/confirm uses verifyOtp(token_hash) not exchangeCodeForSession — email OTP flows do not use OAuth PKCE code exchange
+- [Phase 02-complete-auth-flows]: 02-01-D2: /auth/confirm excluded from middleware matcher — prevents getUser() from interfering with OTP verification
+- [Phase 02-complete-auth-flows]: 02-01-D3: Middleware preserves pathname as ?next= param on unauthenticated redirect to login
+- [Phase 02-02]: Login uses window.location.href for post-login redirect per SEC-07 (not router.push)
+- [Phase 02-02]: GoogleAuthButton uses NEXT_PUBLIC_SITE_URL ?? window.location.origin for OAuth redirectTo base URL
+- [Phase 02-02]: Register emailRedirectTo uses /auth/confirm route (Phase 01) with NEXT_PUBLIC_SITE_URL
+- [Phase 02-03]: Reset-password hooks declared before conditional null returns to follow React Rules of Hooks; onSubmit as regular async function after guard returns
+- [Phase 02-03]: redirectTo uses /auth/confirm?type=recovery (not /callback) — correct Supabase PKCE email OTP recovery path from Phase 1
 
 ### Pending Todos
 
@@ -84,6 +95,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-03-05T20:58:28.131Z
-**Stopped at:** Phase 2 context gathered
+**Last session:** 2026-03-05T21:32:00.674Z
+**Stopped at:** Completed 02-03-PLAN.md
 Resume file: None

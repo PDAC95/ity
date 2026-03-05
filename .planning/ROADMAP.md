@@ -44,7 +44,7 @@ Plans:
   2. A new user who registers with email/password receives a verification email, clicks the link, and lands in the dashboard with a creator record created — no client-side tRPC call for creator creation occurs
   3. A user who submits "Forgot Password" receives a reset email; clicking the link lands on the reset-password page and allows setting a new password; a direct navigation to `/reset-password` without a valid recovery session does not allow password changes
   4. A user who navigates to a protected route while unauthenticated is redirected to login and returned to the intended route after successful login — the PKCE verifier is not consumed by middleware before the callback route receives it
-**Plans:** 4 plans
+**Plans:** 3/4 plans executed
 
 Plans:
 - [ ] 02-01-PLAN.md — Create /auth/confirm OTP route, update middleware next param, fix redirect allowlist
@@ -81,6 +81,6 @@ Phases execute in strict dependency order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Security Foundation | 2/2 | Complete   | 2026-03-04 |
-| 2. Complete Auth Flows | 0/4 | Planning complete | - |
+| 2. Complete Auth Flows | 3/4 | In Progress|  |
 | 3. Rate Limiting | 0/TBD | Not started | - |
 | 4. Session Management | 0/TBD | Not started | - |

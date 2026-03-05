@@ -17,15 +17,15 @@
 
 ### Authentication Flows
 
-- [ ] **AUTH-01**: User can log in with Google OAuth and land in dashboard (creator record auto-created if new)
-- [ ] **AUTH-02**: User can log in with email/password and land in dashboard
-- [ ] **AUTH-03**: User can register with email/password and receive verification email from Supabase
+- [x] **AUTH-01**: User can log in with Google OAuth and land in dashboard (creator record auto-created if new)
+- [x] **AUTH-02**: User can log in with email/password and land in dashboard
+- [x] **AUTH-03**: User can register with email/password and receive verification email from Supabase
 - [ ] **AUTH-04**: User clicking email verification link lands in dashboard with creator record created via callback
 - [ ] **AUTH-05**: Creator provisioning happens only in server-side callback route (not client-side), using idempotent upsert
-- [ ] **AUTH-06**: User can request password reset email from forgot-password page
+- [x] **AUTH-06**: User can request password reset email from forgot-password page
 - [ ] **AUTH-07**: User clicking password reset link lands on reset-password page with valid recovery session
-- [ ] **AUTH-08**: Reset-password page validates recovery session exists before allowing password change
-- [ ] **AUTH-09**: After successful password reset, user is redirected to login with success message
+- [x] **AUTH-08**: Reset-password page validates recovery session exists before allowing password change
+- [x] **AUTH-09**: After successful password reset, user is redirected to login with success message
 
 ### Rate Limiting
 
@@ -80,15 +80,15 @@
 | SEC-05 | Phase 1 | Complete |
 | SEC-06 | Phase 1 | Complete |
 | SEC-07 | Phase 1 | Complete |
-| AUTH-01 | Phase 2 | Pending |
-| AUTH-02 | Phase 2 | Pending |
-| AUTH-03 | Phase 2 | Pending |
+| AUTH-01 | Phase 2 | Complete |
+| AUTH-02 | Phase 2 | Complete |
+| AUTH-03 | Phase 2 | Complete |
 | AUTH-04 | Phase 2 | Pending |
 | AUTH-05 | Phase 2 | Pending |
-| AUTH-06 | Phase 2 | Pending |
+| AUTH-06 | Phase 2 | Complete |
 | AUTH-07 | Phase 2 | Pending |
-| AUTH-08 | Phase 2 | Pending |
-| AUTH-09 | Phase 2 | Pending |
+| AUTH-08 | Phase 2 | Complete |
+| AUTH-09 | Phase 2 | Complete |
 | RATE-01 | Phase 3 | Pending |
 | RATE-02 | Phase 3 | Pending |
 | RATE-03 | Phase 3 | Pending |
