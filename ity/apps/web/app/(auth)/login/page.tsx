@@ -6,8 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { createClient } from '@/lib/supabase/client';
 import { loginSchema, type LoginInput } from '@/lib/validations/auth';
 import { GoogleAuthButton, AuthDivider, PasswordInput } from '@/components/auth';
+import { isAllowedRedirect } from '@/lib/auth/redirect';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 
 export default function LoginPage() {
@@ -20,7 +21,6 @@ export default function LoginPage() {
 
 function LoginForm() {
   const [serverError, setServerError] = useState<string | null>(null);
-  const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = createClient();
 
@@ -29,9 +29,19 @@ function LoginForm() {
 
   useEffect(() => {
     if (errorParam) {
-      toast.error('Something went wrong. Please try again.');
+      const msg =
+        errorParam === 'auth_callback_error'
+          ? 'Error de autenticacion. Intenta de nuevo.'
+          : 'Ocurrio un error. Intenta de nuevo.';
+      toast.error(msg);
     }
   }, [errorParam]);
+
+  useEffect(() => {
+    if (message === 'password_reset') {
+      toast.success('Contrasena actualizada. Inicia sesion.');
+    }
+  }, [message]);
 
   const {
     register,
@@ -51,37 +61,31 @@ function LoginForm() {
 
     if (error) {
       if (error.message.includes('Email not confirmed')) {
-        setServerError('Please verify your email before signing in.');
+        setServerError('Verifica tu email antes de iniciar sesion.');
       } else {
-        setServerError('Invalid email or password');
+        setServerError('Email o contrasena incorrectos');
       }
       return;
     }
 
-    window.location.href = '/dashboard';
+    const nextParam = searchParams.get('next');
+    const safeRedirect = isAllowedRedirect(nextParam);
+    window.location.href = safeRedirect;
   };
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
+      <h2 className="text-2xl font-bold text-gray-900">Bienvenido de nuevo</h2>
       <p className="mt-2 text-sm text-gray-500">
-        Sign in to continue to your dashboard
+        Inicia sesion para acceder a tu panel
       </p>
 
-      {/* Status messages */}
+      {/* Error banner for server/callback errors */}
       {errorParam && (
         <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
           {errorParam === 'auth_callback_error'
-            ? 'Authentication failed. Please try again.'
-            : 'An error occurred. Please try again.'}
-        </div>
-      )}
-
-      {message && (
-        <div className="mt-4 rounded-lg bg-green-50 p-3 text-sm text-green-600">
-          {message === 'password_reset'
-            ? 'Password updated successfully. You can now sign in.'
-            : message}
+            ? 'Error de autenticacion. Intenta de nuevo.'
+            : 'Ocurrio un error. Intenta de nuevo.'}
         </div>
       )}
 
@@ -93,10 +97,10 @@ function LoginForm() {
 
       {/* Google OAuth */}
       <div className="mt-6">
-        <GoogleAuthButton label="Sign in with Google" />
+        <GoogleAuthButton label="Continuar con Google" next={searchParams.get('next')} />
       </div>
 
-      <AuthDivider text="or sign in with email" />
+      <AuthDivider text="o inicia sesion con email" />
 
       {/* Email/Password form */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -105,14 +109,14 @@ function LoginForm() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email
+            Correo electronico
           </label>
           <input
             id="email"
             type="email"
             {...register('email')}
             className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            placeholder="you@example.com"
+            placeholder="tu@ejemplo.com"
           />
           {errors.email && (
             <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
@@ -125,20 +129,20 @@ function LoginForm() {
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
             >
-              Password
+              Contrasena
             </label>
             <Link
               href="/forgot-password"
               className="text-xs font-medium text-blue-600 hover:text-blue-500"
             >
-              Forgot password?
+              Olvidaste tu contrasena?
             </Link>
           </div>
           <PasswordInput
             id="password"
             label=""
             {...register('password')}
-            placeholder="Enter your password"
+            placeholder="Ingresa tu contrasena"
             error={errors.password?.message}
           />
         </div>
@@ -151,21 +155,21 @@ function LoginForm() {
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-2">
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Signing in...
+              Iniciando sesion...
             </span>
           ) : (
-            'Sign in'
+            'Iniciar sesion'
           )}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-gray-500">
-        Don&apos;t have an account?{' '}
+        No tienes cuenta?{' '}
         <Link
           href="/register"
           className="font-semibold text-blue-600 hover:text-blue-500"
         >
-          Create one free
+          Crea una gratis
         </Link>
       </p>
     </div>
