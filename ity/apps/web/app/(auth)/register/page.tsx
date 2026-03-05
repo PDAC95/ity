@@ -26,12 +26,14 @@ export default function RegisterPage() {
     setServerError(null);
 
     try {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
+
       const { error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
           data: { full_name: data.name },
-          emailRedirectTo: `${window.location.origin}/callback?next=/dashboard`,
+          emailRedirectTo: `${siteUrl}/auth/confirm?next=/dashboard`,
         },
       });
 
@@ -42,15 +44,15 @@ export default function RegisterPage() {
 
       router.push(`/verify-email?email=${encodeURIComponent(data.email)}`);
     } catch {
-      setServerError('Something went wrong. Please try again.');
+      setServerError('Algo salio mal. Intenta de nuevo.');
     }
   };
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900">Create your account</h2>
+      <h2 className="text-2xl font-bold text-gray-900">Crea tu cuenta</h2>
       <p className="mt-2 text-sm text-gray-500">
-        Start building your online school today
+        Comienza a construir tu escuela en linea hoy
       </p>
 
       {serverError && (
@@ -61,10 +63,10 @@ export default function RegisterPage() {
 
       {/* Google OAuth */}
       <div className="mt-6">
-        <GoogleAuthButton label="Sign up with Google" />
+        <GoogleAuthButton label="Registrarse con Google" />
       </div>
 
-      <AuthDivider text="or sign up with email" />
+      <AuthDivider text="o registrate con email" />
 
       {/* Registration form */}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -73,14 +75,14 @@ export default function RegisterPage() {
             htmlFor="name"
             className="block text-sm font-medium text-gray-700"
           >
-            Full Name
+            Nombre completo
           </label>
           <input
             id="name"
             type="text"
             {...register('name')}
             className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            placeholder="John Doe"
+            placeholder="Juan Perez"
           />
           {errors.name && (
             <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
@@ -92,14 +94,14 @@ export default function RegisterPage() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email
+            Correo electronico
           </label>
           <input
             id="email"
             type="email"
             {...register('email')}
             className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            placeholder="you@example.com"
+            placeholder="tu@ejemplo.com"
           />
           {errors.email && (
             <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
@@ -108,9 +110,9 @@ export default function RegisterPage() {
 
         <PasswordInput
           id="password"
-          label="Password"
+          label="Contrasena"
           {...register('password')}
-          placeholder="Min 8 chars, 1 uppercase, 1 number"
+          placeholder="Min 8 caracteres, 1 mayuscula, 1 numero"
           error={errors.password?.message}
         />
 
@@ -122,32 +124,32 @@ export default function RegisterPage() {
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-2">
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Creating account...
+              Creando cuenta...
             </span>
           ) : (
-            'Create account'
+            'Crear cuenta'
           )}
         </button>
 
         <p className="text-center text-xs text-gray-400">
-          By creating an account, you agree to our{' '}
+          Al crear una cuenta, aceptas nuestros{' '}
           <Link href="/terms" className="text-blue-600 hover:underline">
-            Terms of Service
+            Terminos de Servicio
           </Link>{' '}
-          and{' '}
+          y{' '}
           <Link href="/privacy" className="text-blue-600 hover:underline">
-            Privacy Policy
+            Politica de Privacidad
           </Link>
         </p>
       </form>
 
       <p className="mt-6 text-center text-sm text-gray-500">
-        Already have an account?{' '}
+        Ya tienes cuenta?{' '}
         <Link
           href="/login"
           className="font-semibold text-blue-600 hover:text-blue-500"
         >
-          Sign in
+          Inicia sesion
         </Link>
       </p>
     </div>

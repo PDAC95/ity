@@ -2,18 +2,28 @@
 
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { isAllowedRedirect } from '@/lib/auth/redirect';
 import { GoogleIcon } from './google-icon';
 
-export function GoogleAuthButton({ label = 'Continue with Google' }: { label?: string }) {
+export function GoogleAuthButton({
+  label = 'Continuar con Google',
+  next,
+}: {
+  label?: string;
+  next?: string | null;
+}) {
   const [loading, setLoading] = useState(false);
   const supabase = createClient();
 
   const handleGoogleAuth = async () => {
     setLoading(true);
+    const safeNext = isAllowedRedirect(next);
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/callback?next=/dashboard`,
+        redirectTo: `${siteUrl}/callback?next=${encodeURIComponent(safeNext)}`,
         queryParams: {
           access_type: 'offline',
           prompt: 'consent',
