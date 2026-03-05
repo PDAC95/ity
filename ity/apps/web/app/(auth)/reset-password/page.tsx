@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createClient } from '@/lib/supabase/client';
@@ -14,6 +14,8 @@ import { useRouter } from 'next/navigation';
 
 export default function ResetPasswordPage() {
   const [serverError, setServerError] = useState<string | null>(null);
+  const [sessionChecked, setSessionChecked] = useState(false);
+  const [hasSession, setHasSession] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
@@ -24,6 +26,21 @@ export default function ResetPasswordPage() {
   } = useForm<ResetPasswordInput>({
     resolver: zodResolver(resetPasswordSchema),
   });
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setHasSession(!!user);
+      setSessionChecked(true);
+      if (!user) {
+        router.replace('/login?error=no_recovery_session');
+      }
+    };
+    checkSession();
+  }, [supabase, router]);
+
+  if (!sessionChecked) return null;
+  if (!hasSession) return null;
 
   const onSubmit = async (data: ResetPasswordInput) => {
     setServerError(null);
@@ -37,7 +54,7 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    router.push('/login?message=password_reset');
+    window.location.href = '/login?message=password_reset';
   };
 
   return (
@@ -46,9 +63,9 @@ export default function ResetPasswordPage() {
         <ShieldCheck className="h-7 w-7 text-blue-600" />
       </div>
 
-      <h2 className="text-2xl font-bold text-gray-900">Set new password</h2>
+      <h2 className="text-2xl font-bold text-gray-900">Establece tu nueva contrasena</h2>
       <p className="mt-2 text-sm text-gray-500">
-        Choose a strong password for your account
+        Elige una contrasena segura para tu cuenta
       </p>
 
       {serverError && (
@@ -60,17 +77,17 @@ export default function ResetPasswordPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
         <PasswordInput
           id="password"
-          label="New Password"
+          label="Nueva contrasena"
           {...register('password')}
-          placeholder="Min 8 chars, 1 uppercase, 1 number"
+          placeholder="Min 8 caracteres, 1 mayuscula, 1 numero"
           error={errors.password?.message}
         />
 
         <PasswordInput
           id="confirmPassword"
-          label="Confirm Password"
+          label="Confirmar contrasena"
           {...register('confirmPassword')}
-          placeholder="Repeat your password"
+          placeholder="Repite tu contrasena"
           error={errors.confirmPassword?.message}
         />
 
@@ -82,10 +99,10 @@ export default function ResetPasswordPage() {
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-2">
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Updating...
+              Actualizando...
             </span>
           ) : (
-            'Update password'
+            'Actualizar contrasena'
           )}
         </button>
       </form>

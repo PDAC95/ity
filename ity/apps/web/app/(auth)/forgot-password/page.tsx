@@ -28,8 +28,10 @@ export default function ForgotPasswordPage() {
   const onSubmit = async (data: ForgotPasswordInput) => {
     setServerError(null);
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
+
     const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-      redirectTo: `${window.location.origin}/callback?next=/reset-password`,
+      redirectTo: `${siteUrl}/auth/confirm?type=recovery&next=/reset-password`,
     });
 
     if (error) {
@@ -46,29 +48,29 @@ export default function ForgotPasswordPage() {
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-50">
           <Mail className="h-7 w-7 text-blue-600" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-900">Check your email</h2>
+        <h2 className="text-2xl font-bold text-gray-900">Revisa tu correo</h2>
         <p className="mt-2 text-sm text-gray-500">
-          We sent a password reset link to
+          Enviamos un enlace para restablecer tu contrasena a
         </p>
         <p className="mt-1 text-sm font-semibold text-gray-900">
           {getValues('email')}
         </p>
         <p className="mt-4 text-xs text-gray-400">
-          Didn&apos;t receive the email? Check your spam folder or try again.
+          No recibiste el correo? Revisa tu carpeta de spam o intenta de nuevo.
         </p>
         <div className="mt-6 space-y-3">
           <button
             onClick={() => setSent(false)}
             className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
           >
-            Try another email
+            Intentar con otro correo
           </button>
           <Link
             href="/login"
             className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-500"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to login
+            Volver al inicio de sesion
           </Link>
         </div>
       </div>
@@ -82,12 +84,12 @@ export default function ForgotPasswordPage() {
         className="mb-6 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
       >
         <ArrowLeft className="h-4 w-4" />
-        Back to login
+        Volver al inicio de sesion
       </Link>
 
-      <h2 className="text-2xl font-bold text-gray-900">Reset your password</h2>
+      <h2 className="text-2xl font-bold text-gray-900">Restablece tu contrasena</h2>
       <p className="mt-2 text-sm text-gray-500">
-        Enter your email and we&apos;ll send you a link to reset your password
+        Ingresa tu correo y te enviaremos un enlace para restablecer tu contrasena
       </p>
 
       {serverError && (
@@ -102,14 +104,14 @@ export default function ForgotPasswordPage() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email address
+            Correo electronico
           </label>
           <input
             id="email"
             type="email"
             {...register('email')}
             className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-            placeholder="you@example.com"
+            placeholder="tu@ejemplo.com"
             autoFocus
           />
           {errors.email && (
@@ -125,10 +127,10 @@ export default function ForgotPasswordPage() {
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-2">
               <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Sending...
+              Enviando...
             </span>
           ) : (
-            'Send reset link'
+            'Enviar enlace'
           )}
         </button>
       </form>
