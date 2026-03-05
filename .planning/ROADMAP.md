@@ -32,8 +32,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 2/2 plans complete
 
 Plans:
-- [ ] 01-01-PLAN.md — Fix auth plumbing: sign-out caching, login navigation, cookie errors, middleware double-client, tRPC context wiring
-- [ ] 01-02-PLAN.md — Close open redirect in callback, convert createCreator to protectedProcedure, add dashboard safety net, install sonner
+- [x] 01-01-PLAN.md — Fix auth plumbing: sign-out caching, login navigation, cookie errors, middleware double-client, tRPC context wiring
+- [x] 01-02-PLAN.md — Close open redirect in callback, convert createCreator to protectedProcedure, add dashboard safety net, install sonner
 
 ### Phase 2: Complete Auth Flows
 **Goal**: Every auth flow — Google OAuth, email/password login and registration, email verification, and password reset — works end-to-end with creator provisioning handled safely in the server-side callback
@@ -44,7 +44,13 @@ Plans:
   2. A new user who registers with email/password receives a verification email, clicks the link, and lands in the dashboard with a creator record created — no client-side tRPC call for creator creation occurs
   3. A user who submits "Forgot Password" receives a reset email; clicking the link lands on the reset-password page and allows setting a new password; a direct navigation to `/reset-password` without a valid recovery session does not allow password changes
   4. A user who navigates to a protected route while unauthenticated is redirected to login and returned to the intended route after successful login — the PKCE verifier is not consumed by middleware before the callback route receives it
-**Plans**: TBD
+**Plans:** 4 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Create /auth/confirm OTP route, update middleware next param, fix redirect allowlist
+- [ ] 02-02-PLAN.md — Update login page (next param, toasts, Spanish), GoogleAuthButton (next prop), register page (env redirectTo, Spanish)
+- [ ] 02-03-PLAN.md — Update forgot-password (env redirectTo, Spanish), reset-password (session guard, Spanish), verify-email (Spanish)
+- [ ] 02-04-PLAN.md — Manual config (Supabase templates, Google OAuth URIs, env vars) + end-to-end verification
 
 ### Phase 3: Rate Limiting
 **Goal**: Auth endpoints are protected against brute-force and abuse via Upstash Redis sliding window rate limits that survive Vercel serverless cold starts
@@ -75,6 +81,6 @@ Phases execute in strict dependency order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Security Foundation | 2/2 | Complete   | 2026-03-04 |
-| 2. Complete Auth Flows | 0/TBD | Not started | - |
+| 2. Complete Auth Flows | 0/4 | Planning complete | - |
 | 3. Rate Limiting | 0/TBD | Not started | - |
 | 4. Session Management | 0/TBD | Not started | - |
