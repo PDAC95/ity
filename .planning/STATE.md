@@ -4,15 +4,15 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: Plan 1 of 2 complete
 status: executing
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-17T17:41:21.734Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-17T17:45:16.272Z"
 last_activity: 2026-03-05
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 8
-  completed_plans: 7
-  percent: 88
+  completed_plans: 8
+  percent: 100
 ---
 
 # Project State
@@ -32,7 +32,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 **Status:** In progress
 **Last activity:** 2026-03-05
 
-**Progress:** [█████████░] 88%
+**Progress:** [██████████] 100%
 
 ## Performance Metrics
 
@@ -58,6 +58,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 | Phase 02-complete-auth-flows P01 | 5min | 2 tasks | 3 files |
 | Phase 02-complete-auth-flows P04 | 8min | 3 tasks | 3 files |
 | Phase 03-rate-limiting P01 | 3 | 2 tasks | 6 files |
+| Phase 03-rate-limiting P02 | 2 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,8 @@ Recent decisions affecting current work:
 - [Phase 03-rate-limiting]: 03-01-D1: Callback rate-limiting uses early return (NextResponse.next()) not updateSession — preserves PKCE verifier cookie for OAuth exchange
 - [Phase 03-rate-limiting]: 03-01-D2: callback| exclusion removed from middleware matcher so /callback now runs through middleware for rate limiting
 - [Phase 03-rate-limiting]: 03-01-D3: All 429 responses include Retry-After header computed from reset timestamp
+- [Phase Phase 03-rate-limiting]: 03-02-D1: resendError shown below button inside not-resent conditional — wrapped in fragment to preserve layout
+- [Phase Phase 03-rate-limiting]: 03-02-D2: forgot-password removes siteUrl/redirectTo from client — API route owns redirectTo server-side using NEXT_PUBLIC_SITE_URL
 
 ### Pending Todos
 
@@ -96,6 +99,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-03-17T17:41:21.729Z
-**Stopped at:** Completed 03-01-PLAN.md
+**Last session:** 2026-03-17T17:45:16.270Z
+**Stopped at:** Completed 03-02-PLAN.md
 Resume file: None
