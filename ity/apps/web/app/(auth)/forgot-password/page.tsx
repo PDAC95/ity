@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createClient } from '@/lib/supabase/client';
 import {
   forgotPasswordSchema,
   type ForgotPasswordInput,
@@ -14,7 +13,6 @@ import Link from 'next/link';
 export default function ForgotPasswordPage() {
   const [sent, setSent] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
-  const supabase = createClient();
 
   const {
     register,
@@ -28,14 +26,21 @@ export default function ForgotPasswordPage() {
   const onSubmit = async (data: ForgotPasswordInput) => {
     setServerError(null);
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin;
-
-    const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-      redirectTo: `${siteUrl}/auth/confirm?type=recovery&next=/reset-password`,
+    const res = await fetch('/api/auth/forgot-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: data.email }),
     });
 
-    if (error) {
-      setServerError(error.message);
+    if (res.status === 429) {
+      const json = await res.json();
+      setServerError(json.error);
+      return;
+    }
+
+    if (!res.ok) {
+      const json = await res.json();
+      setServerError(json.error);
       return;
     }
 

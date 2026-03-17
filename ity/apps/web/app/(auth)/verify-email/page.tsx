@@ -1,7 +1,6 @@
 'use client';
 
 import { Suspense, useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
 import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -19,15 +18,33 @@ function VerifyEmailContent() {
   const email = searchParams.get('email') ?? '';
   const [resent, setResent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const supabase = createClient();
+  const [resendError, setResendError] = useState<string | null>(null);
 
   const handleResend = async () => {
     if (!email) return;
     setLoading(true);
-    await supabase.auth.resend({
-      type: 'signup',
-      email,
+    setResendError(null);
+
+    const res = await fetch('/api/auth/resend-verification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
     });
+
+    if (res.status === 429) {
+      const json = await res.json();
+      setResendError(json.error);
+      setLoading(false);
+      return;
+    }
+
+    if (!res.ok) {
+      const json = await res.json();
+      setResendError(json.error);
+      setLoading(false);
+      return;
+    }
+
     setResent(true);
     setLoading(false);
   };
@@ -56,20 +73,25 @@ function VerifyEmailContent() {
             Correo de verificacion reenviado!
           </div>
         ) : (
-          <button
-            onClick={handleResend}
-            disabled={loading || !email}
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50"
-          >
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
-                Reenviando...
-              </span>
-            ) : (
-              'No recibiste el correo? Reenviar'
+          <>
+            <button
+              onClick={handleResend}
+              disabled={loading || !email}
+              className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 disabled:opacity-50"
+            >
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
+                  Reenviando...
+                </span>
+              ) : (
+                'No recibiste el correo? Reenviar'
+              )}
+            </button>
+            {resendError && (
+              <p className="text-sm text-red-600">{resendError}</p>
             )}
-          </button>
+          </>
         )}
 
         <Link
