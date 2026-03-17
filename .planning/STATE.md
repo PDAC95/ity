@@ -4,15 +4,15 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: Plan 1 of 2 complete
 status: executing
-stopped_at: Completed 02-04-PLAN.md
-last_updated: "2026-03-17T17:11:49.886Z"
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-17T17:41:21.734Z"
 last_activity: 2026-03-05
 progress:
-  total_phases: 2
+  total_phases: 3
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 100
+  total_plans: 8
+  completed_plans: 7
+  percent: 88
 ---
 
 # Project State
@@ -32,7 +32,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 **Status:** In progress
 **Last activity:** 2026-03-05
 
-**Progress:** [██████████] 100%
+**Progress:** [█████████░] 88%
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 | Phase 01-security-foundation P02 | 3min | 2 tasks | 8 files |
 | Phase 02-complete-auth-flows P01 | 5min | 2 tasks | 3 files |
 | Phase 02-complete-auth-flows P04 | 8min | 3 tasks | 3 files |
+| Phase 03-rate-limiting P01 | 3 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,9 @@ Recent decisions affecting current work:
 - [Phase 02-complete-auth-flows]: 02-01-D3: Middleware preserves pathname as ?next= param on unauthenticated redirect to login
 - [Phase 02-04]: Added /callback to middleware matcher exclusion — OAuth redirect was being intercepted causing redirect loop back to /login
 - [Phase 02-04]: NEXT_PUBLIC_SITE_URL set to http://localhost:8080 matching NEXT_PUBLIC_APP_URL for Supabase email template SiteURL variable
+- [Phase 03-rate-limiting]: 03-01-D1: Callback rate-limiting uses early return (NextResponse.next()) not updateSession — preserves PKCE verifier cookie for OAuth exchange
+- [Phase 03-rate-limiting]: 03-01-D2: callback| exclusion removed from middleware matcher so /callback now runs through middleware for rate limiting
+- [Phase 03-rate-limiting]: 03-01-D3: All 429 responses include Retry-After header computed from reset timestamp
 
 ### Pending Todos
 
@@ -92,6 +96,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-03-17T17:11:49.883Z
-**Stopped at:** Completed 02-04-PLAN.md
+**Last session:** 2026-03-17T17:41:21.729Z
+**Stopped at:** Completed 03-01-PLAN.md
 Resume file: None

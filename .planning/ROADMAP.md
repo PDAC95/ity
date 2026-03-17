@@ -61,7 +61,7 @@ Plans:
   2. Submitting the forgot-password form 4 times within one hour with the same email address returns a rate limit error message on the 4th attempt
   3. Requesting email verification resend 4 times within one hour with the same email address returns a rate limit error message on the 4th attempt
   4. Hitting the `/callback` route 11 times within one minute from the same IP returns a rate limit error on the 11th request
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 03-01-PLAN.md — Install Upstash deps, create rate limiters module, build 3 API route proxies (login, forgot-password, resend-verification), add callback rate limit to middleware
@@ -86,5 +86,5 @@ Phases execute in strict dependency order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Security Foundation | 2/2 | Complete   | 2026-03-04 |
 | 2. Complete Auth Flows | 3/4 | In Progress|  |
-| 3. Rate Limiting | 0/2 | Not started | - |
+| 3. Rate Limiting | 1/2 | In Progress|  |
 | 4. Session Management | 0/TBD | Not started | - |

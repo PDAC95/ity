@@ -29,11 +29,11 @@
 
 ### Rate Limiting
 
-- [ ] **RATE-01**: Login endpoint is rate-limited to 5 attempts per 15 minutes per IP (sliding window via Upstash Redis)
-- [ ] **RATE-02**: Forgot-password endpoint is rate-limited to 3 requests per hour per email
-- [ ] **RATE-03**: Email verification resend is rate-limited to 3 requests per hour per email
-- [ ] **RATE-04**: Auth callback route is rate-limited to 10 requests per minute per IP
-- [ ] **RATE-05**: Rate-limited requests receive a clear error message (not a generic 500)
+- [x] **RATE-01**: Login endpoint is rate-limited to 5 attempts per 15 minutes per IP (sliding window via Upstash Redis)
+- [x] **RATE-02**: Forgot-password endpoint is rate-limited to 3 requests per hour per email
+- [x] **RATE-03**: Email verification resend is rate-limited to 3 requests per hour per email
+- [x] **RATE-04**: Auth callback route is rate-limited to 10 requests per minute per IP
+- [x] **RATE-05**: Rate-limited requests receive a clear error message (not a generic 500)
 
 ### Session Management
 
@@ -89,11 +89,11 @@
 | AUTH-07 | Phase 2 | Complete |
 | AUTH-08 | Phase 2 | Complete |
 | AUTH-09 | Phase 2 | Complete |
-| RATE-01 | Phase 3 | Pending |
-| RATE-02 | Phase 3 | Pending |
-| RATE-03 | Phase 3 | Pending |
-| RATE-04 | Phase 3 | Pending |
-| RATE-05 | Phase 3 | Pending |
+| RATE-01 | Phase 3 | Complete |
+| RATE-02 | Phase 3 | Complete |
+| RATE-03 | Phase 3 | Complete |
+| RATE-04 | Phase 3 | Complete |
+| RATE-05 | Phase 3 | Complete |
 | SESS-01 | Phase 4 | Pending |
 | SESS-02 | Phase 4 | Pending |
 | SESS-03 | Phase 4 | Pending |
