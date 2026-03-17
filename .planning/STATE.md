@@ -2,17 +2,17 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 02-01
-status: in_progress
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-05T21:31:52.576Z"
+current_plan: Plan 1 of 2 complete
+status: executing
+stopped_at: Completed 02-04-PLAN.md
+last_updated: "2026-03-17T17:11:49.886Z"
 last_activity: 2026-03-05
 progress:
   total_phases: 2
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 5
-  percent: 83
+  completed_plans: 6
+  percent: 100
 ---
 
 # Project State
@@ -32,7 +32,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 **Status:** In progress
 **Last activity:** 2026-03-05
 
-**Progress:** [████████░░] 83%
+**Progress:** [██████████] 100%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 | Phase 01 P01 | 2min | 2 tasks | 7 files |
 | Phase 01-security-foundation P02 | 3min | 2 tasks | 8 files |
 | Phase 02-complete-auth-flows P01 | 5min | 2 tasks | 3 files |
+| Phase 02-complete-auth-flows P04 | 8min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 02-complete-auth-flows]: 02-01-D1: /auth/confirm uses verifyOtp(token_hash) not exchangeCodeForSession — email OTP flows do not use OAuth PKCE code exchange
 - [Phase 02-complete-auth-flows]: 02-01-D2: /auth/confirm excluded from middleware matcher — prevents getUser() from interfering with OTP verification
 - [Phase 02-complete-auth-flows]: 02-01-D3: Middleware preserves pathname as ?next= param on unauthenticated redirect to login
+- [Phase 02-04]: Added /callback to middleware matcher exclusion — OAuth redirect was being intercepted causing redirect loop back to /login
+- [Phase 02-04]: NEXT_PUBLIC_SITE_URL set to http://localhost:8080 matching NEXT_PUBLIC_APP_URL for Supabase email template SiteURL variable
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-03-05T21:31:45.943Z
-**Stopped at:** Completed 02-01-PLAN.md
+**Last session:** 2026-03-17T17:11:49.883Z
+**Stopped at:** Completed 02-04-PLAN.md
 Resume file: None
