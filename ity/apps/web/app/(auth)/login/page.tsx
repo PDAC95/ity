@@ -29,10 +29,10 @@ function LoginForm() {
     if (errorParam) {
       const msg =
         errorParam === 'auth_callback_error'
-          ? 'Error de autenticacion. Intenta de nuevo.'
+          ? 'Authentication error. Please try again.'
           : errorParam === 'too_many_requests'
-            ? 'Demasiados intentos. Intenta de nuevo mas tarde.'
-            : 'Ocurrio un error. Intenta de nuevo.';
+            ? 'Too many attempts. Please try again later.'
+            : 'An error occurred. Please try again.';
       toast.error(msg);
     }
   }, [errorParam]);
@@ -93,10 +93,10 @@ function LoginForm() {
       {errorParam && (
         <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
           {errorParam === 'auth_callback_error'
-            ? 'Error de autenticacion. Intenta de nuevo.'
+            ? 'Authentication error. Please try again.'
             : errorParam === 'too_many_requests'
-              ? 'Demasiados intentos. Intenta de nuevo mas tarde.'
-              : 'Ocurrio un error. Intenta de nuevo.'}
+              ? 'Too many attempts. Please try again later.'
+              : 'An error occurred. Please try again.'}
         </div>
       )}
 

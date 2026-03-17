@@ -8,7 +8,7 @@ export async function POST(request: Request) {
 
   if (!success) {
     return NextResponse.json(
-      { error: 'Demasiados intentos. Intenta de nuevo en unos minutos.' },
+      { error: 'Too many attempts. Please try again later.' },
       {
         status: 429,
         headers: {
