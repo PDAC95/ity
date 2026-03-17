@@ -3,7 +3,6 @@
 import { Suspense, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createClient } from '@/lib/supabase/client';
 import { loginSchema, type LoginInput } from '@/lib/validations/auth';
 import { GoogleAuthButton, AuthDivider, PasswordInput } from '@/components/auth';
 import { isAllowedRedirect } from '@/lib/auth/redirect';
@@ -22,7 +21,6 @@ export default function LoginPage() {
 function LoginForm() {
   const [serverError, setServerError] = useState<string | null>(null);
   const searchParams = useSearchParams();
-  const supabase = createClient();
 
   const errorParam = searchParams.get('error');
   const message = searchParams.get('message');
@@ -32,7 +30,9 @@ function LoginForm() {
       const msg =
         errorParam === 'auth_callback_error'
           ? 'Error de autenticacion. Intenta de nuevo.'
-          : 'Ocurrio un error. Intenta de nuevo.';
+          : errorParam === 'too_many_requests'
+            ? 'Demasiados intentos. Intenta de nuevo mas tarde.'
+            : 'Ocurrio un error. Intenta de nuevo.';
       toast.error(msg);
     }
   }, [errorParam]);
@@ -54,13 +54,21 @@ function LoginForm() {
   const onSubmit = async (data: LoginInput) => {
     setServerError(null);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email: data.email,
-      password: data.password,
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: data.email, password: data.password }),
     });
 
-    if (error) {
-      if (error.message.includes('Email not confirmed')) {
+    if (res.status === 429) {
+      const json = await res.json();
+      setServerError(json.error);
+      return;
+    }
+
+    if (!res.ok) {
+      const json = await res.json();
+      if (json.error?.includes('Email not confirmed')) {
         setServerError('Verifica tu email antes de iniciar sesion.');
       } else {
         setServerError('Email o contrasena incorrectos');
@@ -68,6 +76,7 @@ function LoginForm() {
       return;
     }
 
+    // Success — cookies set by server via Set-Cookie headers
     const nextParam = searchParams.get('next');
     const safeRedirect = isAllowedRedirect(nextParam);
     window.location.href = safeRedirect;
@@ -85,7 +94,9 @@ function LoginForm() {
         <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
           {errorParam === 'auth_callback_error'
             ? 'Error de autenticacion. Intenta de nuevo.'
-            : 'Ocurrio un error. Intenta de nuevo.'}
+            : errorParam === 'too_many_requests'
+              ? 'Demasiados intentos. Intenta de nuevo mas tarde.'
+              : 'Ocurrio un error. Intenta de nuevo.'}
         </div>
       )}
 
