@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/patri/.claude/get-shit-done/templates/**)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state advance-plan)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state update-progress)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state record-metric --phase \"02-complete-auth-flows\" --plan \"04\" --duration \"8min\" --tasks \"3\" --files \"3\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state add-decision --phase \"02-04\" --summary \"Added /callback to middleware matcher exclusion — OAuth redirect was being intercepted causing redirect loop back to /login\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state add-decision --phase \"02-04\" --summary \"NEXT_PUBLIC_SITE_URL set to http://localhost:8080 matching NEXT_PUBLIC_APP_URL for Supabase email template SiteURL variable\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state record-session --stopped-at \"Completed 02-04-PLAN.md\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs roadmap update-plan-progress 02)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs requirements mark-complete AUTH-01 AUTH-02 AUTH-03 AUTH-04 AUTH-05 AUTH-06 AUTH-07 AUTH-08 AUTH-09)",
+      "Skill(gsd:plan-phase)",
+      "Skill(gsd:plan-phase:*)",
+      "WebSearch",
+      "Bash(git status:*)"
+    ]
+  }
+}

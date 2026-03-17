@@ -6,7 +6,7 @@ compatibility_date = "2024-12-01"
 # LOCAL DEVELOPMENT (default)
 # ==========================================
 [vars]
-VERCEL_URL = "http://localhost:3000"
+VERCEL_URL = "http://localhost:8080"
 
 # ==========================================
 # STAGING ENVIRONMENT
