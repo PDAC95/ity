@@ -87,6 +87,13 @@ The app will be running at http://localhost:3000
 | Staging | `develop` | https://ity-staging.vercel.app |
 | Production | `main` | https://ity.vercel.app |
 
+## Test Users (Staging)
+
+| Email | Password | Purpose |
+|-------|----------|---------|
+| `patricio.comit@gmail.com` | `Password123@` | Email/password login testing |
+| `pdmckinster@gmail.com` | _(Google OAuth)_ | Social login testing |
+
 ## License
 
 Private - All rights reserved.
