@@ -42,7 +42,7 @@ export function getClientIp(request: Request | NextRequest): string {
   if (realIp) return realIp.trim();
 
   const forwarded = headers.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
+  if (forwarded) return (forwarded.split(',')[0] ?? forwarded).trim();
 
   return '127.0.0.1';
 }
