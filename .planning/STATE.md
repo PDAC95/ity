@@ -2,17 +2,17 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: "04-02"
-status: in_progress
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-31T14:14:00Z"
+current_plan: 04-02
+status: verifying
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-31T14:20:19.097Z"
 last_activity: 2026-03-31
 progress:
   total_phases: 4
-  completed_phases: 3
-  total_plans: 12
-  completed_plans: 9
-  percent: 75
+  completed_phases: 4
+  total_plans: 10
+  completed_plans: 10
+  percent: 100
 ---
 
 # Project State
@@ -29,10 +29,10 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 **Phase:** 4 of 4 (Session Management)
 **Current Plan:** 04-02
 **Total Plans in Phase:** 4
-**Status:** In progress
+**Status:** Phase complete — ready for verification
 **Last activity:** 2026-03-31
 
-**Progress:** [███████░░░] 75%
+**Progress:** [██████████] 100%
 
 ## Performance Metrics
 
@@ -60,6 +60,7 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 | Phase 03-rate-limiting P01 | 3 | 2 tasks | 6 files |
 | Phase 03-rate-limiting P02 | 2 | 2 tasks | 3 files |
 | Phase 04-session-management P01 | 2min | 2 tasks | 2 files |
+| Phase 04-session-management P02 | 3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,9 @@ Recent decisions affecting current work:
 - [Phase 04-session-management]: 04-01-D2: getAuthMessage returns Spanish (es) — primary UI language per project convention
 - [Phase 04-session-management]: 04-01-D3: Cookie check uses .includes('-auth-token') to catch chunked cookies (sb-<ref>-auth-token.0, .1, etc)
 - [Phase 04-session-management]: 04-01-D4: No changes to lib/supabase/middleware.ts — SESS-01 silent refresh already handled by updateSession()
+- [Phase 04-session-management]: 04-02-D1: server-side error.message.includes() in login route is acceptable — single mapping point from Supabase raw message to enum, client never does string matching
+- [Phase 04-session-management]: 04-02-D2: sessionToastId stored in useRef (not useState) — avoids re-render on assignment, toast ID only needed for imperative dismiss
+- [Phase 04-session-management]: 04-02-D3: URL cleanup uses new URL(window.location.href) + searchParams.delete('reason') — preserves all other params including ?next= without manual string manipulation
 
 ### Pending Todos
 
@@ -104,6 +108,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-03-31T14:14:00Z
-**Stopped at:** Completed 04-01-PLAN.md
+**Last session:** 2026-03-31T14:20:19.095Z
+**Stopped at:** Completed 04-02-PLAN.md
 Resume file: None

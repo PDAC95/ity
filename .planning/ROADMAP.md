@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Security Foundation** - Fix the five critical security defects that block all other phases (completed 2026-03-04)
 - [ ] **Phase 2: Complete Auth Flows** - Wire Google OAuth, email verification, and password reset end-to-end
 - [x] **Phase 3: Rate Limiting** - Add brute-force and abuse protection across all auth endpoints (completed 2026-03-17)
-- [ ] **Phase 4: Session Management** - Graceful session expiry, consistent error messaging, and user-visible auth feedback
+- [x] **Phase 4: Session Management** - Graceful session expiry, consistent error messaging, and user-visible auth feedback (completed 2026-03-31)
 
 ## Phase Details
 
@@ -75,7 +75,7 @@ Plans:
   1. A user with an expired access token but valid refresh token continues their session without being redirected to login — the token is silently refreshed in middleware
   2. A user with both tokens expired is redirected to the login page with `?reason=session_expired` in the URL, and the login page displays "Your session has expired" as a visible message
   3. Auth errors across all three layers (browser client, middleware, tRPC) surface the same user-readable message for the same underlying condition — no `message.includes()` string matching in production code
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 04-01-PLAN.md — Create auth error enum + bilingual message map, add expired-session detection to middleware
@@ -91,4 +91,4 @@ Phases execute in strict dependency order: 1 → 2 → 3 → 4
 | 1. Security Foundation | 2/2 | Complete   | 2026-03-04 |
 | 2. Complete Auth Flows | 3/4 | In Progress|  |
 | 3. Rate Limiting | 2/2 | Complete   | 2026-03-17 |
-| 4. Session Management | 1/2 | In Progress|  |
+| 4. Session Management | 2/2 | Complete   | 2026-03-31 |
