@@ -75,7 +75,11 @@ Plans:
   1. A user with an expired access token but valid refresh token continues their session without being redirected to login — the token is silently refreshed in middleware
   2. A user with both tokens expired is redirected to the login page with `?reason=session_expired` in the URL, and the login page displays "Your session has expired" as a visible message
   3. Auth errors across all three layers (browser client, middleware, tRPC) surface the same user-readable message for the same underlying condition — no `message.includes()` string matching in production code
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Create auth error enum + bilingual message map, add expired-session detection to middleware
+- [ ] 04-02-PLAN.md — Wire session-expired toast into login page, migrate API route and client to code-based error handling
 
 ## Progress
 
@@ -87,4 +91,4 @@ Phases execute in strict dependency order: 1 → 2 → 3 → 4
 | 1. Security Foundation | 2/2 | Complete   | 2026-03-04 |
 | 2. Complete Auth Flows | 3/4 | In Progress|  |
 | 3. Rate Limiting | 2/2 | Complete   | 2026-03-17 |
-| 4. Session Management | 0/TBD | Not started | - |
+| 4. Session Management | 0/2 | Not started | - |
