@@ -42,8 +42,40 @@ export default async function DashboardLayout({
   const userName =
     (user.user_metadata?.full_name as string) ?? userEmail.split('@')[0];
 
+  // Fetch creator profile and school in parallel
+  const [creator, school] = await Promise.all([
+    supabase
+      .from('creators')
+      .select('id, name, avatar_url, email')
+      .eq('id', user.id)
+      .single(),
+    supabase
+      .from('schools')
+      .select('id, name, branding')
+      .eq('creator_id', user.id)
+      .order('created_at', { ascending: true })
+      .limit(1)
+      .maybeSingle(),
+  ]);
+
   return (
-    <DashboardShell userEmail={userEmail} userName={userName}>
+    <DashboardShell
+      creator={{
+        id: creator.data?.id ?? user.id,
+        name: creator.data?.name ?? userName,
+        avatarUrl: creator.data?.avatar_url ?? null,
+        email: creator.data?.email ?? userEmail,
+      }}
+      school={
+        school.data
+          ? {
+              id: school.data.id,
+              name: school.data.name,
+              branding: school.data.branding,
+            }
+          : null
+      }
+    >
       {children}
     </DashboardShell>
   );
