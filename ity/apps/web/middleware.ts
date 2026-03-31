@@ -30,6 +30,12 @@ export async function middleware(request: NextRequest) {
   if (!user && isDashboard) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('next', pathname);
+    const hasSupabaseCookie = request.cookies
+      .getAll()
+      .some((c) => c.name.startsWith('sb-') && c.name.includes('-auth-token'));
+    if (hasSupabaseCookie) {
+      loginUrl.searchParams.set('reason', 'session_expired');
+    }
     return NextResponse.redirect(loginUrl);
   }
 
