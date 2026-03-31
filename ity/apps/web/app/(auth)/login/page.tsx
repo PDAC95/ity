@@ -1,11 +1,12 @@
 'use client';
 
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema, type LoginInput } from '@/lib/validations/auth';
 import { GoogleAuthButton, AuthDivider, PasswordInput } from '@/components/auth';
 import { isAllowedRedirect } from '@/lib/auth/redirect';
+import { AuthErrorCode, getAuthMessage } from '@/lib/auth/errors';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
@@ -24,6 +25,20 @@ function LoginForm() {
 
   const errorParam = searchParams.get('error');
   const message = searchParams.get('message');
+  const reasonParam = searchParams.get('reason');
+  const sessionToastId = useRef<string | number | null>(null);
+
+  useEffect(() => {
+    if (reasonParam === 'session_expired') {
+      sessionToastId.current = toast.warning(
+        getAuthMessage(AuthErrorCode.SESSION_EXPIRED)
+      );
+      // Clean reason from URL without losing other params (especially ?next=)
+      const url = new URL(window.location.href);
+      url.searchParams.delete('reason');
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, [reasonParam]);
 
   useEffect(() => {
     if (errorParam) {
@@ -68,10 +83,10 @@ function LoginForm() {
 
     if (!res.ok) {
       const json = await res.json();
-      if (json.error?.includes('Email not confirmed')) {
-        setServerError('Verifica tu email antes de iniciar sesion.');
+      if (json.code === AuthErrorCode.EMAIL_NOT_CONFIRMED) {
+        setServerError(getAuthMessage(AuthErrorCode.EMAIL_NOT_CONFIRMED));
       } else {
-        setServerError('Email o contrasena incorrectos');
+        setServerError(getAuthMessage(AuthErrorCode.INVALID_CREDENTIALS));
       }
       return;
     }
@@ -126,6 +141,12 @@ function LoginForm() {
             id="email"
             type="email"
             {...register('email')}
+            onFocus={() => {
+              if (sessionToastId.current) {
+                toast.dismiss(sessionToastId.current);
+                sessionToastId.current = null;
+              }
+            }}
             className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             placeholder="tu@ejemplo.com"
           />
