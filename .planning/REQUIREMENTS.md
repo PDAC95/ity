@@ -37,10 +37,10 @@
 
 ### Session Management
 
-- [ ] **SESS-01**: Middleware attempts silent session refresh when access token is expired but refresh token is valid
-- [ ] **SESS-02**: When both tokens are expired, user is redirected to login with `?reason=session_expired` parameter
+- [x] **SESS-01**: Middleware attempts silent session refresh when access token is expired but refresh token is valid
+- [x] **SESS-02**: When both tokens are expired, user is redirected to login with `?reason=session_expired` parameter
 - [ ] **SESS-03**: Login page displays "Your session has expired" message when `reason=session_expired` is present
-- [ ] **SESS-04**: Auth state is consistent across Supabase, Next.js middleware, and tRPC context (no layer disagrees)
+- [x] **SESS-04**: Auth state is consistent across Supabase, Next.js middleware, and tRPC context (no layer disagrees)
 
 ## v2 Requirements
 
@@ -94,10 +94,10 @@
 | RATE-03 | Phase 3 | Complete |
 | RATE-04 | Phase 3 | Complete |
 | RATE-05 | Phase 3 | Complete |
-| SESS-01 | Phase 4 | Pending |
-| SESS-02 | Phase 4 | Pending |
+| SESS-01 | Phase 4 | Complete |
+| SESS-02 | Phase 4 | Complete |
 | SESS-03 | Phase 4 | Pending |
-| SESS-04 | Phase 4 | Pending |
+| SESS-04 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 25 total
