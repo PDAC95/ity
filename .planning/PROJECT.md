@@ -1,12 +1,22 @@
-# 12ity — Authentication & Security System
+# 12ity — Online School Platform
 
 ## What This Is
 
-Complete authentication and security system for 12ity, a SaaS platform where creators build online schools with courses, live classes, and student management. The auth system provides secure email/password and Google OAuth login, rate-limited endpoints, bilingual error handling, and graceful session management across the Supabase → Next.js middleware → tRPC stack.
+SaaS white-label platform donde creadores construyen escuelas online con cursos (pregrabados y en vivo), gestión de estudiantes y landing pages personalizadas. Cada escuela tiene su propia marca — el alumno ve todo como la plataforma del creador, sin rastro de 12ity. Stack: Turborepo monorepo con Next.js 14, tRPC, Drizzle/PostgreSQL, Supabase Auth.
+
+## Current Milestone: v1.1 Creator Dashboard
+
+**Goal:** El creador tiene un dashboard funcional donde configura su escuela y perfil, con la estructura de navegación lista para features futuras.
+
+**Target features:**
+- Layout principal del dashboard (sidebar, header, navegación)
+- Configuración de escuela (nombre, logo, descripción, colores, slug)
+- Perfil del creador (nombre, foto, bio)
+- Placeholders para secciones futuras (cursos, alumnos, métricas, equipo, dominio)
 
 ## Core Value
 
-Creators and students can authenticate securely via email/password or Google OAuth, with no exploitable security holes in the auth flow.
+Creadores pueden lanzar su propia escuela online con marca propia — configuración, contenido y alumnos en un solo lugar.
 
 ## Requirements
 
@@ -30,7 +40,10 @@ Creators and students can authenticate securely via email/password or Google OAu
 
 ### Active
 
-(Empty — define with next milestone via `/gsd:new-milestone`)
+- [ ] Dashboard layout (sidebar, header, navegación entre secciones)
+- [ ] School setup (nombre, logo, descripción, colores, slug)
+- [ ] Perfil del creador (nombre, foto, bio)
+- [ ] Placeholders para secciones futuras
 
 ### Out of Scope
 
@@ -49,18 +62,31 @@ Creators and students can authenticate securely via email/password or Google OAu
 
 **Auth architecture:** Supabase Auth manages sessions and credentials. Next.js middleware refreshes sessions, detects expired cookies, and redirects with `?reason=session_expired`. tRPC context receives Supabase client from middleware. Auth pages use server-side API route proxies with Upstash rate limiting.
 
+**Platform vision (white-label):**
+- Cada creador tiene su propia escuela con marca propia
+- Alumnos ven todo como la plataforma del creador (sin rastro de 12ity)
+- Landing pages personalizadas con sistema de templates por tipo de clase
+- Dominio propio del creador (DNS/SSL — futuro milestone)
+- Dos roles/vistas: maestro (gestión) y alumno (contenido)
+- Clases en vivo y pregrabadas (futuro milestone)
+
 **Tech stack additions from v1.0:**
 - Upstash Redis for rate limiting (`@upstash/ratelimit`, `@upstash/redis`)
 - AuthErrorCode enum with bilingual message map (`lib/auth/errors.ts`)
 - API route proxies for auth flows (`app/api/auth/login`, `/forgot-password`, `/resend-verification`)
 - OTP confirmation route (`app/(auth)/auth/confirm`)
 
-**Known v2 candidates:**
+**Future milestone roadmap:**
+- v1.2: Landing page pública + templates + registro de alumnos + dashboard alumno
+- v1.3: Cursos y lecciones (pregrabadas y en vivo)
+- v1.4: Dominios propios (DNS/SSL) + gestión de equipo + métricas
+
+**Known security candidates (defer to security milestone):**
 - SEC-V2-01: Remove or rate-limit `auth.checkEmail` (email enumeration)
 - SEC-V2-02: Header trust validation for X-School-ID/X-School-Domain
 - SEC-V2-03: CSRF token validation
 - AUTH-V2-01: Silent tRPC 401 retry
-- AUTH-V2-02: Code-based error mapping (partially done — login route uses AuthErrorCode)
+- AUTH-V2-02: Code-based error mapping (partially done)
 - AUTH-V2-03: Custom branded emails via Resend/SendGrid
 
 ## Constraints
@@ -86,4 +112,4 @@ Creators and students can authenticate securely via email/password or Google OAu
 | Middleware excludes /auth/confirm and /callback | Prevents getUser() from consuming OTP tokens/PKCE verifiers | ✓ Good — critical for auth flow integrity |
 
 ---
-*Last updated: 2026-03-31 after v1.0 milestone*
+*Last updated: 2026-03-31 after v1.1 milestone start*
