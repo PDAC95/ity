@@ -2,7 +2,7 @@
 
 ## What This Is
 
-SaaS white-label platform donde creadores construyen escuelas online con cursos (pregrabados y en vivo), gestión de estudiantes y landing pages personalizadas. Cada escuela tiene su propia marca — el alumno ve todo como la plataforma del creador, sin rastro de 12ity. Stack: Turborepo monorepo con Next.js 14, tRPC, Drizzle/PostgreSQL, Supabase Auth.
+SaaS white-label donde creadores/maestros construyen su propia web app de educación sin saber programar. Cada escuela tiene su marca propia, dominio propio y sistema de cursos — el alumno ve todo como la plataforma del creador, sin rastro de 12ity. El creador puede monetizar directamente con pocos alumnos (sin necesitar millones de views como YouTube ni pagar alto % como Udemy). El valor humano de la clase supera a la IA. Stack: Turborepo monorepo con Next.js 14, tRPC, Drizzle/PostgreSQL, Supabase Auth.
 
 ## Current Milestone: v1.1 Creator Dashboard
 
