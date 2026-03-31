@@ -80,24 +80,24 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DASH-01 | — | Pending |
-| DASH-02 | — | Pending |
-| DASH-03 | — | Pending |
-| DASH-04 | — | Pending |
-| DASH-05 | — | Pending |
-| SCHOOL-01 | — | Pending |
-| SCHOOL-02 | — | Pending |
-| SCHOOL-03 | — | Pending |
-| SCHOOL-04 | — | Pending |
-| PROF-01 | — | Pending |
-| PROF-02 | — | Pending |
-| PROF-03 | — | Pending |
+| DASH-01 | Phase 5 | Pending |
+| DASH-02 | Phase 5 | Pending |
+| DASH-03 | Phase 5 | Pending |
+| DASH-04 | Phase 5 | Pending |
+| DASH-05 | Phase 5 | Pending |
+| SCHOOL-01 | Phase 7 | Pending |
+| SCHOOL-02 | Phase 6 | Pending |
+| SCHOOL-03 | Phase 7 | Pending |
+| SCHOOL-04 | Phase 7 | Pending |
+| PROF-01 | Phase 8 | Pending |
+| PROF-02 | Phase 6 | Pending |
+| PROF-03 | Phase 8 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 12 total
-- Mapped to phases: 0
-- Unmapped: 12
+- Mapped to phases: 12
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-31*
-*Last updated: 2026-03-31 after initial definition*
+*Last updated: 2026-03-31 after roadmap creation — all 12 requirements mapped*
