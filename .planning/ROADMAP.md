@@ -40,11 +40,11 @@ See: `.planning/milestones/v1.0-ROADMAP.md` for full details.
   3. On mobile, the sidebar collapses to a hamburger menu and closes automatically after navigating to a section
   4. Dashboard home shows an onboarding checklist listing pending setup steps with links to each section
   5. Clicking a locked placeholder section shows a "Próximamente" message, not a broken page
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: Dashboard route group layout, sidebar navigation, and header
-- [ ] 05-02: Dashboard home page with onboarding checklist and placeholder pages
+- [ ] 05-01-PLAN.md — Dashboard route group layout, sidebar, header, mobile nav, and coming-soon page
+- [ ] 05-02-PLAN.md — Dashboard home page with onboarding checklist
 
 ### Phase 6: Storage Infrastructure
 **Goal**: Los uploads de archivos (logo de escuela y avatar del creador) tienen la infraestructura completa — buckets, RLS policies, Server Actions, y widgets reutilizables — lista para ser consumida por fases posteriores.
