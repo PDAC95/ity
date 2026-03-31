@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { loginLimiter, getClientIp } from '@/lib/ratelimit/limiters';
+import { AuthErrorCode, getAuthMessage } from '@/lib/auth/errors';
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
@@ -24,7 +25,13 @@ export async function POST(request: Request) {
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 });
+    const code = error.message.includes('Email not confirmed')
+      ? AuthErrorCode.EMAIL_NOT_CONFIRMED
+      : AuthErrorCode.INVALID_CREDENTIALS;
+    return NextResponse.json(
+      { error: getAuthMessage(code), code },
+      { status: 400 }
+    );
   }
 
   return NextResponse.json({ success: true });
