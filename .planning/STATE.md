@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Creator Dashboard
 status: planning
-stopped_at: Phase 5 context gathered
-last_updated: "2026-03-31T18:19:04.875Z"
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-31T19:04:55.205Z"
 last_activity: 2026-03-31 — Roadmap created for v1.1
 progress:
   total_phases: 5
   completed_phases: 4
-  total_plans: 10
-  completed_plans: 10
-  percent: 0
+  total_plans: 12
+  completed_plans: 11
+  percent: 92
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 **Status:** Ready to plan
 **Last activity:** 2026-03-31 — Roadmap created for v1.1
 
-**Progress:** [░░░░░░░░░░] 0%
+**Progress:** [█████████░] 92%
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 05-dashboard-layout P01 | 6min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -66,6 +67,9 @@ Recent decisions affecting current work:
 - [v1.1 research]: `bio` column must be added to `creators` table — run migration in Phase 7 to consolidate round-trips
 - [v1.1 research]: `schools.updateSlug` needs separate tRPC procedure — uniqueness check must exclude current school's own slug
 - [v1.1 research]: Storage RLS must use `auth.uid()` path-prefix scoping — never `user_metadata` (user-writable, security bypass)
+- [Phase 05-dashboard-layout]: SidebarContent extracted as shared component used by both desktop aside and MobileNav overlay
+- [Phase 05-dashboard-layout]: maybeSingle() for school query to avoid PGRST116 when creator has no school yet
+- [Phase 05-dashboard-layout]: md breakpoint (768px) replaces old lg (1024px) throughout dashboard layout
 
 ### Pending Todos
 
@@ -80,6 +84,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-03-31T18:19:04.872Z
-**Stopped at:** Phase 5 context gathered
+**Last session:** 2026-03-31T19:04:55.201Z
+**Stopped at:** Completed 05-01-PLAN.md
 Resume file: None

@@ -98,7 +98,7 @@ Plans:
 | 2. Complete Auth Flows | v1.0 | 4/4 | Complete | 2026-03-17 |
 | 3. Rate Limiting | v1.0 | 2/2 | Complete | 2026-03-17 |
 | 4. Session Management | v1.0 | 2/2 | Complete | 2026-03-31 |
-| 5. Dashboard Layout | v1.1 | 0/2 | Not started | - |
+| 5. Dashboard Layout | 1/2 | In Progress|  | - |
 | 6. Storage Infrastructure | v1.1 | 0/2 | Not started | - |
 | 7. School Setup | v1.1 | 0/2 | Not started | - |
 | 8. Creator Profile | v1.1 | 0/1 | Not started | - |

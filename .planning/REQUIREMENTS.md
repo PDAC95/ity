@@ -9,11 +9,11 @@ Requirements para Creator Dashboard. Cada uno mapea a fases del roadmap.
 
 ### Dashboard Layout
 
-- [ ] **DASH-01**: Creador ve sidebar con navegación a todas las secciones del dashboard
-- [ ] **DASH-02**: Creador ve header con su nombre y avatar
-- [ ] **DASH-03**: Dashboard es responsive — sidebar colapsable en móvil con menú hamburguesa
+- [x] **DASH-01**: Creador ve sidebar con navegación a todas las secciones del dashboard
+- [x] **DASH-02**: Creador ve header con su nombre y avatar
+- [x] **DASH-03**: Dashboard es responsive — sidebar colapsable en móvil con menú hamburguesa
 - [ ] **DASH-04**: Dashboard home muestra checklist de onboarding con pasos pendientes de configuración
-- [ ] **DASH-05**: Secciones futuras (Cursos, Alumnos, Métricas, Equipo, Dominio) muestran placeholder "Próximamente"
+- [x] **DASH-05**: Secciones futuras (Cursos, Alumnos, Métricas, Equipo, Dominio) muestran placeholder "Próximamente"
 
 ### School Setup
 
@@ -80,11 +80,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DASH-01 | Phase 5 | Pending |
-| DASH-02 | Phase 5 | Pending |
-| DASH-03 | Phase 5 | Pending |
+| DASH-01 | Phase 5 | Complete |
+| DASH-02 | Phase 5 | Complete |
+| DASH-03 | Phase 5 | Complete |
 | DASH-04 | Phase 5 | Pending |
-| DASH-05 | Phase 5 | Pending |
+| DASH-05 | Phase 5 | Complete |
 | SCHOOL-01 | Phase 7 | Pending |
 | SCHOOL-02 | Phase 6 | Pending |
 | SCHOOL-03 | Phase 7 | Pending |
