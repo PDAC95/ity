@@ -3,12 +3,15 @@
 import { useState } from 'react';
 import { useUnsavedChanges } from '@/hooks/use-unsaved-changes';
 import { GeneralTab } from './general-tab';
+import { BrandingTab } from './branding-tab';
+
+type AvailableFont = 'inter' | 'merriweather' | 'space-mono';
 
 type Branding = {
   logo?: string;
   primaryColor: string;
   secondaryColor: string;
-  font: string;
+  font: AvailableFont;
   favicon?: string;
 };
 
@@ -98,9 +101,10 @@ export function SchoolSetupTabs({ school }: SchoolSetupTabsProps) {
           />
         )}
         {activeTab === 'branding' && (
-          <div>
-            <p className="text-sm text-zinc-400">Próximamente</p>
-          </div>
+          <BrandingTab
+            school={school}
+            onDirtyChange={setBrandingIsDirty}
+          />
         )}
       </div>
 
