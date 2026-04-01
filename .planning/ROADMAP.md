@@ -85,10 +85,10 @@ Plans:
   1. Creator can edit their display name and bio (up to 500 characters) and see the saved values when returning to the page
   2. Creator can add a contact email and social media links and see them saved when returning to the page
   3. Creator sees a success toast after saving and an unsaved-changes warning before navigating away with edits
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 08-01: Creator Profile page — display name, bio, contact email, social links, and avatar upload
+- [ ] 08-01-PLAN.md — Creator Profile page with display name, bio, contact email, social links, avatar crop, and live preview
 
 ## Progress
 
