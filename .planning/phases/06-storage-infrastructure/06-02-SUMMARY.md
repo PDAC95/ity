@@ -110,6 +110,15 @@ None - no external service configuration required.
 - Provide `path`, `shape`, `onUploadComplete`, and optionally `currentImageUrl` / `onRemove`
 - SQL migration from Plan 01 must still be applied to the live Supabase project before end-to-end upload testing
 
+## Self-Check: PASSED
+
+- FOUND: apps/web/components/upload/image-upload-widget.tsx
+- FOUND: apps/web/components/upload/index.ts
+- FOUND: .planning/phases/06-storage-infrastructure/06-02-SUMMARY.md
+- FOUND: e034e4d (Task 1 commit)
+- FOUND: e8181c5 (Task 2 commit)
+- FOUND: fbc58e5 (docs commit)
+
 ---
 *Phase: 06-storage-infrastructure*
 *Completed: 2026-04-01*

@@ -1,13 +1,13 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: Creator Dashboard - Storage & Uploads
-status: in-progress
+milestone: v1.0
+milestone_name: Creator Dashboard
+status: completed
 stopped_at: Completed 06-02-PLAN.md
-last_updated: "2026-04-01T14:24:28Z"
+last_updated: "2026-04-01T14:43:51.845Z"
 last_activity: 2026-04-01 — Phase 06 Plan 02 complete
 progress:
-  total_phases: 8
+  total_phases: 6
   completed_phases: 6
   total_plans: 14
   completed_plans: 14
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 **Milestone:** v1.1 Creator Dashboard - Storage & Uploads
 **Phase:** 6 of 8 (Storage Infrastructure) — Plan 2 of 2 complete (Phase complete)
-**Status:** In progress
+**Status:** Milestone complete
 **Last activity:** 2026-04-01 — Phase 06 Plan 02 complete
 
 **Progress:** [██████████] 100%
