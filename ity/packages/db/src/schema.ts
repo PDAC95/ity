@@ -18,6 +18,15 @@ import type { AvailableFont, BlockId } from '@ity/config';
 // TYPES
 // ============================================
 
+export type SocialLinks = {
+  instagram?: string;
+  x?: string;
+  youtube?: string;
+  tiktok?: string;
+  linkedin?: string;
+  facebook?: string;
+};
+
 export type Branding = {
   logo?: string;
   primaryColor: string;
@@ -88,6 +97,9 @@ export const creators = pgTable('creators', {
   email: varchar('email', { length: 255 }).unique().notNull(),
   name: varchar('name', { length: 255 }).notNull(),
   avatarUrl: varchar('avatar_url', { length: 500 }),
+  bio: text('bio'),
+  contactEmail: varchar('contact_email', { length: 255 }),
+  socialLinks: jsonb('social_links').$type<SocialLinks>(),
   language: varchar('language', { length: 5 }).default('en'),
   emailVerified: boolean('email_verified').default(false),
   createdAt: timestamp('created_at').defaultNow(),

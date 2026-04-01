@@ -2,11 +2,13 @@ import { router, type Context } from './trpc';
 import { authRouter } from './routers/auth';
 import { schoolsRouter } from './routers/schools';
 import { coursesRouter } from './routers/courses';
+import { creatorsRouter } from './routers/creators';
 
 export const appRouter = router({
   auth: authRouter,
   schools: schoolsRouter,
   courses: coursesRouter,
+  creators: creatorsRouter,
 });
 
 export type AppRouter = typeof appRouter;
