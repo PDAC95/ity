@@ -95,7 +95,7 @@ export function BrandingTab({ school, onDirtyChange }: BrandingTabProps) {
     );
   }
 
-  const lowContrast = contrastRatio(primaryColor, accentColor) < 3.0;
+  const lowContrast = contrastRatio(primaryColor, accentColor) < 1.5;
 
   return (
     <div className="space-y-8">
