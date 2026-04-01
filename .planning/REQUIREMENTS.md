@@ -20,7 +20,7 @@ Requirements para Creator Dashboard. Cada uno mapea a fases del roadmap.
 - [x] **SCHOOL-01**: Creador puede editar nombre y descripción de su escuela
 - [x] **SCHOOL-02**: Creador puede subir logo de su escuela (imagen)
 - [x] **SCHOOL-03**: Creador puede definir un slug único para su escuela con validación de disponibilidad en tiempo real
-- [ ] **SCHOOL-04**: Creador puede elegir colores de marca (primario y secundario) para su escuela
+- [x] **SCHOOL-04**: Creador puede elegir colores de marca (primario y secundario) para su escuela
 
 ### Creator Profile
 
@@ -88,7 +88,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SCHOOL-01 | Phase 7 | Complete |
 | SCHOOL-02 | Phase 6 | Complete |
 | SCHOOL-03 | Phase 7 | Complete |
-| SCHOOL-04 | Phase 7 | Pending |
+| SCHOOL-04 | Phase 7 | Complete |
 | PROF-01 | Phase 8 | Pending |
 | PROF-02 | Phase 6 | Complete |
 | PROF-03 | Phase 8 | Pending |
