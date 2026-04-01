@@ -71,11 +71,11 @@ Plans:
   3. Two creators cannot save the same slug — a conflict on submit shows an inline "este slug ya está en uso" error
   4. Creator can pick primary and accent brand colors using a color picker and see the hex values saved
   5. Creator sees a success toast after saving and an unsaved-changes warning before navigating away with edits
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 07-01: School Setup page — name, description, slug field with real-time availability check, and updateSlug tRPC procedure
-- [ ] 07-02: School Branding page — logo upload, favicon upload, and color pickers
+- [ ] 07-01-PLAN.md — School Setup page with tabbed shell, General tab (name, description, slug with real-time availability), checkSlug/updateSlug tRPC procedures, and unsaved-changes guard
+- [ ] 07-02-PLAN.md — Branding tab with color pickers (primary + accent), preset palette, live preview, contrast warning, and updateBranding wiring
 
 ### Phase 8: Creator Profile
 **Goal**: El creador puede configurar su identidad pública — nombre visible, bio, foto de perfil, y datos de contacto — con los cambios persistidos en base de datos.
