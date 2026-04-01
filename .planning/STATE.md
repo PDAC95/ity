@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Creator Dashboard
-status: completed
-stopped_at: Phase 7 context gathered
-last_updated: "2026-04-01T15:15:07.978Z"
-last_activity: 2026-04-01 — Phase 06 Plan 02 complete
+status: in-progress
+stopped_at: "Completed 07-school-setup 07-01-PLAN.md"
+last_updated: "2026-04-01T15:15:54Z"
+last_activity: 2026-04-01 — Phase 07 Plan 01 complete
 progress:
-  total_phases: 7
+  total_phases: 8
   completed_phases: 6
-  total_plans: 14
-  completed_plans: 14
-  percent: 100
+  total_plans: 16
+  completed_plans: 15
+  percent: 94
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-**Milestone:** v1.1 Creator Dashboard - Storage & Uploads
-**Phase:** 6 of 8 (Storage Infrastructure) — Plan 2 of 2 complete (Phase complete)
-**Status:** Milestone complete
-**Last activity:** 2026-04-01 — Phase 06 Plan 02 complete
+**Milestone:** v1.1 Creator Dashboard - School Setup
+**Phase:** 7 of 8 (School Setup) — Plan 1 of 2 complete
+**Status:** In progress
+**Last activity:** 2026-04-01 — Phase 07 Plan 01 complete
 
-**Progress:** [██████████] 100%
+**Progress:** [█████████░] 94%
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 | Phase 05-dashboard-layout P02 | 3min | 2 tasks | 2 files |
 | Phase 06-storage-infrastructure P01 | 2min | 2 tasks | 2 files |
 | Phase 06-storage-infrastructure P02 | 2min | 2 tasks | 2 files |
+| Phase 07-school-setup P01 | 3min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,11 @@ Recent decisions affecting current work:
 - [Phase 06-storage-infrastructure]: Ownership validated in Server Action AND in RLS policies — defense in depth
 - [Phase 06-storage-infrastructure]: Check !result.data (not result.error) to narrow SignedUploadResult discriminated union — TypeScript requires data to be non-null for property access
 - [Phase 06-storage-infrastructure]: ImageUploadWidget onUploadComplete receives clean URL from getPublicStorageUrl; cache-busted preview URL (?t=Date.now()) stays local in state only
+- [Phase 07-school-setup]: updateSlug is a separate tRPC procedure from update — uniqueness check must use ne() to exclude current school's own slug
+- [Phase 07-school-setup]: Slug field managed outside react-hook-form with local state to support independent save button flow
+- [Phase 07-school-setup]: SlugAvailabilityIndicator enabled=false when debouncedSlug === currentSlug (own slug is always valid, no query needed)
+- [Phase 07-school-setup]: Tab switch dirty-state guard uses pendingTab state to store destination while awaiting confirmation dialog
+- [Phase 07-school-setup]: Child form lifts isDirty via onDirtyChange callback to SchoolSetupTabs parent
 
 ### Pending Todos
 

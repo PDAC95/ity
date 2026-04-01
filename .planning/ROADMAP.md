@@ -100,5 +100,5 @@ Plans:
 | 4. Session Management | v1.0 | 2/2 | Complete | 2026-03-31 |
 | 5. Dashboard Layout | 2/2 | Complete   | 2026-03-31 | - |
 | 6. Storage Infrastructure | 2/2 | Complete   | 2026-04-01 | - |
-| 7. School Setup | v1.1 | 0/2 | Not started | - |
+| 7. School Setup | 1/2 | In Progress|  | - |
 | 8. Creator Profile | v1.1 | 0/1 | Not started | - |
