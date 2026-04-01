@@ -24,7 +24,7 @@ See: `.planning/milestones/v1.0-ROADMAP.md` for full details.
 **Milestone Goal:** El creador tiene un dashboard funcional donde configura su escuela y perfil, con la estructura de navegación lista para features futuras.
 
 - [x] **Phase 5: Dashboard Layout** - Sidebar, header, home con onboarding checklist, y placeholders de secciones futuras (completed 2026-03-31)
-- [ ] **Phase 6: Storage Infrastructure** - Supabase Storage buckets, RLS policies, Server Actions para signed URLs, y upload widgets reutilizables
+- [x] **Phase 6: Storage Infrastructure** - Supabase Storage buckets, RLS policies, Server Actions para signed URLs, y upload widgets reutilizables (completed 2026-04-01)
 - [ ] **Phase 7: School Setup** - Formulario de escuela: nombre, descripción, slug con validación en tiempo real, y colores de marca
 - [ ] **Phase 8: Creator Profile** - Formulario de perfil: nombre visible, bio, foto de perfil, y datos de contacto
 
@@ -99,6 +99,6 @@ Plans:
 | 3. Rate Limiting | v1.0 | 2/2 | Complete | 2026-03-17 |
 | 4. Session Management | v1.0 | 2/2 | Complete | 2026-03-31 |
 | 5. Dashboard Layout | 2/2 | Complete   | 2026-03-31 | - |
-| 6. Storage Infrastructure | 1/2 | In Progress|  | - |
+| 6. Storage Infrastructure | 2/2 | Complete   | 2026-04-01 | - |
 | 7. School Setup | v1.1 | 0/2 | Not started | - |
 | 8. Creator Profile | v1.1 | 0/1 | Not started | - |

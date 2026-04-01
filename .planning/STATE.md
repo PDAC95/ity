@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: Creator Dashboard - Storage & Uploads
 status: in-progress
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-04-01T14:18:24Z"
-last_activity: 2026-04-01 — Phase 06 Plan 01 complete
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-04-01T14:24:28Z"
+last_activity: 2026-04-01 — Phase 06 Plan 02 complete
 progress:
   total_phases: 8
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 14
-  completed_plans: 13
-  percent: 93
+  completed_plans: 14
+  percent: 100
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 **Milestone:** v1.1 Creator Dashboard - Storage & Uploads
-**Phase:** 6 of 8 (Storage Infrastructure) — Plan 1 of 2 complete
+**Phase:** 6 of 8 (Storage Infrastructure) — Plan 2 of 2 complete (Phase complete)
 **Status:** In progress
-**Last activity:** 2026-04-01 — Phase 06 Plan 01 complete
+**Last activity:** 2026-04-01 — Phase 06 Plan 02 complete
 
-**Progress:** [█████████░] 93%
+**Progress:** [██████████] 100%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 | Phase 05-dashboard-layout P01 | 6min | 2 tasks | 7 files |
 | Phase 05-dashboard-layout P02 | 3min | 2 tasks | 2 files |
 | Phase 06-storage-infrastructure P01 | 2min | 2 tasks | 2 files |
+| Phase 06-storage-infrastructure P02 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,8 @@ Recent decisions affecting current work:
 - [Phase 06-storage-infrastructure]: Single 'uploads' bucket with path-based separation (profiles/{user_id}/avatar, schools/{school_id}/logo) — simpler than per-entity buckets
 - [Phase 06-storage-infrastructure]: getPublicStorageUrl is a pure URL string construction using NEXT_PUBLIC_SUPABASE_URL — avoids Supabase client in synchronous context
 - [Phase 06-storage-infrastructure]: Ownership validated in Server Action AND in RLS policies — defense in depth
+- [Phase 06-storage-infrastructure]: Check !result.data (not result.error) to narrow SignedUploadResult discriminated union — TypeScript requires data to be non-null for property access
+- [Phase 06-storage-infrastructure]: ImageUploadWidget onUploadComplete receives clean URL from getPublicStorageUrl; cache-busted preview URL (?t=Date.now()) stays local in state only
 
 ### Pending Todos
 
@@ -91,6 +94,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-01T14:18:24Z
-**Stopped at:** Completed 06-01-PLAN.md
+**Last session:** 2026-04-01T14:24:28Z
+**Stopped at:** Completed 06-02-PLAN.md
 Resume file: None
