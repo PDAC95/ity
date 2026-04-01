@@ -55,11 +55,11 @@ Plans:
   2. Upload widget validates file type and size on the client before requesting a signed URL, blocking invalid files with an inline error
   3. Upload widget shows a progress indicator while the upload is in flight
   4. A creator cannot access or overwrite another creator's uploaded files (RLS policy enforced at storage level)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: Supabase Storage buckets, RLS policies, and createSignedUploadUrl Server Action
-- [ ] 06-02: Reusable logo-upload and avatar-upload Client Components
+- [ ] 06-01-PLAN.md — Supabase Storage bucket (SQL migration), RLS policies, and getSignedUploadUrl Server Action
+- [ ] 06-02-PLAN.md — Reusable ImageUploadWidget client component with validation, XHR progress, and drag-and-drop
 
 ### Phase 7: School Setup
 **Goal**: El creador puede configurar completamente su escuela — nombre, descripción, slug único, y colores de marca — con todos los cambios persistidos en base de datos.
