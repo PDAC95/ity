@@ -24,9 +24,9 @@ Requirements para Creator Dashboard. Cada uno mapea a fases del roadmap.
 
 ### Creator Profile
 
-- [ ] **PROF-01**: Creador puede editar su nombre visible y biografía
+- [x] **PROF-01**: Creador puede editar su nombre visible y biografía
 - [x] **PROF-02**: Creador puede subir foto de perfil (avatar)
-- [ ] **PROF-03**: Creador puede agregar datos de contacto (email de contacto, redes sociales)
+- [x] **PROF-03**: Creador puede agregar datos de contacto (email de contacto, redes sociales)
 
 ## Future Requirements
 
@@ -89,9 +89,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SCHOOL-02 | Phase 6 | Complete |
 | SCHOOL-03 | Phase 7 | Complete |
 | SCHOOL-04 | Phase 7 | Complete |
-| PROF-01 | Phase 8 | Pending |
+| PROF-01 | Phase 8 | Complete |
 | PROF-02 | Phase 6 | Complete |
-| PROF-03 | Phase 8 | Pending |
+| PROF-03 | Phase 8 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 12 total

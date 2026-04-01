@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Creator Dashboard
 status: completed
-stopped_at: Phase 8 context gathered
-last_updated: "2026-04-01T20:21:31.997Z"
+stopped_at: Completed 08-creator-profile-01-PLAN.md
+last_updated: "2026-04-01T20:51:31.885Z"
 last_activity: 2026-04-01 — Phase 07 Plan 01 complete
 progress:
   total_phases: 8
-  completed_phases: 7
-  total_plans: 16
-  completed_plans: 16
+  completed_phases: 8
+  total_plans: 17
+  completed_plans: 17
   percent: 100
 ---
 
@@ -59,6 +59,7 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 | Phase 06-storage-infrastructure P02 | 2min | 2 tasks | 2 files |
 | Phase 07-school-setup P01 | 3min | 2 tasks | 7 files |
 | Phase 07-school-setup P02 | 3min | 2 tasks | 3 files |
+| Phase 08-creator-profile P01 | 6min | 2 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -89,6 +90,9 @@ Recent decisions affecting current work:
 - [Phase 07-school-setup]: Child form lifts isDirty via onDirtyChange callback to SchoolSetupTabs parent
 - [Phase 07-school-setup]: Clean-reference state pattern: cleanPrimary/cleanAccent updated only on successful save to drive isDirty without re-mounting
 - [Phase 07-school-setup]: AvailableFont union narrowed in school-setup-tabs.tsx Branding type to match branding-tab.tsx contract — fixes structural type mismatch across component boundary
+- [Phase 08-creator-profile]: db:push used instead of db:migrate — migration 0000 was initial snapshot; push applies only the diff
+- [Phase 08-creator-profile]: FormProvider + useFormContext for card sub-components — avoids prop-drilling register/errors to each card
+- [Phase 08-creator-profile]: avatarUrl managed in local useState (not in react-hook-form) — avatar changes persist immediately via separate mutation
 
 ### Pending Todos
 
@@ -103,6 +107,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-01T20:21:31.994Z
-**Stopped at:** Phase 8 context gathered
+**Last session:** 2026-04-01T20:51:31.882Z
+**Stopped at:** Completed 08-creator-profile-01-PLAN.md
 Resume file: None
