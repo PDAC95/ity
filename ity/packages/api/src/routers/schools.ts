@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { router, protectedProcedure } from '../trpc';
 import { TRPCError } from '@trpc/server';
 import { schools, type Branding } from '@ity/db';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, ne } from 'drizzle-orm';
 
 export const schoolsRouter = router({
   // List creator's schools
@@ -132,6 +132,58 @@ export const schoolsRouter = router({
           updatedAt: new Date(),
         })
         .where(and(eq(schools.id, id), eq(schools.creatorId, ctx.user.id)))
+        .returning();
+
+      if (!updated) {
+        throw new TRPCError({ code: 'NOT_FOUND', message: 'School not found' });
+      }
+
+      return updated;
+    }),
+
+  // Check slug availability
+  checkSlug: protectedProcedure
+    .input(
+      z.object({
+        slug: z.string().min(3).max(40).regex(/^[a-z0-9-]+$/),
+        currentSchoolId: z.string().uuid().optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const existing = await ctx.db.query.schools.findFirst({
+        where: input.currentSchoolId
+          ? and(eq(schools.slug, input.slug), ne(schools.id, input.currentSchoolId))
+          : eq(schools.slug, input.slug),
+      });
+
+      return { available: !existing };
+    }),
+
+  // Update slug (separate procedure — uniqueness check must exclude current school's own slug)
+  updateSlug: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().uuid(),
+        slug: z.string().min(3).max(40).regex(/^[a-z0-9-]+$/),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Re-check uniqueness server-side, excluding current school
+      const conflict = await ctx.db.query.schools.findFirst({
+        where: and(eq(schools.slug, input.slug), ne(schools.id, input.id)),
+      });
+
+      if (conflict) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: 'este slug ya está en uso',
+        });
+      }
+
+      const [updated] = await ctx.db
+        .update(schools)
+        .set({ slug: input.slug, updatedAt: new Date() })
+        .where(and(eq(schools.id, input.id), eq(schools.creatorId, ctx.user.id)))
         .returning();
 
       if (!updated) {
