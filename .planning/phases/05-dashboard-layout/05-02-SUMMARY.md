@@ -60,7 +60,7 @@ completed: 2026-03-31
 1. **Task 1: Create OnboardingChecklist client component** - `c0bbd4f` (feat)
 2. **Task 2: Rewrite dashboard home page with OnboardingChecklist** - `b744cff` (feat)
 
-**Plan metadata:** (pending — final commit)
+**Plan metadata:** `0967497` (docs: complete plan)
 
 ## Files Created/Modified
 
@@ -92,6 +92,16 @@ None - no external service configuration required.
 - Dashboard home now shows guided onboarding for new creators
 - Checklist disappears automatically when all 4 steps complete — page is ready for future dashboard content in phase 08
 - Phase 06 (school setup form) and Phase 07 (profile) will complete the checklist steps for real creators
+
+## Self-Check: PASSED
+
+| Check | Result |
+|-------|--------|
+| apps/web/components/dashboard/onboarding-checklist.tsx | FOUND |
+| apps/web/app/(dashboard)/dashboard/page.tsx | FOUND |
+| .planning/phases/05-dashboard-layout/05-02-SUMMARY.md | FOUND |
+| Commit c0bbd4f (Task 1) | FOUND |
+| Commit b744cff (Task 2) | FOUND |
 
 ---
 *Phase: 05-dashboard-layout*

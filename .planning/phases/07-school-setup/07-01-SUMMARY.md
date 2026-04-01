@@ -123,3 +123,15 @@ None - no external service configuration required.
 ---
 *Phase: 07-school-setup*
 *Completed: 2026-04-01*
+
+## Self-Check: PASSED
+
+All files exist and all commits verified:
+- FOUND: ity/packages/api/src/routers/schools.ts
+- FOUND: ity/apps/web/lib/validations/school.ts
+- FOUND: ity/apps/web/hooks/use-unsaved-changes.ts
+- FOUND: ity/apps/web/components/school/school-setup-tabs.tsx
+- FOUND: ity/apps/web/components/school/general-tab.tsx
+- FOUND: ity/apps/web/components/school/slug-availability-indicator.tsx
+- FOUND commit: 492661f
+- FOUND commit: 6190a6b

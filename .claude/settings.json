@@ -13,7 +13,26 @@
       "Skill(gsd:plan-phase)",
       "Skill(gsd:plan-phase:*)",
       "WebSearch",
-      "Bash(git status:*)"
+      "Bash(git status:*)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs commit \"test\\(04\\): complete UAT - 5 passed, 0 issues, 2 skipped\" --files \".planning/phases/04-session-management/04-UAT.md\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs commit \"docs: complete project research\" --files .planning/research/)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs commit \"docs\\(05\\): capture phase context\" --files \".planning/phases/05-dashboard-layout/05-CONTEXT.md\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state record-session --stopped-at \"Phase 5 context gathered\" --resume-file \".planning/phases/05-dashboard-layout/05-CONTEXT.md\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs init verify-work \"05\")",
+      "Bash(ls .planning/phases/05-*/)",
+      "Bash(ls /c/dev/12ity/ity/app/\\\\\\(dashboard\\\\\\)/)",
+      "Bash(ls -la \"/c/dev/12ity/ity/apps/web/app/\\(dashboard\\)/\")",
+      "Bash(ls -la \"/c/dev/12ity/ity/apps/web/app/\\(dashboard\\)/coming-soon/page.tsx\")",
+      "Bash(ls -la \"/c/dev/12ity/ity/apps/web/app/\\(dashboard\\)/dashboard/\")",
+      "Bash(git add:*)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs init plan-phase \"6\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs roadmap get-phase \"6\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs commit \"docs\\(07\\): capture phase context\" --files \".planning/phases/07-school-setup/07-CONTEXT.md\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state record-session --stopped-at \"Phase 7 context gathered\" --resume-file \".planning/phases/07-school-setup/07-CONTEXT.md\")"
+    ],
+    "additionalDirectories": [
+      "c:\\dev\\12ity\\.planning\\phases",
+      "C:\\dev\\12ity\\.planning\\phases"
     ]
   }
 }
