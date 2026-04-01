@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: Creator Dashboard
-status: completed
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-31T19:20:38.276Z"
-last_activity: 2026-03-31 — Roadmap created for v1.1
+milestone: v1.1
+milestone_name: Creator Dashboard - Storage & Uploads
+status: in-progress
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-04-01T14:18:24Z"
+last_activity: 2026-04-01 — Phase 06 Plan 01 complete
 progress:
-  total_phases: 5
+  total_phases: 8
   completed_phases: 5
-  total_plans: 12
-  completed_plans: 12
-  percent: 100
+  total_plans: 14
+  completed_plans: 13
+  percent: 93
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-**Milestone:** v1.1 Creator Dashboard
-**Phase:** 5 of 8 (Dashboard Layout) — first phase of this milestone
-**Status:** Milestone complete
-**Last activity:** 2026-03-31 — Roadmap created for v1.1
+**Milestone:** v1.1 Creator Dashboard - Storage & Uploads
+**Phase:** 6 of 8 (Storage Infrastructure) — Plan 1 of 2 complete
+**Status:** In progress
+**Last activity:** 2026-04-01 — Phase 06 Plan 01 complete
 
-**Progress:** [██████████] 100%
+**Progress:** [█████████░] 93%
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 *Updated after each plan completion*
 | Phase 05-dashboard-layout P01 | 6min | 2 tasks | 7 files |
 | Phase 05-dashboard-layout P02 | 3min | 2 tasks | 2 files |
+| Phase 06-storage-infrastructure P01 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,9 @@ Recent decisions affecting current work:
 - [Phase 05-dashboard-layout]: md breakpoint (768px) replaces old lg (1024px) throughout dashboard layout
 - [Phase 05-dashboard-layout]: RSC derives boolean props from DB data, client component renders purely from those booleans — keeps business logic in server
 - [Phase 05-dashboard-layout]: Celebration state: useState(true) + useEffect 3s timeout + null return for auto-dismiss pattern
+- [Phase 06-storage-infrastructure]: Single 'uploads' bucket with path-based separation (profiles/{user_id}/avatar, schools/{school_id}/logo) — simpler than per-entity buckets
+- [Phase 06-storage-infrastructure]: getPublicStorageUrl is a pure URL string construction using NEXT_PUBLIC_SUPABASE_URL — avoids Supabase client in synchronous context
+- [Phase 06-storage-infrastructure]: Ownership validated in Server Action AND in RLS policies — defense in depth
 
 ### Pending Todos
 
@@ -87,6 +91,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-03-31T19:12:26.546Z
-**Stopped at:** Completed 05-02-PLAN.md
+**Last session:** 2026-04-01T14:18:24Z
+**Stopped at:** Completed 06-01-PLAN.md
 Resume file: None
