@@ -10,6 +10,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1022.0",
+    "@aws-sdk/s3-request-presigner": "^3.1022.0",
     "@hookform/resolvers": "^3.9.0",
     "@ity/api": "workspace:*",
     "@ity/config": "workspace:*",

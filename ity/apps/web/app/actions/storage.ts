@@ -1,25 +1,41 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+// ---------------------------------------------------------------------------
+// AWS S3 client (singleton per cold start)
+// ---------------------------------------------------------------------------
+
+const s3 = new S3Client({
+  region: process.env.AWS_S3_REGION!,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
+
+const BUCKET = process.env.AWS_S3_BUCKET!;
 
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
 
 export type SignedUploadResult =
-  | { data: { signedUrl: string; token: string; path: string }; error: null }
+  | { data: { signedUrl: string; path: string }; error: null }
   | { data: null; error: string };
 
 // ---------------------------------------------------------------------------
 // Server Action: getSignedUploadUrl
 // ---------------------------------------------------------------------------
-// Returns a signed upload URL for the given path after validating ownership.
+// Returns a presigned PUT URL for the given path after validating ownership.
 // Supported path prefixes:
 //   profiles/{user_id}/avatar  — must match authenticated user's own id
 //   schools/{school_id}/logo   — creator must own the school
 //
-// This bypasses Vercel's 4.5 MB serverless body limit by letting the browser
-// upload directly to Supabase Storage via the signed URL.
+// Browser uploads directly to S3 via the presigned URL (bypasses Vercel's
+// 4.5 MB serverless body limit).
 // ---------------------------------------------------------------------------
 
 export async function getSignedUploadUrl(
@@ -42,13 +58,11 @@ export async function getSignedUploadUrl(
   const prefix = segments[0];
 
   if (prefix === 'profiles') {
-    // profiles/{user_id}/...  — user_id must match the authenticated user
     const pathUserId = segments[1];
     if (!pathUserId || pathUserId !== user.id) {
       return { data: null, error: 'Forbidden: path does not belong to this user' };
     }
   } else if (prefix === 'schools') {
-    // schools/{school_id}/...  — creator must own the school
     const schoolId = segments[1];
     if (!schoolId) {
       return { data: null, error: 'Invalid path: missing school id' };
@@ -68,34 +82,75 @@ export async function getSignedUploadUrl(
     return { data: null, error: 'Invalid path prefix' };
   }
 
-  // Create signed upload URL
-  const { data, error: storageError } = await supabase.storage
-    .from('uploads')
-    .createSignedUploadUrl(path, { upsert: true });
+  // Generate presigned PUT URL (valid for 5 minutes)
+  try {
+    const command = new PutObjectCommand({
+      Bucket: BUCKET,
+      Key: path,
+      ContentType: 'image/jpeg',
+    });
 
-  if (storageError || !data) {
-    return { data: null, error: storageError?.message ?? 'Failed to create signed upload URL' };
+    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 300 });
+
+    return {
+      data: { signedUrl, path },
+      error: null,
+    };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to create presigned URL';
+    return { data: null, error: message };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Server Action: deleteStorageObject
+// ---------------------------------------------------------------------------
+
+export async function deleteStorageObject(path: string): Promise<{ error: string | null }> {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return { error: 'Unauthorized' };
   }
 
-  return {
-    data: {
-      signedUrl: data.signedUrl,
-      token: data.token,
-      path,
-    },
-    error: null,
-  };
+  // Validate ownership (same logic as upload)
+  const segments = path.split('/');
+  const prefix = segments[0];
+
+  if (prefix === 'profiles') {
+    if (segments[1] !== user.id) return { error: 'Forbidden' };
+  } else if (prefix === 'schools') {
+    const { data: school } = await supabase
+      .from('schools')
+      .select('id')
+      .eq('id', segments[1])
+      .eq('creator_id', user.id)
+      .single();
+    if (!school) return { error: 'Forbidden' };
+  } else {
+    return { error: 'Invalid path prefix' };
+  }
+
+  try {
+    await s3.send(new DeleteObjectCommand({ Bucket: BUCKET, Key: path }));
+    return { error: null };
+  } catch {
+    return { error: 'Failed to delete object' };
+  }
 }
 
 // ---------------------------------------------------------------------------
 // Helper: getPublicStorageUrl
 // ---------------------------------------------------------------------------
-// Pure function — no network request, no Supabase client needed.
-// Constructs the public URL for any object in the uploads bucket.
-// NEXT_PUBLIC_SUPABASE_URL is available in both server and client contexts.
+// Constructs the public URL for any object in the S3 bucket.
+// Uses the standard S3 public URL format.
 // ---------------------------------------------------------------------------
 
-export function getPublicStorageUrl(path: string): string {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  return `${supabaseUrl}/storage/v1/object/public/uploads/${path}`;
+export async function getPublicStorageUrl(path: string): Promise<string> {
+  return `https://${BUCKET}.s3.${process.env.AWS_S3_REGION}.amazonaws.com/${path}`;
 }

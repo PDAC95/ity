@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
@@ -45,6 +46,7 @@ export interface ProfileFormProps {
 // ---------------------------------------------------------------------------
 
 export function ProfileForm({ creator, school }: ProfileFormProps) {
+  const router = useRouter();
   const [avatarUrl, setAvatarUrl] = useState<string | null>(creator.avatarUrl);
   const [cropImageSrc, setCropImageSrc] = useState<string | null>(null);
   const [avatarUploading, setAvatarUploading] = useState(false);
@@ -94,6 +96,7 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
           facebook: data.socialLinks?.facebook ?? '',
         },
       });
+      router.refresh();
     },
     onError: () => {
       toast.error('Error al guardar. Inténtalo de nuevo.');

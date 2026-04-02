@@ -110,14 +110,14 @@ export function AvatarCropModal({ imageSrc, userId, onComplete, onCancel }: Avat
       const result = await getSignedUploadUrl(path);
 
       if (!result.data) {
-        setError('Error al preparar la subida');
+        setError(result.error ?? 'Error al preparar la subida');
         setUploading(false);
         return;
       }
 
       await uploadBlobToSignedUrl(result.data.signedUrl, blob);
 
-      const publicUrl = getPublicStorageUrl(path);
+      const publicUrl = await getPublicStorageUrl(path);
       URL.revokeObjectURL(imageSrc);
       onComplete(publicUrl);
     } catch {

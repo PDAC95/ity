@@ -156,10 +156,10 @@ export function ImageUploadWidget({
     setProgress(0);
     try {
       await uploadToSignedUrl(result.data.signedUrl, file, (pct) => setProgress(pct));
-      const publicUrl = getPublicStorageUrl(path) + '?t=' + Date.now();
-      setImageUrl(publicUrl);
+      const publicUrl = await getPublicStorageUrl(path);
+      setImageUrl(publicUrl + '?t=' + Date.now());
       setProgress(null);
-      onUploadComplete(getPublicStorageUrl(path)); // clean URL without cache-bust
+      onUploadComplete(publicUrl); // clean URL without cache-bust
     } catch {
       setError('Error al subir el archivo');
       setProgress(null);
