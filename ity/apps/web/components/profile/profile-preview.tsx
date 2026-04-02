@@ -53,18 +53,23 @@ interface ProfilePreviewProps {
     branding: { logo?: string; primaryColor: string } | null;
   } | null;
   avatarUrl: string | null;
+  creatorName: string;
+  creatorBio: string | null;
 }
 
 // ---------------------------------------------------------------------------
 // ProfilePreview
 // ---------------------------------------------------------------------------
 
-export function ProfilePreview({ school, avatarUrl }: ProfilePreviewProps) {
+export function ProfilePreview({ school, avatarUrl, creatorName, creatorBio }: ProfilePreviewProps) {
   const [mode, setMode] = useState<'profile' | 'school'>('profile');
   const { control } = useFormContext<ProfileFormInput>();
 
-  const name = useWatch({ control, name: 'name', defaultValue: '' });
-  const bio = useWatch({ control, name: 'bio', defaultValue: '' });
+  const watchedName = useWatch({ control, name: 'name' });
+  const watchedBio = useWatch({ control, name: 'bio' });
+
+  const name = watchedName || creatorName || '';
+  const bio = watchedBio || creatorBio || '';
   const socialLinks = useWatch({ control, name: 'socialLinks' });
 
   const activeSocialLinks = socialLinks

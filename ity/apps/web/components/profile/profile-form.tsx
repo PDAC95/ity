@@ -287,13 +287,13 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
 
             {/* Right column: live preview */}
             <div className="hidden lg:block">
-              <ProfilePreview school={school} avatarUrl={avatarUrl} />
+              <ProfilePreview school={school} avatarUrl={avatarUrl} creatorName={creator.name} creatorBio={creator.bio} />
             </div>
           </div>
 
           {/* Mobile preview (shown below form) */}
           <div className="mt-8 lg:hidden">
-            <ProfilePreview school={school} avatarUrl={avatarUrl} />
+            <ProfilePreview school={school} avatarUrl={avatarUrl} creatorName={creator.name} creatorBio={creator.bio} />
           </div>
         </form>
       </FormProvider>
