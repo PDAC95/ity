@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: Creator Dashboard
-status: shipped
-stopped_at: v1.1 milestone complete
+milestone: v1.2
+milestone_name: Landing Page del Creador
+status: defining_requirements
+stopped_at: —
 last_updated: "2026-04-02"
-last_activity: 2026-04-02 — v1.1 Creator Dashboard shipped
+last_activity: 2026-04-02 — Milestone v1.2 started
 progress:
-  total_phases: 8
-  completed_phases: 8
-  total_plans: 17
-  completed_plans: 17
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -21,13 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-02)
 
 **Core value:** Creadores pueden lanzar su propia escuela online con marca propia — configuración, contenido y alumnos en un solo lugar.
-**Current focus:** Planning next milestone
+**Current focus:** v1.2 Landing Page del Creador — defining requirements
 
 ## Current Position
 
-**Milestone:** v1.1 Creator Dashboard — SHIPPED
-**Status:** Complete — all 8 phases, 17 plans, 12 requirements
-**Last activity:** 2026-04-02 — v1.1 shipped
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-04-02 — Milestone v1.2 started
 
 **Progress:** [██████████] 100%
 

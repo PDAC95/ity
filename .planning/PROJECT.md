@@ -36,7 +36,15 @@ Creadores pueden lanzar su propia escuela online con marca propia — configurac
 
 ### Active
 
-(Empty — define requirements in next milestone via `/gsd:new-milestone`)
+## Current Milestone: v1.2 Landing Page del Creador
+
+**Goal:** Paula puede solicitar la landing page de su escuela mediante biblioteca de templates + chat guiado con IA que genera un PRD interno para el equipo de 12ity.
+
+**Target features:**
+- Biblioteca de templates (galeria, filtros, preview mobile/desktop)
+- Chat guiado con LLM para recopilar info de la escuela
+- Generacion de PRD estructurado (JSON) — interno, no visible para el creador
+- Estado de espera + sistema de notificaciones (in-app + email)
 
 ### Out of Scope
 
@@ -79,9 +87,11 @@ Creadores pueden lanzar su propia escuela online con marca propia — configurac
 - Clases en vivo y pregrabadas (futuro milestone)
 
 **Future milestone roadmap:**
-- v1.2: Landing page pública + templates + registro de alumnos + dashboard alumno
-- v1.3: Cursos y lecciones (pregrabadas y en vivo)
-- v1.4: Dominios propios (DNS/SSL) + gestión de equipo + métricas
+- v1.3: Ejecucion automatica del PRD + revision/aprobacion de landing + dominio + admin panel
+- v1.4: Lado alumno (Cecilia) — registro en escuela, dashboard alumno, inscripcion a cursos
+- v1.5: Cursos y lecciones (pregrabadas y en vivo)
+- v1.6: Suscripcion/pagos de creadores a 12ity (Stripe)
+- v1.7: Dominios propios (DNS/SSL) + gestion de equipo + metricas
 
 ## Constraints
 
@@ -108,4 +118,4 @@ Creadores pueden lanzar su propia escuela online con marca propia — configurac
 | react-easy-crop for avatar | Circular crop with zoom, lightweight, well-maintained | ✓ Good |
 
 ---
-*Last updated: 2026-04-02 after v1.1 milestone*
+*Last updated: 2026-04-02 after v1.2 milestone started*
