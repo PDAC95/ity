@@ -19,3 +19,23 @@
 
 ---
 
+
+## v1.1 Creator Dashboard (Shipped: 2026-04-02)
+
+**Phases completed:** 4 phases (5-8), 7 plans, 14 tasks
+
+**Key accomplishments:**
+- Dashboard layout with responsive sidebar, header with avatar, mobile hamburger nav, and onboarding checklist
+- File upload infrastructure with AWS S3 presigned URLs, ownership validation, and reusable ImageUploadWidget with drag-and-drop and progress indicator
+- School setup with tabbed form (General + Branding), slug with real-time availability check, color pickers with contrast warnings, and unsaved-changes guard
+- Creator profile with display name, bio, contact email, 6 social links, avatar circular crop (react-easy-crop), and live preview panel
+- Migrated file storage from Supabase Storage to AWS S3 for industry-standard scalability
+
+**Stats:**
+- Timeline: 2026-03-31 → 2026-04-02 (3 days)
+- Commits: 35
+- LOC: 6,733 TypeScript/TSX
+- Requirements: 12/12 complete (DASH: 5, SCHOOL: 4, PROF: 3)
+
+---
+
