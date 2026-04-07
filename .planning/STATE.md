@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: planning
-stopped_at: Phase 9 context gathered
-last_updated: "2026-04-07T19:13:48.220Z"
+stopped_at: Completed 09-db-schema-trpc-infrastructure-P01-PLAN.md
+last_updated: "2026-04-07T19:32:30.697Z"
 last_activity: 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 progress:
   total_phases: 9
   completed_phases: 8
-  total_plans: 17
-  completed_plans: 17
-  percent: 100
+  total_plans: 19
+  completed_plans: 18
+  percent: 95
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 **Status:** Ready to plan — run `/gsd:plan-phase 9`
 **Last activity:** 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 
-**Progress:** [██████████] 100%
+**Progress:** [██████████] 95%
 
 ## Performance Metrics
 
@@ -60,6 +60,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 | Phase 07-school-setup P01 | 3min | 2 tasks | 7 files |
 | Phase 07-school-setup P02 | 3min | 2 tasks | 3 files |
 | Phase 08-creator-profile P01 | 6min | 2 tasks | 13 files |
+| Phase 09-db-schema-trpc-infrastructure P01 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -93,6 +94,9 @@ Recent decisions affecting current work:
 - [Phase 08-creator-profile]: db:push used instead of db:migrate — migration 0000 was initial snapshot; push applies only the diff
 - [Phase 08-creator-profile]: FormProvider + useFormContext for card sub-components — avoids prop-drilling register/errors to each card
 - [Phase 08-creator-profile]: avatarUrl managed in local useState (not in react-hook-form) — avatar changes persist immediately via separate mutation
+- [Phase 09-db-schema-trpc-infrastructure]: status and type are varchar (not pgEnum) in landing_page_requests and notifications — allows new values without migration (NOTF-07)
+- [Phase 09-db-schema-trpc-infrastructure]: templateId is a dedicated varchar column (not inside prdData JSONB) — enables direct filtering without JSONB extraction
+- [Phase 09-db-schema-trpc-infrastructure]: Composite index notifications_creator_read_idx on (creatorId, isRead) covers the unreadCount query pattern
 
 ### Pending Todos
 
@@ -107,6 +111,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-07T19:13:48.218Z
-**Stopped at:** Phase 9 context gathered
+**Last session:** 2026-04-07T19:32:30.694Z
+**Stopped at:** Completed 09-db-schema-trpc-infrastructure-P01-PLAN.md
 Resume file: None

@@ -39,7 +39,7 @@
 - [ ] **NOTF-04**: Notifications show relative timestamps ("hace 2 horas")
 - [ ] **NOTF-05**: In-app notification created on landing page request submission
 - [ ] **NOTF-06**: Email notification sent on landing page request submission (via Resend)
-- [ ] **NOTF-07**: Notification system supports future status-change notifications (ready, revision)
+- [x] **NOTF-07**: Notification system supports future status-change notifications (ready, revision)
 
 ### Security (SEC)
 
@@ -107,7 +107,7 @@
 | NOTF-04 | Phase 13 | Pending |
 | NOTF-05 | Phase 13 | Pending |
 | NOTF-06 | Phase 13 | Pending |
-| NOTF-07 | Phase 13 | Pending |
+| NOTF-07 | Phase 13 | Complete |
 | SEC-01 | Phase 10 | Pending |
 | SEC-02 | Phase 10 | Pending |
 | SEC-03 | Phase 11 | Pending |
