@@ -89,6 +89,26 @@ export type LandingPageData = {
   }>;
 };
 
+export type LandingPageRequestStatus = 'draft' | 'pending' | 'in_progress' | 'completed';
+
+export type ChatMessage = {
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+};
+
+export type ChatHistory = ChatMessage[];
+
+// PRD structure defined in Phase 12; use Record for now
+export type PrdData = Record<string, unknown>;
+
+export type NotificationType = 'landing_submitted' | 'landing_completed';
+
+export type NotificationMetadata = {
+  requestId?: string;
+  [key: string]: unknown;
+};
+
 // ============================================
 // CREATORS (ITY platform users)
 // ============================================
@@ -108,6 +128,7 @@ export const creators = pgTable('creators', {
 
 export const creatorsRelations = relations(creators, ({ many }) => ({
   schools: many(schools),
+  notifications: many(notifications),
 }));
 
 // ============================================
@@ -155,6 +176,7 @@ export const schoolsRelations = relations(schools, ({ one, many }) => ({
   announcements: many(announcements),
   payments: many(payments),
   domainVerifications: many(domainVerifications),
+  landingPageRequests: many(landingPageRequests),
 }));
 
 // ============================================
@@ -468,5 +490,66 @@ export const domainVerificationsRelations = relations(domainVerifications, ({ on
   school: one(schools, {
     fields: [domainVerifications.schoolId],
     references: [schools.id],
+  }),
+}));
+
+// ============================================
+// LANDING PAGE REQUESTS
+// ============================================
+export const landingPageRequests = pgTable(
+  'landing_page_requests',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    schoolId: uuid('school_id')
+      .references(() => schools.id, { onDelete: 'cascade' })
+      .notNull(),
+    templateId: varchar('template_id', { length: 100 }).notNull(),
+    status: varchar('status', { length: 50 }).notNull().default('draft'),
+    prdData: jsonb('prd_data').$type<PrdData>(),
+    chatHistory: jsonb('chat_history').$type<ChatHistory>(),
+    createdAt: timestamp('created_at').defaultNow(),
+    updatedAt: timestamp('updated_at').defaultNow(),
+  },
+  (table) => [
+    index('landing_requests_school_idx').on(table.schoolId),
+    index('landing_requests_status_idx').on(table.status),
+  ]
+);
+
+export const landingPageRequestsRelations = relations(landingPageRequests, ({ one }) => ({
+  school: one(schools, {
+    fields: [landingPageRequests.schoolId],
+    references: [schools.id],
+  }),
+}));
+
+// ============================================
+// NOTIFICATIONS
+// ============================================
+export const notifications = pgTable(
+  'notifications',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    creatorId: uuid('creator_id')
+      .references(() => creators.id, { onDelete: 'cascade' })
+      .notNull(),
+    type: varchar('type', { length: 100 }).notNull(),
+    title: varchar('title', { length: 255 }).notNull(),
+    body: text('body').notNull(),
+    isRead: boolean('is_read').notNull().default(false),
+    actionUrl: varchar('action_url', { length: 500 }),
+    metadata: jsonb('metadata').$type<NotificationMetadata>(),
+    createdAt: timestamp('created_at').defaultNow(),
+  },
+  (table) => [
+    index('notifications_creator_idx').on(table.creatorId),
+    index('notifications_creator_read_idx').on(table.creatorId, table.isRead),
+  ]
+);
+
+export const notificationsRelations = relations(notifications, ({ one }) => ({
+  creator: one(creators, {
+    fields: [notifications.creatorId],
+    references: [creators.id],
   }),
 }));
