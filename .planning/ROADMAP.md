@@ -175,7 +175,7 @@ See: `.planning/milestones/v1.1-ROADMAP.md` for full details.
 | 6. Storage Infrastructure | v1.1 | 2/2 | Complete | 2026-04-01 |
 | 7. School Setup | v1.1 | 2/2 | Complete | 2026-04-01 |
 | 8. Creator Profile | v1.1 | 1/1 | Complete | 2026-04-01 |
-| 9. DB Schema + tRPC Infrastructure | 1/2 | In Progress|  | — |
+| 9. DB Schema + tRPC Infrastructure | 2/2 | Complete   | 2026-04-07 | — |
 | 10. Template Gallery | v1.2 | 0/? | Pending | — |
 | 11. AI Chat Wizard | v1.2 | 0/? | Pending | — |
 | 12. PRD Submission + Landing Hub | v1.2 | 0/? | Pending | — |

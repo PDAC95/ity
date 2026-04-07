@@ -37,7 +37,7 @@
 - [ ] **NOTF-02**: Click bell opens popover with notification list (read/unread distinction)
 - [ ] **NOTF-03**: Creator can mark notifications as read (single + mark all)
 - [ ] **NOTF-04**: Notifications show relative timestamps ("hace 2 horas")
-- [ ] **NOTF-05**: In-app notification created on landing page request submission
+- [x] **NOTF-05**: In-app notification created on landing page request submission
 - [ ] **NOTF-06**: Email notification sent on landing page request submission (via Resend)
 - [x] **NOTF-07**: Notification system supports future status-change notifications (ready, revision)
 
@@ -47,7 +47,7 @@
 - [ ] **SEC-02**: Template preview URLs validated against server-side allowlist
 - [ ] **SEC-03**: User input never interpolated into LLM system prompt (role separation enforced)
 - [ ] **SEC-04**: LLM output validated via Zod schema before any DB write
-- [ ] **SEC-05**: Notifications scoped to creator via RLS or query-level filtering
+- [x] **SEC-05**: Notifications scoped to creator via RLS or query-level filtering
 
 ## v1.3+ Requirements (Deferred)
 
@@ -105,14 +105,14 @@
 | NOTF-02 | Phase 13 | Pending |
 | NOTF-03 | Phase 13 | Pending |
 | NOTF-04 | Phase 13 | Pending |
-| NOTF-05 | Phase 13 | Pending |
+| NOTF-05 | Phase 13 | Complete |
 | NOTF-06 | Phase 13 | Pending |
 | NOTF-07 | Phase 13 | Complete |
 | SEC-01 | Phase 10 | Pending |
 | SEC-02 | Phase 10 | Pending |
 | SEC-03 | Phase 11 | Pending |
 | SEC-04 | Phase 12 | Pending |
-| SEC-05 | Phase 13 | Pending |
+| SEC-05 | Phase 13 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 26 total

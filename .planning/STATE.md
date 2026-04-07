@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: planning
-stopped_at: Completed 09-db-schema-trpc-infrastructure-P01-PLAN.md
-last_updated: "2026-04-07T19:32:30.697Z"
+stopped_at: Completed 09-db-schema-trpc-infrastructure-P02-PLAN.md
+last_updated: "2026-04-07T19:36:13.283Z"
 last_activity: 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 progress:
   total_phases: 9
-  completed_phases: 8
+  completed_phases: 9
   total_plans: 19
-  completed_plans: 18
-  percent: 95
+  completed_plans: 19
+  percent: 100
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 **Status:** Ready to plan — run `/gsd:plan-phase 9`
 **Last activity:** 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 
-**Progress:** [██████████] 95%
+**Progress:** [██████████] 100%
 
 ## Performance Metrics
 
@@ -61,6 +61,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 | Phase 07-school-setup P02 | 3min | 2 tasks | 3 files |
 | Phase 08-creator-profile P01 | 6min | 2 tasks | 13 files |
 | Phase 09-db-schema-trpc-infrastructure P01 | 2min | 2 tasks | 2 files |
+| Phase 09-db-schema-trpc-infrastructure P02 | 2min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -97,6 +98,8 @@ Recent decisions affecting current work:
 - [Phase 09-db-schema-trpc-infrastructure]: status and type are varchar (not pgEnum) in landing_page_requests and notifications — allows new values without migration (NOTF-07)
 - [Phase 09-db-schema-trpc-infrastructure]: templateId is a dedicated varchar column (not inside prdData JSONB) — enables direct filtering without JSONB extraction
 - [Phase 09-db-schema-trpc-infrastructure]: Composite index notifications_creator_read_idx on (creatorId, isRead) covers the unreadCount query pattern
+- [Phase 09-db-schema-trpc-infrastructure]: getStatus uses Drizzle columns selector to exclude prdData/chatHistory — data leakage prevention at query level
+- [Phase 09-db-schema-trpc-infrastructure]: requestPage creates notifications row on draft->pending transition — NOTF-05 fulfilled in the same mutation
 
 ### Pending Todos
 
@@ -111,6 +114,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-07T19:32:30.694Z
-**Stopped at:** Completed 09-db-schema-trpc-infrastructure-P01-PLAN.md
+**Last session:** 2026-04-07T19:36:13.280Z
+**Stopped at:** Completed 09-db-schema-trpc-infrastructure-P02-PLAN.md
 Resume file: None
