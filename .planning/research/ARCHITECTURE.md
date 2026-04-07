@@ -1,86 +1,78 @@
 # Architecture Research
 
-**Domain:** Creator Dashboard + School Setup (v1.1)
-**Researched:** 2026-03-31
-**Confidence:** HIGH — based on direct codebase audit + official documentation
+**Domain:** Creator Dashboard — Template Gallery + LLM Chat + PRD Generation + Notifications (v1.2)
+**Researched:** 2026-04-02
+**Confidence:** HIGH — based on direct codebase audit + official documentation + integration pattern verification
 
 ---
 
 ## Standard Architecture
 
-### System Overview
+### System Overview (v1.2 additions layered onto existing)
 
 ```
 Browser (Creator)
        │
        ▼
-┌──────────────────────────────────────────────────────┐
-│  apps/web  (Next.js 14 App Router)                   │
-│                                                       │
-│  Middleware ──► session refresh (Supabase SSR)        │
-│                                                       │
-│  Route Groups:                                        │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │  (auth)/         login, register, reset, etc.  │ │
-│  └─────────────────────────────────────────────────┘ │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │  (dashboard)/    layout.tsx (auth guard)        │ │
-│  │    dashboard/    page.tsx   (overview)          │ │
-│  │    dashboard/school/        setup + branding    │ │
-│  │    dashboard/profile/       creator profile     │ │
-│  │    dashboard/courses/       placeholder         │ │
-│  │    dashboard/students/      placeholder         │ │
-│  │    dashboard/analytics/     placeholder         │ │
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-│  app/api/trpc/[trpc]/route.ts  ──────────────────────│
-└──────────────────────────────────────────────────────┘
-         │ tRPC (HTTP + server-side caller)
+┌──────────────────────────────────────────────────────────────┐
+│  apps/web  (Next.js 14 App Router)                           │
+│                                                               │
+│  ┌────────────────────────────────────────────────────────┐  │
+│  │  (dashboard)/dashboard/landing/                        │  │
+│  │                                                        │  │
+│  │  page.tsx          ← Server Component: fetch request  │  │
+│  │  templates/page.tsx ← Server Component: static data   │  │
+│  │  chat/page.tsx     ← Client Component: chat wizard    │  │
+│  └────────────────────────────────────────────────────────┘  │
+│                                                               │
+│  app/api/                                                     │
+│    trpc/[trpc]/route.ts    ← existing (unchanged)            │
+│    chat/route.ts           ← NEW: SSE streaming endpoint     │
+│    notifications/route.ts  ← NEW: SSE notification stream    │
+└──────────────────────────────────────────────────────────────┘
+         │ tRPC (standard mutations/queries)
          ▼
-┌──────────────────────────────────────────────────────┐
-│  packages/api  (tRPC routers)                        │
-│                                                       │
-│  appRouter                                           │
-│    auth.me / auth.updateProfile                      │
-│    schools.list / schools.get / schools.create       │
-│    schools.update / schools.updateBranding           │
-│    schools.updateSlug  (new)                         │
-└──────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  packages/api  (tRPC routers)                                │
+│                                                               │
+│  appRouter                                                   │
+│    landing.requestPage       ← NEW: create landing request  │
+│    landing.getStatus         ← NEW: poll request status     │
+│    notifications.list        ← NEW: list notifications      │
+│    notifications.markRead    ← NEW: mark as read            │
+└──────────────────────────────────────────────────────────────┘
          │ Drizzle ORM
          ▼
-┌──────────────────────────────────────────────────────┐
-│  packages/db  (Drizzle + PostgreSQL via Supabase)    │
-│                                                       │
-│  creators   (needs bio column added)                 │
-│  schools    (fully defined — slug, branding, etc.)   │
-└──────────────────────────────────────────────────────┘
-         │ Storage (file uploads)
+┌──────────────────────────────────────────────────────────────┐
+│  packages/db  (Drizzle + PostgreSQL via Supabase)            │
+│                                                               │
+│  landing_page_requests  ← NEW table                         │
+│  notifications          ← NEW table                         │
+│  (all existing tables unchanged)                            │
+└──────────────────────────────────────────────────────────────┘
+         │ Claude SDK (server-side only)
          ▼
-┌──────────────────────────────────────────────────────┐
-│  Supabase Storage                                    │
-│                                                       │
-│  bucket: creator-assets/                             │
-│    {creatorId}/avatar.{ext}                          │
-│  bucket: school-assets/                              │
-│    {schoolId}/logo.{ext}                             │
-│    {schoolId}/favicon.{ext}                          │
-└──────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  Anthropic API  (external)                                   │
+│  ANTHROPIC_API_KEY in env, called from route handler only    │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 ### Component Responsibilities
 
 | Component | Responsibility | Type |
 |-----------|---------------|------|
-| `(dashboard)/layout.tsx` | Auth guard, creator upsert safety net, pass user to shell | Server Component |
-| `(dashboard)/dashboard-shell.tsx` | Sidebar + header layout, mobile nav state | Client Component |
-| `components/dashboard/sidebar.tsx` | Navigation links, active state detection | Client Component |
-| `components/dashboard/header.tsx` | User menu, sign-out, mobile trigger | Client Component |
-| `(dashboard)/dashboard/page.tsx` | Overview stats (school count real, others placeholder) | Server Component |
-| `(dashboard)/dashboard/school/page.tsx` | School setup form — name, slug, description, language, timezone | Server Component shell + Client form |
-| `(dashboard)/dashboard/school/branding/page.tsx` | Logo/favicon upload, color pickers, font selector | Client Component |
-| `(dashboard)/dashboard/profile/page.tsx` | Creator profile form — name, bio, avatar upload | Server Component shell + Client form |
-| `packages/api/src/routers/auth.ts` | `me`, `updateProfile` (needs bio field added to input) | tRPC router |
-| `packages/api/src/routers/schools.ts` | School CRUD + branding update + slug update (new procedure) | tRPC router |
+| `dashboard/landing/page.tsx` | Landing page hub: show request status, link to templates or chat | Server Component |
+| `dashboard/landing/templates/page.tsx` | Template gallery with filter tabs, preview modal trigger | Server Component (static data) |
+| `dashboard/landing/chat/page.tsx` | Chat wizard shell, loads active request context | Server Component shell |
+| `components/landing/template-gallery.tsx` | Renders template cards, handles filter state, opens preview | Client Component |
+| `components/landing/template-preview-modal.tsx` | Dialog with mobile/desktop preview toggle, iframe or screenshot | Client Component |
+| `components/landing/chat-wizard.tsx` | Multi-turn chat UI, streams from `/api/chat`, sends final submission | Client Component |
+| `components/notifications/notification-bell.tsx` | Bell icon in header, unread count badge, dropdown list | Client Component |
+| `app/api/chat/route.ts` | Receives messages + context, calls Claude SDK, streams SSE back | Node.js Route Handler |
+| `app/api/notifications/route.ts` | Long-lived SSE endpoint for push notifications | Node.js Route Handler |
+| `packages/api/src/routers/landing.ts` | requestPage, getStatus, savePrd (internal admin) | tRPC router |
+| `packages/api/src/routers/notifications.ts` | list, markRead, markAllRead | tRPC router |
 
 ---
 
@@ -90,260 +82,406 @@ Browser (Creator)
 apps/web/
   app/
     (dashboard)/
-      layout.tsx                        ← EXISTS: auth guard + creator upsert
-      dashboard-shell.tsx               ← EXISTS: sidebar/header layout
       dashboard/
-        page.tsx                        ← EXISTS: overview (update to show real school count)
-        school/
-          page.tsx                      ← NEW: school setup form
-          branding/
-            page.tsx                    ← NEW: logo/colors/font
-        profile/
-          page.tsx                      ← NEW: creator profile
-        courses/
-          page.tsx                      ← NEW: placeholder
-        students/
-          page.tsx                      ← NEW: placeholder
-        analytics/
-          page.tsx                      ← NEW: placeholder
-    actions/
-      storage.ts                        ← NEW: Server Actions for signed upload URLs
+        landing/
+          page.tsx                        ← NEW: landing hub (shows status or onboards to templates)
+          templates/
+            page.tsx                      ← NEW: template gallery (Server Component, static data)
+          chat/
+            page.tsx                      ← NEW: chat wizard (Server Component shell + Client wizard)
+    api/
+      chat/
+        route.ts                          ← NEW: SSE streaming endpoint (Node.js runtime, NOT edge)
+      notifications/
+        route.ts                          ← NEW: SSE push notifications stream
   components/
-    dashboard/
-      sidebar.tsx                       ← MODIFY: add School, Profile nav items
-      header.tsx                        ← EXISTS
-      mobile-nav.tsx                    ← EXISTS
-      school-setup-form.tsx             ← NEW: Client Component form
-      branding-form.tsx                 ← NEW: Client Component form (colors, font)
-      profile-form.tsx                  ← NEW: Client Component form
-      avatar-upload.tsx                 ← NEW: signed URL upload widget
-      logo-upload.tsx                   ← NEW: signed URL upload widget
-      color-picker.tsx                  ← NEW: hex input + swatch preview
-      placeholder-section.tsx          ← NEW: coming-soon card for deferred sections
+    landing/
+      template-gallery.tsx               ← NEW: Client Component (filter state, card grid)
+      template-card.tsx                  ← NEW: shadcn Card with preview button
+      template-preview-modal.tsx         ← NEW: Dialog with mobile/desktop toggle
+      chat-wizard.tsx                    ← NEW: Client Component (message state, SSE consumer)
+      chat-message.tsx                   ← NEW: individual message bubble
+      prd-submission-form.tsx            ← NEW: final confirmation before submitting PRD
+    notifications/
+      notification-bell.tsx              ← NEW: header bell icon with badge (Client Component)
+      notification-item.tsx              ← NEW: single notification row
   lib/
-    trpc/
-      server.ts                         ← NEW: server-side caller factory for Server Components
+    templates/
+      registry.ts                        ← NEW: static template data (pure TS, no DB)
+      types.ts                           ← NEW: Template type definition
+    chat/
+      system-prompt.ts                   ← NEW: wizard system prompt builder
 
 packages/
   api/src/routers/
-    auth.ts                             ← MODIFY: add bio field to updateProfile input schema
-    schools.ts                          ← MODIFY: add updateSlug procedure
+    landing.ts                           ← NEW: requestPage, getStatus
+    notifications.ts                     ← NEW: list, markRead, markAllRead
   db/src/
-    schema.ts                           ← MODIFY: add bio text column to creators table
+    schema.ts                            ← MODIFY: add landing_page_requests + notifications tables
 ```
 
 ---
 
 ## Architectural Patterns
 
-### Pattern 1: Server Component loads, Client Component mutates
+### Pattern 1: Static registry for template data (no DB)
 
-Dashboard pages follow a consistent two-part pattern. The `page.tsx` is a Server Component that fetches initial data via a server-side tRPC caller (zero client roundtrip, no loading spinner). It passes the data as props to a Client Component form that handles mutations via the tRPC client hook.
+Template definitions are static configuration, not user data. They never change at runtime and require no CRUD. Store them as a typed TypeScript array in `lib/templates/registry.ts` and import directly into Server Components. This keeps the gallery page fast (no DB query, no loading state) and templates easy to expand.
 
 ```typescript
-// dashboard/school/page.tsx — Server Component
-import { createServerCaller } from '@/lib/trpc/server';
-import { SchoolSetupForm } from '@/components/dashboard/school-setup-form';
+// lib/templates/types.ts
+export type Template = {
+  id: string;
+  name: string;
+  category: 'fitness' | 'cooking' | 'business' | 'arts' | 'tech' | 'wellness';
+  thumbnailUrl: string;        // S3 or public static path
+  previewImageDesktop: string;
+  previewImageMobile: string;
+  description: string;
+  features: string[];          // bullet points shown in preview
+};
 
-export default async function SchoolPage() {
-  const caller = await createServerCaller();
-  const schools = await caller.schools.list();
-  return <SchoolSetupForm initialData={schools[0] ?? null} />;
+// lib/templates/registry.ts
+import type { Template } from './types';
+export const TEMPLATES: Template[] = [
+  { id: 'fitness-hero-1', name: 'Strong Start', category: 'fitness', ... },
+  { id: 'cooking-warm-1', name: 'Cocina Viva', category: 'cooking', ... },
+  // ...
+];
+```
+
+The gallery page passes `TEMPLATES` as props to the Client Component. The Client Component handles filter state locally with `useState` — no tRPC call needed.
+
+### Pattern 2: SSE streaming via native Next.js Route Handler (not tRPC)
+
+tRPC v10 does not support streaming responses — it serializes everything as JSON. LLM token streaming requires SSE. Use a native Next.js Route Handler at `app/api/chat/route.ts` alongside tRPC (they coexist at different URL paths).
+
+The route handler must use the **Node.js runtime** (not edge). Edge runtime has reduced API surface and streaming timeout constraints. Vercel Pro allows up to 60s serverless function duration — sufficient for a chat wizard exchange.
+
+The critical implementation rule: return the `Response` immediately and kick off async work inside the `ReadableStream`'s `start()` method. If you await inside the handler before returning, Next.js buffers everything and the client receives the full response at once.
+
+```typescript
+// app/api/chat/route.ts
+import Anthropic from '@anthropic-ai/sdk';
+
+export const dynamic = 'force-dynamic'; // prevents Vercel response caching
+
+export async function POST(req: Request) {
+  const { messages, schoolContext } = await req.json();
+  const client = new Anthropic();
+  const encoder = new TextEncoder();
+
+  const stream = new ReadableStream({
+    async start(controller) {
+      const anthropicStream = client.messages.stream({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1024,
+        system: buildWizardSystemPrompt(schoolContext),
+        messages,
+      });
+
+      anthropicStream.on('text', (text) => {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text })}\n\n`));
+      });
+
+      await anthropicStream.finalMessage();
+      controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+      controller.close();
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      'Content-Type': 'text/event-stream; charset=utf-8',
+      'Cache-Control': 'no-cache, no-transform',
+      'Connection': 'keep-alive',
+    },
+  });
 }
 ```
 
-```typescript
-// components/dashboard/school-setup-form.tsx — Client Component
-'use client';
-import { api } from '@/lib/trpc/client';
+The Client Component (`chat-wizard.tsx`) consumes this with the browser's native `EventSource` or a simple `fetch` + `ReadableStream` reader. No additional library needed.
 
-export function SchoolSetupForm({ initialData }) {
-  const createSchool = api.schools.create.useMutation();
-  const updateSchool = api.schools.update.useMutation();
-  // form submit routes to create or update based on initialData
-}
-```
+### Pattern 3: Multi-turn chat state management (client-side only during session)
 
-The `createServerCaller` helper builds `createTRPCContext` from the Supabase server client and calls `createCaller(ctx)` from `packages/api`. This is the standard pattern for RSC + tRPC; it already exists at the API layer, only the web-side helper is missing.
+Chat messages are **not persisted to DB during the conversation**. They live in `useState` in `chat-wizard.tsx`. Only the final extracted PRD JSON is persisted (via tRPC mutation `landing.requestPage`). This avoids a complex chat history table for a wizard that runs once per creator per milestone.
 
-### Pattern 2: Signed URL file uploads (bypass Vercel 4.5MB limit)
+The wizard ends when the LLM signals completion (e.g. returns a special sentinel token or a structured JSON block). The Client Component detects this, extracts the PRD JSON, and calls `api.landing.requestPage.useMutation` to persist the request with `status: 'pending'`.
 
-Next.js serverless functions have a hard 4.5MB body size limit. Routing file uploads through API routes or Server Actions fails for anything larger than a small image. Supabase Storage solves this with signed upload URLs: a Server Action generates the signed URL using the authenticated Supabase client, the browser uploads directly to Supabase Storage, then the returned public URL is saved to the database via a tRPC mutation.
+### Pattern 4: Notification delivery via DB polling (not SSE for now)
 
-```
-Creator selects file in upload widget
-  → Client calls Server Action: getSignedUploadUrl(path, bucket)
-  → Server Action: supabase.storage.from(bucket).createSignedUploadUrl(path)
-  → Returns { signedUrl, token, path }
-  → Browser: fetch(signedUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } })
-  → Browser: derives publicUrl from Supabase Storage URL pattern
-  → Browser: calls tRPC mutation to persist url (e.g. updateProfile or updateBranding)
-```
-
-File never passes through the Next.js serverless function. The Server Action only returns a URL string, well within size limits.
-
-### Pattern 3: Creator-scoped school ownership (existing — follow consistently)
-
-Every school query in `schools.ts` uses `and(eq(schools.id, input.id), eq(schools.creatorId, ctx.user.id))`. This is the multi-tenancy enforcement at the application layer. All new procedures must follow this exact pattern without exception. The database is accessed via Drizzle with the Supabase service role connection — Postgres RLS is not enforced for these queries — making the application-layer scope the only line of defense.
-
-**Rule:** Never query schools by ID alone. Always include `creatorId: ctx.user.id` in the WHERE clause.
-
-### Pattern 4: Separate updateSlug procedure
-
-The existing `schools.update` mutation deliberately excludes slug from its input schema. Slug changes have a separate concern (global uniqueness must exclude the current school). A new `updateSlug` procedure handles this:
+True SSE push notifications require a persistent server connection. On Vercel serverless, this hits function timeout limits and does not scale across multiple instances. For v1.2, use **DB polling** with a short interval (10s) via tRPC query:
 
 ```typescript
-updateSlug: protectedProcedure
-  .input(z.object({
-    id: z.string().uuid(),
-    slug: z.string().min(2).max(100).regex(/^[a-z0-9-]+$/),
-  }))
-  .mutation(async ({ ctx, input }) => {
-    // Check uniqueness excluding own slug
-    const conflict = await ctx.db.query.schools.findFirst({
-      where: and(eq(schools.slug, input.slug), ne(schools.id, input.id)),
-    });
-    if (conflict) throw new TRPCError({ code: 'CONFLICT', message: 'Slug already in use' });
-    // Update with creatorId scope
-    const [updated] = await ctx.db
-      .update(schools)
-      .set({ slug: input.slug, updatedAt: new Date() })
-      .where(and(eq(schools.id, input.id), eq(schools.creatorId, ctx.user.id)))
-      .returning();
-    if (!updated) throw new TRPCError({ code: 'NOT_FOUND' });
-    return updated;
-  })
+// components/notifications/notification-bell.tsx
+const { data } = api.notifications.list.useQuery(
+  { creatorId },
+  { refetchInterval: 10_000 } // poll every 10s
+);
 ```
+
+This is simpler, stateless, Vercel-compatible, and sufficient for the notification volume in v1.2 (a few status updates per creator). The SSE notifications route handler can be deferred to v1.3 if real-time push is needed.
+
+The `notifications` table stores all notifications. The bell component shows unread count from the query result. No SSE infrastructure needed.
+
+### Pattern 5: PRD as internal JSONB, not creator-visible
+
+The `landing_page_requests` table stores the PRD as a `jsonb` column (`prd_data`). The creator never sees raw PRD JSON — they see a status screen ("Solicitud enviada, te notificaremos cuando esté lista"). The PRD is for the 12ity team. An admin view (v1.3) will display it. No API exposure of `prd_data` to `protectedProcedure` callers.
 
 ---
 
 ## Data Flow
 
-### School Setup CRUD
+### Template Gallery Flow
 
 ```
-Creator opens /dashboard/school
-  → Server Component: createServerCaller().schools.list()
-  → If no school: render create flow
-  → If school exists: render SchoolSetupForm with current values
+Creator opens /dashboard/landing
+  → Server Component: check landing_page_requests for this creator
+  → If no request: render gallery entry point + "Start" CTA
+  → If request pending: render status card (waiting, in progress)
+  → If request complete: render preview/done state
 
-Creator submits name/description/language/timezone
-  → api.schools.update.useMutation → tRPC protectedProcedure
-  → Drizzle UPDATE where id = ? AND creator_id = ?
-  → Returns updated school → toast success
+Creator opens /dashboard/landing/templates
+  → Server Component: import TEMPLATES from registry (no DB call)
+  → Pass to TemplateGallery Client Component as props
+  → Client Component: useState for activeCategory filter
+  → Renders filtered grid of TemplateCards
 
-Creator changes slug
-  → api.schools.updateSlug.useMutation
-  → Server checks global uniqueness (excludes current school id)
-  → Returns updated or CONFLICT error → inline field error
+Creator clicks "Preview"
+  → TemplatePreviewModal opens (Dialog)
+  → Tabs: Mobile / Desktop toggle
+  → Image or iframe preview
+  → "Elegir este template" button
 
-Creator uploads logo
-  → Server Action: createSignedUploadUrl('school-assets', `${schoolId}/logo.png`)
-  → Browser PUT directly to Supabase Storage
-  → api.schools.updateBranding.useMutation({ branding: { ...current, logo: publicUrl } })
+Creator selects template
+  → navigate to /dashboard/landing/chat?templateId={id}
+  → templateId passed as searchParam, read in Server Component
 ```
 
-### Creator Profile CRUD
+### LLM Chat Wizard Flow
 
 ```
-Creator opens /dashboard/profile
-  → Server Component: createServerCaller().auth.me()
-  → ProfileForm rendered with current name, bio, avatarUrl
+Creator opens /dashboard/landing/chat?templateId=fitness-hero-1
+  → Server Component: fetch school data (name, description, branding)
+  → Pass school context + templateId to ChatWizard Client Component
 
-Creator updates name/bio
-  → api.auth.updateProfile.useMutation({ name, bio })
-  → Drizzle UPDATE creators WHERE id = ctx.user.id
+Creator answers wizard questions (multi-turn)
+  → ChatWizard: POST /api/chat with { messages, schoolContext }
+  → Route Handler: Anthropic SDK messages.stream()
+  → SSE chunks: data: {"text": "..."}\n\n
+  → ChatWizard: append streamed tokens to current assistant message in state
+  → On [DONE]: mark message complete
 
-Creator uploads avatar
-  → Server Action: createSignedUploadUrl('creator-assets', `${creatorId}/avatar.jpg`)
-  → Browser PUT directly to Supabase Storage
-  → api.auth.updateProfile.useMutation({ avatarUrl: publicUrl })
+LLM signals "chat complete" (structured JSON block or sentinel)
+  → ChatWizard: extracts PRD JSON from final message
+  → Renders PrdSubmissionForm: "Tu solicitud está lista — ¿Enviar?"
+  → Creator confirms
+
+Creator confirms
+  → api.landing.requestPage.useMutation({
+      schoolId,
+      templateId,
+      prdData: extractedPrd,
+      status: 'pending'
+    })
+  → tRPC: INSERT into landing_page_requests
+  → tRPC: INSERT into notifications (type: 'landing_request_received')
+  → navigate to /dashboard/landing (shows status card)
 ```
 
-### Dashboard Overview Stats
+### Notification Flow (polling)
 
 ```
-Creator opens /dashboard
-  → Server Component: createServerCaller().schools.list()
-  → schools.length shown as real count
-  → courses count: 0 (placeholder until router exists)
-  → students count: 0 (placeholder until router exists)
-  → Render stat cards — no loading state, data is server-fetched
+Background: admin marks request as 'completed' (future v1.3 admin panel)
+  → UPDATE landing_page_requests SET status = 'completed'
+  → INSERT notifications (creatorId, type: 'landing_page_ready', ...)
+
+Creator's dashboard (any page)
+  → NotificationBell: useQuery notifications.list refetchInterval=10s
+  → Detects new unread notification
+  → Badge count increments
+  → Creator clicks bell: dropdown shows "Tu landing page está lista"
+  → Creator clicks notification: api.notifications.markRead.useMutation
+  → navigate to /dashboard/landing (shows completed state)
+```
+
+---
+
+## New Database Tables
+
+### `landing_page_requests`
+
+```typescript
+export const landingPageRequests = pgTable('landing_page_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  schoolId: uuid('school_id')
+    .references(() => schools.id, { onDelete: 'cascade' })
+    .notNull(),
+  creatorId: uuid('creator_id')
+    .references(() => creators.id, { onDelete: 'cascade' })
+    .notNull(),
+  templateId: varchar('template_id', { length: 100 }).notNull(),
+  status: varchar('status', { length: 50 }).notNull().default('pending'),
+  // status values: 'pending' | 'in_progress' | 'completed' | 'rejected'
+  prdData: jsonb('prd_data').$type<Record<string, unknown>>(),
+  // Internal only — never exposed via protectedProcedure
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+```
+
+### `notifications`
+
+```typescript
+export const notifications = pgTable('notifications', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  creatorId: uuid('creator_id')
+    .references(() => creators.id, { onDelete: 'cascade' })
+    .notNull(),
+  type: varchar('type', { length: 100 }).notNull(),
+  // type values: 'landing_request_received' | 'landing_page_ready' | 'landing_rejected'
+  title: varchar('title', { length: 255 }).notNull(),
+  body: text('body'),
+  isRead: boolean('is_read').default(false),
+  actionUrl: varchar('action_url', { length: 500 }),
+  metadata: jsonb('metadata').$type<Record<string, unknown>>(),
+  createdAt: timestamp('created_at').defaultNow(),
+});
 ```
 
 ---
 
 ## Integration Points
 
-### What already exists (use as-is)
+### New components and their integration with existing architecture
 
-| Existing | Location | Notes |
-|----------|----------|-------|
-| `schools` table | `packages/db/src/schema.ts` | Fully defined: slug, branding JSONB, customDomain, language, timezone, stripeAccountId |
-| `schools.*` procedures | `packages/api/src/routers/schools.ts` | list, get, getBySlug, create, update, updateBranding, delete — all creatorId-scoped |
-| `auth.me` + `auth.updateProfile` | `packages/api/src/routers/auth.ts` | updateProfile accepts name, language, avatarUrl — bio column is missing from DB and input schema |
-| `(dashboard)/layout.tsx` | `apps/web` | Auth guard + creator upsert safety net. Do not modify. |
-| `DashboardShell` | `apps/web/app/(dashboard)/dashboard-shell.tsx` | Complete shell with sidebar/header/mobile. |
-| `Sidebar`, `Header`, `MobileNav` | `apps/web/components/dashboard/` | Sidebar needs School + Profile nav items. Header and MobileNav are complete. |
-| `createCaller` | `packages/api/src/root.ts` | Exported. Requires a Context object. Web layer needs a helper to build that context. |
+| New Item | Integrates With | How |
+|----------|----------------|-----|
+| `app/api/chat/route.ts` | Anthropic SDK (`@anthropic-ai/sdk`) | Server-side only, Node.js runtime, ANTHROPIC_API_KEY env var |
+| `app/api/chat/route.ts` | `apps/web/lib/supabase/server` | Auth check at start of handler — reject unauthenticated requests |
+| `packages/api/src/routers/landing.ts` | `landing_page_requests` table | tRPC `protectedProcedure` — creatorId from `ctx.user.id` |
+| `packages/api/src/routers/notifications.ts` | `notifications` table | tRPC `protectedProcedure` — always scoped to `ctx.user.id` |
+| `components/notifications/notification-bell.tsx` | `components/dashboard/header.tsx` | Added to header JSX alongside existing user menu |
+| `lib/templates/registry.ts` | `dashboard/landing/templates/page.tsx` | Direct import (no API, no DB) |
+| `chat-wizard.tsx` | `/api/chat` route handler | `fetch` + `ReadableStream` reader (native, no EventSource polyfill) |
 
-### What needs to be added or modified
+### What is NOT changed in existing architecture
 
-| Change | Target | Reason |
-|--------|--------|--------|
-| ADD `bio text` column | `creators` table in `schema.ts` + Drizzle migration | Creator profile requires bio. Column is absent from the table. |
-| MODIFY `auth.updateProfile` | Add `bio: z.string().max(500).optional().nullable()` to input | bio must be writable via tRPC |
-| ADD `schools.updateSlug` procedure | `packages/api/src/routers/schools.ts` | slug is intentionally excluded from `update`; needs separate uniqueness-safe procedure |
-| ADD `createServerCaller` helper | `apps/web/lib/trpc/server.ts` | Server Components need a typed caller. Avoids repeating context-building boilerplate in every page. |
-| ADD `storage.ts` Server Actions | `apps/web/app/actions/storage.ts` | `createSignedUploadUrl` must run server-side. Server Actions are the right boundary. |
-| ADD dashboard pages | `dashboard/school/`, `dashboard/school/branding/`, `dashboard/profile/`, `dashboard/courses/`, `dashboard/students/`, `dashboard/analytics/` | New routes for v1.1 |
-| ADD Client Component forms | `school-setup-form.tsx`, `branding-form.tsx`, `profile-form.tsx` | Mutation handlers for each settings area |
-| ADD upload widgets | `avatar-upload.tsx`, `logo-upload.tsx` | Signed URL upload flow components |
-| MODIFY `sidebar.tsx` | Add School and Profile entries to `navItems` | Currently only Dashboard and Schools (pointing to /dashboard/schools which does not exist yet). Update to match new routes. |
+| Existing | Status |
+|----------|--------|
+| `app/api/trpc/[trpc]/route.ts` | Unchanged — tRPC handler coexists with new `/api/chat` and `/api/notifications` |
+| `packages/api/src/root.ts` | Add two new routers (`landing`, `notifications`) to `appRouter` |
+| `(dashboard)/layout.tsx` | Unchanged — auth guard continues to protect all dashboard routes |
+| `packages/db/src/schema.ts` | Append two new tables — existing tables untouched |
+| `components/dashboard/sidebar.tsx` | Add "Landing Page" nav item pointing to `/dashboard/landing` |
+| AWS S3 upload pattern | Unchanged — template thumbnails hosted on S3 or public CDN |
 
-### File Upload Decision: Supabase Storage
+### Environment Variables Required (new)
 
-Use Supabase Storage. Do not add Vercel Blob.
-
-Rationale:
-1. Already on Supabase — no new vendor, no additional credentials, no separate billing surface.
-2. Signed upload URL pattern routes browser uploads directly to Supabase, bypassing Vercel's 4.5MB serverless body limit entirely.
-3. Supabase Storage supports files up to 5GB — more than sufficient for logos, favicons, and avatar images.
-4. Storage bucket policies can be RLS-secured using `auth.uid()` in a future security milestone, consistent with the rest of the Supabase stack.
-5. Vercel Blob has no advantage in this context and would require managing a second set of storage credentials.
-
-Storage bucket layout:
 ```
-creator-assets/   (private bucket — avatars are personal)
-  {creatorId}/avatar.{ext}
-
-school-assets/    (public bucket — logos and favicons are brand assets, not private data)
-  {schoolId}/logo.{ext}
-  {schoolId}/favicon.{ext}
+ANTHROPIC_API_KEY=sk-ant-...   # Only accessed server-side in app/api/chat/route.ts
 ```
 
-Client-side file size enforcement before requesting signed URL: logos and favicons capped at 2MB, avatars at 1MB. Enforce in the upload widget component before the Server Action call.
+Add to `packages/config/src/env.ts` as a server-only variable. Never expose to the client bundle.
 
-### Multi-Tenant Data Scoping
+---
 
-The existing schema enforces multi-tenancy at the application layer:
+## Build Order (dependency-driven)
 
-- `schools.creatorId` — every school belongs to one creator
-- `courses.schoolId` — courses are scoped to a school
-- `students.(schoolId, email)` unique constraint — same email can enroll in multiple schools but is a distinct student record per school
+Build in this order to avoid blocking on unfinished dependencies:
 
-For v1.1 (dashboard, school setup, creator profile), no new multi-tenancy concerns arise. The existing scoping pattern is sufficient.
+**Step 1 — DB schema + tRPC routers (unblocks everything)**
+- Add `landing_page_requests` + `notifications` tables to `packages/db/src/schema.ts`
+- Run `db:push`
+- Add `landing.ts` + `notifications.ts` routers
+- Register them in `packages/api/src/root.ts`
 
-Drizzle uses the Supabase service role connection string. Postgres RLS is not enforced for these queries. Application-layer `creatorId` scoping in tRPC procedures is the sole enforcement mechanism. This is a known deferred security item (SEC-V2-02 in PROJECT.md).
+**Step 2 — Template registry + gallery (no external deps, verifiable immediately)**
+- Create `lib/templates/registry.ts` with initial set of templates
+- Build `template-gallery.tsx`, `template-card.tsx`, `template-preview-modal.tsx`
+- Build `dashboard/landing/templates/page.tsx` (Server Component, passes static data)
+- This step can be completed and tested without Claude API or notifications
+
+**Step 3 — Chat route handler + wizard UI**
+- Add `ANTHROPIC_API_KEY` to env
+- Build `app/api/chat/route.ts` (auth check, SSE stream, Claude SDK)
+- Build `chat-wizard.tsx` (message state, fetch stream consumer)
+- Build `dashboard/landing/chat/page.tsx` (shell, passes school context)
+- Build `lib/chat/system-prompt.ts` (wizard prompt builder)
+
+**Step 4 — PRD submission + landing hub**
+- Build `prd-submission-form.tsx` (confirmation step at wizard end)
+- Connect wizard completion to `api.landing.requestPage.useMutation`
+- Build `dashboard/landing/page.tsx` (status-aware hub: gallery entry / pending / done)
+
+**Step 5 — Notifications**
+- Build `notifications.ts` tRPC router
+- Build `notification-bell.tsx` + `notification-item.tsx`
+- Wire `NotificationBell` into `header.tsx`
+- Notifications are inserted as side effects of `landing.requestPage` mutation
+
+---
+
+## Anti-Patterns
+
+### Anti-Pattern 1: Routing SSE through tRPC
+
+**What people do:** Try to add a tRPC subscription for streaming LLM tokens because everything else in the app uses tRPC.
+
+**Why it's wrong:** tRPC v10 serializes all responses as JSON. Subscriptions in v10 require WebSocket transport (`createWSClient`), which needs a persistent WebSocket server — incompatible with Vercel serverless. The tRPC SSE example repo targets tRPC v11 which has a different subscription model.
+
+**Do this instead:** Use a native Next.js Route Handler at `/api/chat/route.ts` alongside tRPC. Both coexist at different URL paths. tRPC handles all standard queries/mutations; the route handler handles streaming only.
+
+### Anti-Pattern 2: Persisting every chat message to DB
+
+**What people do:** Store each chat turn in a `chat_messages` table for history, analytics, or "resume" functionality.
+
+**Why it's wrong:** For a one-shot wizard (runs once per creator per milestone), this adds a table, a router, and ongoing storage for data that has no value after the PRD is extracted. It couples the chat UI to DB availability and makes the wizard stateful in a way that requires cleanup logic.
+
+**Do this instead:** Keep chat state in `useState` for the duration of the session. Only persist the final extracted PRD JSON to `landing_page_requests.prd_data`. If resumability becomes a requirement, introduce persistence then.
+
+### Anti-Pattern 3: Exposing prd_data via creator-facing tRPC procedure
+
+**What people do:** Include `prdData` in the `landing.getStatus` response so the frontend can display it.
+
+**Why it's wrong:** PRDs are internal documents containing structured team instructions. Exposing them to creators leaks implementation intent and invites confusion or gaming.
+
+**Do this instead:** `landing.getStatus` returns only `{ id, status, templateId, createdAt }`. A separate admin-only procedure (introduced in v1.3) exposes the full PRD.
+
+### Anti-Pattern 4: Using Edge Runtime for the chat route handler
+
+**What people do:** Add `export const runtime = 'edge'` to the chat route handler for lower latency global distribution.
+
+**Why it's wrong:** Edge runtime has a reduced Node.js API surface and streaming timeouts that are shorter than a full LLM response exchange. The Anthropic SDK uses Node.js-specific APIs that may not be available on the Edge. Vercel Pro's Node.js runtime with 60s timeout is sufficient.
+
+**Do this instead:** Leave the chat route handler on the default Node.js runtime (no `runtime` export needed). Only add `export const dynamic = 'force-dynamic'` to prevent Vercel from caching SSE responses.
+
+---
+
+## Scaling Considerations
+
+| Scale | Architecture Adjustments |
+|-------|--------------------------|
+| 0-500 creators | DB polling every 10s is fine. Single Anthropic API key. |
+| 500-5k creators | Add Upstash Redis queue for LLM requests to avoid API rate limits. Move notification delivery to background job (Cloudflare Worker already exists in monorepo). |
+| 5k+ creators | Introduce proper job queue (BullMQ or Cloudflare Queues). SSE push for notifications via Redis pub/sub across multiple instances. |
+
+For v1.2, the 0-500 creator range applies. No scaling infrastructure changes needed.
 
 ---
 
 ## Sources
 
-- Supabase Storage createSignedUploadUrl: https://supabase.com/docs/reference/javascript/storage-from-createsigneduploadurl
-- Supabase Storage uploadToSignedUrl: https://supabase.com/docs/reference/javascript/storage-from-uploadtosignedurl
-- Bypass Vercel 4.5MB body limit with Supabase direct upload: https://medium.com/@jpnreddy25/how-to-bypass-vercels-4-5mb-body-size-limit-for-serverless-functions-using-supabase-09610d8ca387
-- tRPC with Next.js App Router + React Server Components: https://trpc.io/docs/client/tanstack-react-query/server-components
-- Next.js App Router layouts and partial rendering: https://nextjs.org/docs/app/getting-started/layouts-and-pages
-- Supabase multi-tenant RLS patterns: https://supabase.com/docs/guides/database/postgres/row-level-security
-- MakerKit Drizzle + Supabase integration: https://makerkit.dev/docs/next-supabase-turbo/recipes/drizzle-supabase
+- Anthropic SDK TypeScript streaming: https://platform.claude.com/docs/en/build-with-claude/streaming
+- Upstash SSE + LLM streaming in Next.js: https://upstash.com/blog/sse-streaming-llm-responses
+- Next.js Route Handler streaming pattern: https://nextjs.org/docs/app/api-reference/file-conventions/route
+- Vercel streaming timeout limits: https://vercel.com/docs/functions/configuring-functions/duration
+- tRPC v10 subscriptions (WebSocket only): https://trpc.io/docs/server/subscriptions
+- tRPC v11 SSE subscriptions (not applicable — project is on v10): https://trpc.io/blog/announcing-trpc-v11
+- Next.js Route Handlers + App Router: https://nextjs.org/docs/app/building-your-application/routing/route-handlers
+
+---
+
+*Architecture research for: v1.2 — Template Gallery + LLM Chat + PRD Generation + Notifications*
+*Researched: 2026-04-02*
+*Previous version: v1.1 Creator Dashboard (2026-03-31)*

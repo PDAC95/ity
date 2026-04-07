@@ -2,12 +2,12 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Landing Page del Creador
-status: defining_requirements
+status: ready_to_plan
 stopped_at: —
-last_updated: "2026-04-02"
-last_activity: 2026-04-02 — Milestone v1.2 started
+last_updated: "2026-04-07"
+last_activity: 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 progress:
-  total_phases: 0
+  total_phases: 5
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-02)
 
 **Core value:** Creadores pueden lanzar su propia escuela online con marca propia — configuración, contenido y alumnos en un solo lugar.
-**Current focus:** v1.2 Landing Page del Creador — defining requirements
+**Current focus:** v1.2 Landing Page del Creador — ready to plan phases
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-04-02 — Milestone v1.2 started
+**Milestone:** v1.2 Landing Page del Creador
+**Phase:** 9 — DB Schema + tRPC Infrastructure (next to plan)
+**Status:** Ready to plan — run `/gsd:plan-phase 9`
+**Last activity:** 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 
 **Progress:** [██████████] 100%
 
