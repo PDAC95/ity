@@ -183,6 +183,6 @@ Plans:
 | 8. Creator Profile | v1.1 | 1/1 | Complete | 2026-04-01 |
 | 9. DB Schema + tRPC Infrastructure | 2/2 | Complete   | 2026-04-07 | — |
 | 10. Template Gallery | 2/2 | Complete    | 2026-04-08 | — |
-| 11. AI Chat Wizard | 2/2 | Complete   | 2026-04-08 | — |
+| 11. AI Chat Wizard | 2/2 | Complete    | 2026-04-08 | — |
 | 12. PRD Submission + Landing Hub | v1.2 | 0/? | Pending | — |
 | 13. Notifications | v1.2 | 0/? | Pending | — |
