@@ -23,6 +23,7 @@ const activeItems = [
   { href: '/dashboard', label: 'Inicio', icon: Home },
   { href: '/dashboard/school-setup', label: 'Configurar Escuela', icon: GraduationCap },
   { href: '/dashboard/profile', label: 'Mi Perfil', icon: User },
+  { href: '/dashboard/landing/templates', label: 'Mi Pagina Web', icon: Globe },
 ];
 
 const lockedItems = [
@@ -30,7 +31,6 @@ const lockedItems = [
   { label: 'Alumnos', icon: Users },
   { label: 'Metricas', icon: BarChart3 },
   { label: 'Equipo', icon: UserPlus },
-  { label: 'Dominio', icon: Globe },
 ];
 
 interface SidebarContentProps {
