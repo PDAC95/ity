@@ -32,6 +32,13 @@ export const callbackLimiter = new Ratelimit({
   analytics: false,
 });
 
+export const chatLimiter = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(10, '1 m'),
+  prefix: 'rl:chat',
+  analytics: false,
+});
+
 export function getClientIp(request: Request | NextRequest): string {
   const { headers } = request as { headers: Headers };
 
