@@ -15,11 +15,11 @@
 
 ### AI Chat Wizard (CHAT)
 
-- [ ] **CHAT-01**: Creator enters a guided chat after selecting a template
+- [x] **CHAT-01**: Creator enters a guided chat after selecting a template
 - [x] **CHAT-02**: Chat pre-fills context from existing school/creator data (name, bio, colors, description)
 - [x] **CHAT-03**: LLM asks structured questions about the school (offerings, audience, sections, images, tone)
 - [x] **CHAT-04**: LLM responses stream in real-time (token by token, not full-wait)
-- [ ] **CHAT-05**: Creator can upload images during chat (reuse ImageUploadWidget)
+- [x] **CHAT-05**: Creator can upload images during chat (reuse ImageUploadWidget)
 - [x] **CHAT-06**: Chat enforces a maximum turn count (15) server-side
 - [x] **CHAT-07**: Per-creator rate limiting on chat endpoint (Upstash Redis)
 
@@ -89,11 +89,11 @@
 | TMPL-03 | Phase 10 | Complete |
 | TMPL-04 | Phase 10 | Complete |
 | TMPL-05 | Phase 10 | Complete |
-| CHAT-01 | Phase 11 | Pending |
+| CHAT-01 | Phase 11 | Complete |
 | CHAT-02 | Phase 11 | Complete |
 | CHAT-03 | Phase 11 | Complete |
 | CHAT-04 | Phase 11 | Complete |
-| CHAT-05 | Phase 11 | Pending |
+| CHAT-05 | Phase 11 | Complete |
 | CHAT-06 | Phase 11 | Complete |
 | CHAT-07 | Phase 11 | Complete |
 | PRD-01 | Phase 12 | Pending |

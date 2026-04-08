@@ -104,7 +104,7 @@ See: `.planning/milestones/v1.1-ROADMAP.md` for full details.
 
 **Requirements:** CHAT-01, CHAT-02, CHAT-03, CHAT-04, CHAT-05, CHAT-06, CHAT-07, SEC-03
 
-**Plans:** 1/2 plans executed
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 11-P01-PLAN.md — Backend: AI SDK install, system prompt builder, chat route handler, rate limiter
@@ -183,6 +183,6 @@ Plans:
 | 8. Creator Profile | v1.1 | 1/1 | Complete | 2026-04-01 |
 | 9. DB Schema + tRPC Infrastructure | 2/2 | Complete   | 2026-04-07 | — |
 | 10. Template Gallery | 2/2 | Complete    | 2026-04-08 | — |
-| 11. AI Chat Wizard | 1/2 | In Progress|  | — |
+| 11. AI Chat Wizard | 2/2 | Complete   | 2026-04-08 | — |
 | 12. PRD Submission + Landing Hub | v1.2 | 0/? | Pending | — |
 | 13. Notifications | v1.2 | 0/? | Pending | — |
