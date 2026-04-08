@@ -11,7 +11,7 @@
 - [ ] **TMPL-02**: Creator can filter templates by category (multipurpose, yoga, cooking, etc.)
 - [ ] **TMPL-03**: Creator can preview a template in both desktop (1280px) and mobile (375px) views
 - [ ] **TMPL-04**: Creator can select a template to start the landing page request flow
-- [ ] **TMPL-05**: Dashboard sidebar shows "Mi Pagina Web" as active section (replaces placeholder)
+- [x] **TMPL-05**: Dashboard sidebar shows "Mi Pagina Web" as active section (replaces placeholder)
 
 ### AI Chat Wizard (CHAT)
 
@@ -43,8 +43,8 @@
 
 ### Security (SEC)
 
-- [ ] **SEC-01**: Template preview iframes use `sandbox` attribute (no parent navigation, no form submission)
-- [ ] **SEC-02**: Template preview URLs validated against server-side allowlist
+- [x] **SEC-01**: Template preview iframes use `sandbox` attribute (no parent navigation, no form submission)
+- [x] **SEC-02**: Template preview URLs validated against server-side allowlist
 - [ ] **SEC-03**: User input never interpolated into LLM system prompt (role separation enforced)
 - [ ] **SEC-04**: LLM output validated via Zod schema before any DB write
 - [x] **SEC-05**: Notifications scoped to creator via RLS or query-level filtering
@@ -88,7 +88,7 @@
 | TMPL-02 | Phase 10 | Pending |
 | TMPL-03 | Phase 10 | Pending |
 | TMPL-04 | Phase 10 | Pending |
-| TMPL-05 | Phase 10 | Pending |
+| TMPL-05 | Phase 10 | Complete |
 | CHAT-01 | Phase 11 | Pending |
 | CHAT-02 | Phase 11 | Pending |
 | CHAT-03 | Phase 11 | Pending |
@@ -108,8 +108,8 @@
 | NOTF-05 | Phase 13 | Complete |
 | NOTF-06 | Phase 13 | Pending |
 | NOTF-07 | Phase 13 | Complete |
-| SEC-01 | Phase 10 | Pending |
-| SEC-02 | Phase 10 | Pending |
+| SEC-01 | Phase 10 | Complete |
+| SEC-02 | Phase 10 | Complete |
 | SEC-03 | Phase 11 | Pending |
 | SEC-04 | Phase 12 | Pending |
 | SEC-05 | Phase 13 | Complete |

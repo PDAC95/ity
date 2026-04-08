@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: completed
-stopped_at: Phase 10 context gathered
-last_updated: "2026-04-07T21:00:10.941Z"
+stopped_at: Completed 10-template-gallery-P01-PLAN.md
+last_updated: "2026-04-08T13:48:52.231Z"
 last_activity: 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 progress:
   total_phases: 10
   completed_phases: 9
-  total_plans: 19
-  completed_plans: 19
-  percent: 100
+  total_plans: 21
+  completed_plans: 20
+  percent: 95
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 **Status:** Milestone complete
 **Last activity:** 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 
-**Progress:** [██████████] 100%
+**Progress:** [██████████] 95%
 
 ## Performance Metrics
 
@@ -62,6 +62,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 | Phase 08-creator-profile P01 | 6min | 2 tasks | 13 files |
 | Phase 09-db-schema-trpc-infrastructure P01 | 2min | 2 tasks | 2 files |
 | Phase 09-db-schema-trpc-infrastructure P02 | 2min | 2 tasks | 3 files |
+| Phase 10-template-gallery PP01 | 2 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,8 @@ Recent decisions affecting current work:
 - [Phase 09-db-schema-trpc-infrastructure]: Composite index notifications_creator_read_idx on (creatorId, isRead) covers the unreadCount query pattern
 - [Phase 09-db-schema-trpc-infrastructure]: getStatus uses Drizzle columns selector to exclude prdData/chatHistory — data leakage prevention at query level
 - [Phase 09-db-schema-trpc-infrastructure]: requestPage creates notifications row on draft->pending transition — NOTF-05 fulfilled in the same mutation
+- [Phase 10-template-gallery]: Static registry pattern: templates are pure TypeScript constants, no DB or tRPC
+- [Phase 10-template-gallery]: CSP frame-src scoped to /dashboard/landing/templates only to avoid breaking other pages
 
 ### Pending Todos
 
@@ -114,6 +117,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-07T21:00:10.938Z
-**Stopped at:** Phase 10 context gathered
+**Last session:** 2026-04-08T13:48:52.228Z
+**Stopped at:** Completed 10-template-gallery-P01-PLAN.md
 Resume file: None
