@@ -104,6 +104,12 @@ See: `.planning/milestones/v1.1-ROADMAP.md` for full details.
 
 **Requirements:** CHAT-01, CHAT-02, CHAT-03, CHAT-04, CHAT-05, CHAT-06, CHAT-07, SEC-03
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 11-P01-PLAN.md — Backend: AI SDK install, system prompt builder, chat route handler, rate limiter
+- [ ] 11-P02-PLAN.md — Frontend: Chat page RSC, chat wizard, message components, image upload, UX edge cases
+
 **Success criteria:**
 - [ ] Chat streams LLM responses token-by-token
 - [ ] System prompt includes school name, description, colors, creator bio
@@ -177,6 +183,6 @@ See: `.planning/milestones/v1.1-ROADMAP.md` for full details.
 | 8. Creator Profile | v1.1 | 1/1 | Complete | 2026-04-01 |
 | 9. DB Schema + tRPC Infrastructure | 2/2 | Complete   | 2026-04-07 | — |
 | 10. Template Gallery | 2/2 | Complete    | 2026-04-08 | — |
-| 11. AI Chat Wizard | v1.2 | 0/? | Pending | — |
+| 11. AI Chat Wizard | v1.2 | 0/2 | Planned | — |
 | 12. PRD Submission + Landing Hub | v1.2 | 0/? | Pending | — |
 | 13. Notifications | v1.2 | 0/? | Pending | — |
