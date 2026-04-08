@@ -78,6 +78,23 @@ export async function getSignedUploadUrl(
     if (schoolError || !school) {
       return { data: null, error: 'Forbidden: school not found or not owned by this user' };
     }
+  } else if (prefix === 'chat') {
+    // chat/{school_id}/{filename} — creator must own the school
+    const schoolId = segments[1];
+    if (!schoolId) {
+      return { data: null, error: 'Invalid path: missing school id' };
+    }
+
+    const { data: school, error: schoolError } = await supabase
+      .from('schools')
+      .select('id')
+      .eq('id', schoolId)
+      .eq('creator_id', user.id)
+      .single();
+
+    if (schoolError || !school) {
+      return { data: null, error: 'Forbidden: school not found or not owned by this user' };
+    }
   } else {
     return { data: null, error: 'Invalid path prefix' };
   }
