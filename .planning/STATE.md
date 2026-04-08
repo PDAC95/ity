@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: completed
-stopped_at: Phase 11 context gathered
-last_updated: "2026-04-08T17:11:12.999Z"
+stopped_at: Completed 11-ai-chat-wizard-P01-PLAN.md
+last_updated: "2026-04-08T17:45:34.039Z"
 last_activity: 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 progress:
   total_phases: 11
   completed_phases: 10
-  total_plans: 21
-  completed_plans: 21
-  percent: 95
+  total_plans: 23
+  completed_plans: 22
+  percent: 96
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 **Status:** Milestone complete
 **Last activity:** 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 
-**Progress:** [██████████] 95%
+**Progress:** [██████████] 96%
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 | Phase 09-db-schema-trpc-infrastructure P01 | 2min | 2 tasks | 2 files |
 | Phase 09-db-schema-trpc-infrastructure P02 | 2min | 2 tasks | 3 files |
 | Phase 10-template-gallery PP01 | 2 | 2 tasks | 3 files |
+| Phase 11-ai-chat-wizard PP01 | 6min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,9 @@ Recent decisions affecting current work:
 - [Phase 09-db-schema-trpc-infrastructure]: requestPage creates notifications row on draft->pending transition — NOTF-05 fulfilled in the same mutation
 - [Phase 10-template-gallery]: Static registry pattern: templates are pure TypeScript constants, no DB or tRPC
 - [Phase 10-template-gallery]: CSP frame-src scoped to /dashboard/landing/templates only to avoid breaking other pages
+- [Phase 11-ai-chat-wizard]: drizzle-orm re-exported from @ity/db to prevent dual-instance type errors in workspace packages
+- [Phase 11-ai-chat-wizard]: chatLimiter keyed on creator ID (user.id) not IP for consistent per-creator rate limiting
+- [Phase 11-ai-chat-wizard]: AI SDK v6: maxOutputTokens (not maxTokens), UIMessage.parts (not .content), model slug uses dots not hyphens
 
 ### Pending Todos
 
@@ -117,6 +121,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-08T17:11:12.990Z
-**Stopped at:** Phase 11 context gathered
+**Last session:** 2026-04-08T17:45:34.036Z
+**Stopped at:** Completed 11-ai-chat-wizard-P01-PLAN.md
 Resume file: None

@@ -7,21 +7,21 @@
 
 ### Template Gallery (TMPL)
 
-- [ ] **TMPL-01**: Creator can browse a gallery of landing page templates with visual thumbnails
-- [ ] **TMPL-02**: Creator can filter templates by category (multipurpose, yoga, cooking, etc.)
-- [ ] **TMPL-03**: Creator can preview a template in both desktop (1280px) and mobile (375px) views
-- [ ] **TMPL-04**: Creator can select a template to start the landing page request flow
+- [x] **TMPL-01**: Creator can browse a gallery of landing page templates with visual thumbnails
+- [x] **TMPL-02**: Creator can filter templates by category (multipurpose, yoga, cooking, etc.)
+- [x] **TMPL-03**: Creator can preview a template in both desktop (1280px) and mobile (375px) views
+- [x] **TMPL-04**: Creator can select a template to start the landing page request flow
 - [x] **TMPL-05**: Dashboard sidebar shows "Mi Pagina Web" as active section (replaces placeholder)
 
 ### AI Chat Wizard (CHAT)
 
 - [ ] **CHAT-01**: Creator enters a guided chat after selecting a template
-- [ ] **CHAT-02**: Chat pre-fills context from existing school/creator data (name, bio, colors, description)
-- [ ] **CHAT-03**: LLM asks structured questions about the school (offerings, audience, sections, images, tone)
-- [ ] **CHAT-04**: LLM responses stream in real-time (token by token, not full-wait)
+- [x] **CHAT-02**: Chat pre-fills context from existing school/creator data (name, bio, colors, description)
+- [x] **CHAT-03**: LLM asks structured questions about the school (offerings, audience, sections, images, tone)
+- [x] **CHAT-04**: LLM responses stream in real-time (token by token, not full-wait)
 - [ ] **CHAT-05**: Creator can upload images during chat (reuse ImageUploadWidget)
-- [ ] **CHAT-06**: Chat enforces a maximum turn count (15) server-side
-- [ ] **CHAT-07**: Per-creator rate limiting on chat endpoint (Upstash Redis)
+- [x] **CHAT-06**: Chat enforces a maximum turn count (15) server-side
+- [x] **CHAT-07**: Per-creator rate limiting on chat endpoint (Upstash Redis)
 
 ### PRD Generation (PRD)
 
@@ -45,7 +45,7 @@
 
 - [x] **SEC-01**: Template preview iframes use `sandbox` attribute (no parent navigation, no form submission)
 - [x] **SEC-02**: Template preview URLs validated against server-side allowlist
-- [ ] **SEC-03**: User input never interpolated into LLM system prompt (role separation enforced)
+- [x] **SEC-03**: User input never interpolated into LLM system prompt (role separation enforced)
 - [ ] **SEC-04**: LLM output validated via Zod schema before any DB write
 - [x] **SEC-05**: Notifications scoped to creator via RLS or query-level filtering
 
@@ -84,18 +84,18 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TMPL-01 | Phase 10 | Pending |
-| TMPL-02 | Phase 10 | Pending |
-| TMPL-03 | Phase 10 | Pending |
-| TMPL-04 | Phase 10 | Pending |
+| TMPL-01 | Phase 10 | Complete |
+| TMPL-02 | Phase 10 | Complete |
+| TMPL-03 | Phase 10 | Complete |
+| TMPL-04 | Phase 10 | Complete |
 | TMPL-05 | Phase 10 | Complete |
 | CHAT-01 | Phase 11 | Pending |
-| CHAT-02 | Phase 11 | Pending |
-| CHAT-03 | Phase 11 | Pending |
-| CHAT-04 | Phase 11 | Pending |
+| CHAT-02 | Phase 11 | Complete |
+| CHAT-03 | Phase 11 | Complete |
+| CHAT-04 | Phase 11 | Complete |
 | CHAT-05 | Phase 11 | Pending |
-| CHAT-06 | Phase 11 | Pending |
-| CHAT-07 | Phase 11 | Pending |
+| CHAT-06 | Phase 11 | Complete |
+| CHAT-07 | Phase 11 | Complete |
 | PRD-01 | Phase 12 | Pending |
 | PRD-02 | Phase 12 | Pending |
 | PRD-03 | Phase 12 | Pending |
@@ -110,7 +110,7 @@
 | NOTF-07 | Phase 13 | Complete |
 | SEC-01 | Phase 10 | Complete |
 | SEC-02 | Phase 10 | Complete |
-| SEC-03 | Phase 11 | Pending |
+| SEC-03 | Phase 11 | Complete |
 | SEC-04 | Phase 12 | Pending |
 | SEC-05 | Phase 13 | Complete |
 
