@@ -1,0 +1,11 @@
+// Landing page styles — imported ONLY by LandingPage client component
+// Scoped to landing page route only (not imported in root layout)
+
+// Third-party CSS
+@import "swiper/css/bundle";
+@import "../public/assets/css/plugins/bootstrap.min.css";
+@import "../public/assets/css/plugins/fontawesome.min.css";
+@import "../public/assets/css/plugins/lightgallery.min.css";
+
+// Vixan main styles
+@import "../public/assets/sass/style.scss";
