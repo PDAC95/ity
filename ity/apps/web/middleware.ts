@@ -21,10 +21,10 @@ export async function middleware(request: NextRequest) {
 
   const authPages = ['/login', '/register', '/forgot-password'];
   const isAuthPage = authPages.some((p) => pathname.startsWith(p));
-  const isDashboard = pathname.startsWith('/dashboard');
+  const isDashboard = pathname.startsWith('/a');
 
   if (user && isAuthPage) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(new URL('/a', request.url));
   }
 
   if (!user && isDashboard) {

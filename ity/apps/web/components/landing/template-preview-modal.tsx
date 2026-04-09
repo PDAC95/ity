@@ -91,7 +91,7 @@ export function TemplatePreviewModal({
   }
 
   function handleChoose() {
-    router.push(`/dashboard/landing/chat?templateId=${template!.id}`);
+    router.push(`/a/landing/chat?templateId=${template!.id}`);
   }
 
   // Mobile scale calculation: scale down to fit container width, never upscale

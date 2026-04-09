@@ -16,7 +16,7 @@ export default async function ChatPage({ searchParams }: ChatPageProps) {
 
   // Redirect if no templateId
   if (!templateId) {
-    redirect('/dashboard/landing/templates');
+    redirect('/a/landing/templates');
   }
 
   // Auth check
@@ -43,7 +43,7 @@ export default async function ChatPage({ searchParams }: ChatPageProps) {
 
   // Redirect if no school
   if (!school) {
-    redirect('/dashboard/school-setup');
+    redirect('/a/school-setup');
   }
 
   const creatorName = creator?.name ?? user.email?.split('@')[0] ?? 'Creator';

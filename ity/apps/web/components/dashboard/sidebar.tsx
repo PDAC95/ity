@@ -20,10 +20,10 @@ import { getAvatarColor, getInitials } from '@/lib/utils/avatar';
 import type { CreatorData, SchoolData } from '@/app/(dashboard)/dashboard-shell';
 
 const activeItems = [
-  { href: '/dashboard', label: 'Inicio', icon: Home },
-  { href: '/dashboard/school-setup', label: 'Configurar Escuela', icon: GraduationCap },
-  { href: '/dashboard/profile', label: 'Mi Perfil', icon: User },
-  { href: '/dashboard/landing/templates', label: 'Mi Pagina Web', icon: Globe },
+  { href: '/a', label: 'Inicio', icon: Home },
+  { href: '/a/school-setup', label: 'Configurar Escuela', icon: GraduationCap },
+  { href: '/a/profile', label: 'Mi Perfil', icon: User },
+  { href: '/a/landing/templates', label: 'Mi Pagina Web', icon: Globe },
 ];
 
 const lockedItems = [
@@ -45,7 +45,7 @@ export function SidebarContent({ creator, school, onNavigate }: SidebarContentPr
   const supabase = createClient();
 
   const isActive = (href: string) => {
-    if (href === '/dashboard') return pathname === '/dashboard';
+    if (href === '/a') return pathname === '/a';
     return pathname.startsWith(href);
   };
 
@@ -100,7 +100,7 @@ export function SidebarContent({ creator, school, onNavigate }: SidebarContentPr
           return (
             <Link
               key={item.label}
-              href="/dashboard/coming-soon"
+              href="/a/coming-soon"
               onClick={onNavigate}
               className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-zinc-500 opacity-50 transition-colors hover:opacity-70"
             >

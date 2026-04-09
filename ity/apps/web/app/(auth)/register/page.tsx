@@ -33,7 +33,7 @@ export default function RegisterPage() {
         password: data.password,
         options: {
           data: { full_name: data.name },
-          emailRedirectTo: `${siteUrl}/auth/confirm?next=/dashboard`,
+          emailRedirectTo: `${siteUrl}/auth/confirm?next=/a`,
         },
       });
 

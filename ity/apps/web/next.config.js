@@ -17,7 +17,7 @@ const nextConfig = {
     return [
       {
         // CSP scoped to templates page only — restricts iframe sources (SEC-02)
-        source: '/dashboard/landing/templates',
+        source: '/a/landing/templates',
         headers: [
           {
             key: 'Content-Security-Policy',

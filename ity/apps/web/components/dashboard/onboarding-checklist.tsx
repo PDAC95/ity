@@ -21,19 +21,19 @@ export function OnboardingChecklist({
       id: 'school',
       label: 'Nombre de escuela',
       done: hasSchool,
-      href: '/dashboard/school-setup',
+      href: '/a/school-setup',
     },
     {
       id: 'logo',
       label: 'Logo de escuela',
       done: hasSchoolLogo,
-      href: '/dashboard/school-setup',
+      href: '/a/school-setup',
     },
     {
       id: 'profile',
       label: 'Completar perfil',
       done: hasAvatar,
-      href: '/dashboard/profile',
+      href: '/a/profile',
     },
   ];
 

@@ -10,10 +10,10 @@ import { getAvatarColor, getInitials } from '@/lib/utils/avatar';
 import type { CreatorData } from '@/app/(dashboard)/dashboard-shell';
 
 const SECTION_TITLES: Record<string, string> = {
-  '/dashboard': 'Inicio',
-  '/dashboard/school-setup': 'Configurar Escuela',
-  '/dashboard/profile': 'Mi Perfil',
-  '/dashboard/coming-soon': 'Proximamente',
+  '/a': 'Inicio',
+  '/a/school-setup': 'Configurar Escuela',
+  '/a/profile': 'Mi Perfil',
+  '/a/coming-soon': 'Proximamente',
 };
 
 interface HeaderProps {
@@ -102,7 +102,7 @@ export function Header({ creator, onMenuClick }: HeaderProps) {
               </div>
 
               <Link
-                href="/dashboard/profile"
+                href="/a/profile"
                 onClick={() => setDropdownOpen(false)}
                 className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 transition-colors hover:bg-zinc-700/50"
               >
