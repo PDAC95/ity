@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 **Milestone:** v1.2 Landing Page del Creador
 **Phase:** 9 — DB Schema + tRPC Infrastructure (next to plan)
 **Status:** Milestone complete
-**Last activity:** 2026-04-07 — Requirements + roadmap defined (phases 9-13)
+**Last activity:** 2026-04-09 - Completed quick task 1: Landing page login redirect + dashboard routes /a/*
 
 **Progress:** [██████████] 100%
 
@@ -124,6 +124,12 @@ None.
 - [Phase 7 prerequisite]: Verify `schools.slug` UNIQUE constraint exists in Drizzle migration before building slug form — if missing, add it first.
 - [Phase 7 research flag]: `createServerCaller` helper for RSC + tRPC in Next.js 14 App Router must be verified against current tRPC 10 docs for exact context shape.
 - [Phase 6 research flag]: Supabase Storage RLS policy SQL syntax for `storage.objects` table — verify against current docs, not older blog posts.
+
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 1 | Landing page login redirect + dashboard routes /a/* | 2026-04-09 | cceec10 | [1-landing-page-con-login-redirect-a-app-au](./quick/1-landing-page-con-login-redirect-a-app-au/) |
 
 ## Session Continuity
 
