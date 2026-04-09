@@ -130,9 +130,10 @@ None.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 1 | Landing page login redirect + dashboard routes /a/* | 2026-04-09 | cceec10 | [1-landing-page-con-login-redirect-a-app-au](./quick/1-landing-page-con-login-redirect-a-app-au/) |
+| 2 | Port Vixan landing page to ITY with GSAP animations | 2026-04-09 | edd4a5e | [2-portar-landing-page-vixan-a-ity-reemplaz](./quick/2-portar-landing-page-vixan-a-ity-reemplaz/) |
 
 ## Session Continuity
 
-**Last session:** 2026-04-09T18:02:40.121Z
-**Stopped at:** Completed quick task 1: rename dashboard routes to /a/*
+**Last session:** 2026-04-09T19:52:42Z
+**Stopped at:** Completed quick task 2: port Vixan landing page to ITY
 Resume file: None
