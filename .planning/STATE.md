@@ -3,11 +3,11 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: completed
-stopped_at: Completed 11-ai-chat-wizard-P02-PLAN.md
-last_updated: "2026-04-08T17:59:54.406Z"
+stopped_at: "Completed quick task 1: rename dashboard routes to /a/*"
+last_updated: "2026-04-09T18:02:47.139Z"
 last_activity: 2026-04-07 — Requirements + roadmap defined (phases 9-13)
 progress:
-  total_phases: 11
+  total_phases: 12
   completed_phases: 11
   total_plans: 23
   completed_plans: 23
@@ -112,6 +112,7 @@ Recent decisions affecting current work:
 - [Phase 11-ai-chat-wizard]: UIMessage in AI SDK v6 has no createdAt field — type only has id, role, metadata, parts
 - [Phase 11-ai-chat-wizard]: useChat ChatInit option is messages (not initialMessages) — matches ChatInit interface
 - [Phase 11-ai-chat-wizard]: Storage action chat/ prefix: same S3 presigned URL pattern as schools/ but for chat image uploads
+- [Phase quick-1]: Dashboard routes use /a/* prefix instead of /dashboard/* — shorter URLs matching app.ity.com domain plan
 
 ### Pending Todos
 
@@ -126,6 +127,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-08T17:55:43.588Z
-**Stopped at:** Completed 11-ai-chat-wizard-P02-PLAN.md
+**Last session:** 2026-04-09T18:02:40.121Z
+**Stopped at:** Completed quick task 1: rename dashboard routes to /a/*
 Resume file: None
