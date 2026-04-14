@@ -1,11 +1,11 @@
-// Landing page styles — imported ONLY by LandingPage client component
-// Scoped to landing page route only (not imported in root layout)
+// Landing page styles — scoped to .vixan-landing wrapper
+// Next.js bundles all client component CSS globally, so we scope here
+// to prevent landing styles from bleeding into dashboard routes (/a, etc.)
 
-// Third-party CSS
-@import "swiper/css/bundle";
-@import "../public/assets/css/plugins/bootstrap.min.css";
-@import "../public/assets/css/plugins/fontawesome.min.css";
-@import "../public/assets/css/plugins/lightgallery.min.css";
-
-// Vixan main styles
-@import "../public/assets/sass/style.scss";
+.vixan-landing {
+  @import "swiper/css/bundle";
+  @import "../public/assets/css/plugins/bootstrap.min.css";
+  @import "../public/assets/css/plugins/fontawesome.min.css";
+  @import "../public/assets/css/plugins/lightgallery.min.css";
+  @import "../public/assets/sass/style.scss";
+}
