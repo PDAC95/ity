@@ -131,9 +131,10 @@ None.
 |---|-------------|------|--------|-----------|
 | 1 | Landing page login redirect + dashboard routes /a/* | 2026-04-09 | cceec10 | [1-landing-page-con-login-redirect-a-app-au](./quick/1-landing-page-con-login-redirect-a-app-au/) |
 | 2 | Port Vixan landing page to ITY with GSAP animations | 2026-04-09 | edd4a5e | [2-portar-landing-page-vixan-a-ity-reemplaz](./quick/2-portar-landing-page-vixan-a-ity-reemplaz/) |
+| 3 | Fix blank screen on /a route — scope landing CSS under .vixan-landing | 2026-04-14 | 46f2c48 | [3-fix-blank-screen-on-a-route-gsap-target-](./quick/3-fix-blank-screen-on-a-route-gsap-target-/) |
 
 ## Session Continuity
 
-**Last session:** 2026-04-09T19:52:42Z
-**Stopped at:** Completed quick task 2: port Vixan landing page to ITY
+**Last session:** 2026-04-14T00:00:00Z
+**Stopped at:** Completed quick task 3: fix blank screen on /a route — CSS scoping
 Resume file: None
