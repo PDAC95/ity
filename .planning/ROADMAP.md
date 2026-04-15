@@ -119,6 +119,30 @@ Plans:
 
 ---
 
+#### Phase 11.5: UI Refinement (inserted)
+
+**Goal:** Refinar toda la interfaz para que se vea profesional, consistente y moderna. El frontend actual tiene un estilo muy basico que no transmite confianza como producto SaaS.
+
+**Why now:** Phase 11 UAT revelo problemas serios de UI. Antes de construir Phase 12 necesitamos un frontend que se vea como producto real.
+
+**Delivers:**
+- Tema dark unificado en toda la app (auth, dashboard, chat)
+- Chat wizard rediseñado: header con contexto, indicador de progreso, mensajes premium
+- Sistema de tipografia consistente con escala definida
+- Form validation UX mejorada (inline errors, success states)
+- Dashboard shell pulido (sidebar, header, layout)
+- Profile y School Setup forms refinados
+- Template gallery cards y modal pulidos
+
+**Success criteria:**
+- [ ] Tema unificado dark en toda la app
+- [ ] Chat wizard se siente como producto premium
+- [ ] Formularios tienen feedback visual claro
+- [ ] Tipografia consistente
+- [ ] El usuario siente que usa un producto real, no un prototipo
+
+---
+
 #### Phase 12: PRD Submission + Landing Hub
 
 **Goal:** Chat generates a validated PRD, creator confirms, and sees status in dashboard.
@@ -184,5 +208,6 @@ Plans:
 | 9. DB Schema + tRPC Infrastructure | 2/2 | Complete   | 2026-04-07 | — |
 | 10. Template Gallery | 2/2 | Complete    | 2026-04-08 | — |
 | 11. AI Chat Wizard | 2/2 | Complete    | 2026-04-08 | — |
+| 11.5 UI Refinement | v1.2 | 0/? | **Next** | — |
 | 12. PRD Submission + Landing Hub | v1.2 | 0/? | Pending | — |
 | 13. Notifications | v1.2 | 0/? | Pending | — |

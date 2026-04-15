@@ -5,7 +5,7 @@ import React from 'react';
 const VideoSection = () => {
   return (
     <>
-      <div className="container">
+      <div id="video" className="container">
         <div className="cs_parallax">
           <a
             className="cs_video_block cs_style1 cs_video_open cs_bg cs_parallax_bg"

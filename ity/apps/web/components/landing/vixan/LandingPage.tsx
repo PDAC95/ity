@@ -3,6 +3,7 @@
 import '@/styles/landing.scss';
 
 import React from 'react';
+import LandingI18nProvider from './i18n/LandingI18nProvider';
 import Wrapper from './Wrapper';
 import HeaderOne from './HeaderOne';
 import HeroHomeOne from './HeroHomeOne';
@@ -20,6 +21,7 @@ import FooterOne from './FooterOne';
 
 const LandingPage = () => {
   return (
+    <LandingI18nProvider>
     <div className="vixan-landing">
       {/* Google Fonts for landing page only */}
       {/* eslint-disable-next-line @next/next/no-page-custom-font */}
@@ -49,6 +51,7 @@ const LandingPage = () => {
         </div>
       </Wrapper>
     </div>
+    </LandingI18nProvider>
   );
 };
 

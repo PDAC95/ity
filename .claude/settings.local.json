@@ -37,7 +37,15 @@
       "mcp__playwright__browser_close",
       "Bash(npm install:*)",
       "mcp__filesystem__read_text_file",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(ls -1 .planning/phases/11.5-ui-refinement/*-CONTEXT.md)",
+      "Bash(ls -1 .planning/phases/11.5-ui-refinement/*-PLAN.md)",
+      "Bash(ls -1 .planning/phases/11.5-ui-refinement/*-SUMMARY.md)",
+      "Bash(ls -1 .planning/phases/11.5-ui-refinement/*-UAT.md)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs summary-extract .planning/phases/11-ai-chat-wizard/11-P02-SUMMARY.md --fields one_liner)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs summary-extract .planning/phases/11-ai-chat-wizard/11-P01-SUMMARY.md --fields one_liner)",
+      "Bash(ls .planning/debug/*.md)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs list-todos)"
     ]
   }
 }

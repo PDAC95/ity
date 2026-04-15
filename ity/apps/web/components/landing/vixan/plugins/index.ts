@@ -1,8 +1,8 @@
 // @ts-nocheck
 'use client';
 
-// GSAP core from npm — plugins from custom builds in public/assets/plugins/
-// These UMD plugins register themselves with the global gsap instance
+// GSAP plugins loader
+// Custom UMD plugins require window.gsap before they self-register.
 
 let ScrollTrigger: any;
 let ScrollSmoother: any;
@@ -10,20 +10,22 @@ let ScrollToPlugin: any;
 let SplitText: any;
 
 if (typeof window !== 'undefined') {
-  // Make gsap available globally for the UMD plugins
+  // 1. Set window.gsap from npm gsap
   const gsapModule = require('gsap');
   window.gsap = gsapModule.gsap || gsapModule.default || gsapModule;
 
-  // Load UMD plugins — they self-register with window.gsap
-  require('../../../../public/assets/plugins/gsap-scroll-trigger.js');
-  require('../../../../public/assets/plugins/gsap-scroll-smoother.js');
-  require('../../../../public/assets/plugins/gsap-scroll-to-plugin.js');
-  require('../../../../public/assets/plugins/gsap-split-text.js');
+  // 2. Load UMD plugins — in CJS mode they export directly
+  const stModule = require('./gsap/gsap-scroll-trigger.js');
+  ScrollTrigger = stModule.ScrollTrigger || stModule.default;
 
-  ScrollTrigger = window.ScrollTrigger;
-  ScrollSmoother = window.ScrollSmoother;
-  ScrollToPlugin = window.ScrollToPlugin;
-  SplitText = window.SplitText;
+  const ssModule = require('./gsap/gsap-scroll-smoother.js');
+  ScrollSmoother = ssModule.ScrollSmoother || ssModule.default;
+
+  const stpModule = require('./gsap/gsap-scroll-to-plugin.js');
+  ScrollToPlugin = stpModule.ScrollToPlugin || stpModule.default;
+
+  const splitModule = require('./gsap/gsap-split-text.js');
+  SplitText = splitModule.SplitText || splitModule.default;
 }
 
 export { ScrollTrigger, ScrollSmoother, ScrollToPlugin, SplitText };

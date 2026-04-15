@@ -56,14 +56,14 @@ const buttonAnimation = async () => {
           gsap.to(target, 0.5, {
             x: ((relX - $this.width() / 2) / $this.width()) * movement,
             y: ((relY - $this.height() / 2) / $this.height()) * movement,
-            ease: Power2.easeOut,
+            ease: "power2.out",
           });
         }
         $(btn).on('mouseleave', function (e) {
           gsap.to(all_btn_cirlce[i], 0.5, {
             x: 0,
             y: 0,
-            ease: Power2.easeOut,
+            ease: "power2.out",
           });
         });
       });

@@ -28,11 +28,25 @@
       "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs init plan-phase \"6\")",
       "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs roadmap get-phase \"6\")",
       "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs commit \"docs\\(07\\): capture phase context\" --files \".planning/phases/07-school-setup/07-CONTEXT.md\")",
-      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state record-session --stopped-at \"Phase 7 context gathered\" --resume-file \".planning/phases/07-school-setup/07-CONTEXT.md\")"
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs state record-session --stopped-at \"Phase 7 context gathered\" --resume-file \".planning/phases/07-school-setup/07-CONTEXT.md\")",
+      "Bash(pnpm tsc:*)",
+      "Bash(pnpm exec:*)",
+      "Bash(xargs wc:*)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs milestone complete \"v1.1\" --name \"Creator Dashboard\")",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs commit \"docs: add v1.2 landing page creator design spec\" --files docs/superpowers/specs/2026-04-02-v1.2-landing-page-creator-design.md)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs init new-milestone)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs config-set workflow.research true)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs websearch \"ai sdk vercel anthropic streaming version 2026\" --limit 5)",
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs resolve-library \"ai\")",
+      "WebFetch(domain:upstash.com)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(npm show:*)",
+      "WebFetch(domain:ai-sdk.dev)"
     ],
     "additionalDirectories": [
       "c:\\dev\\12ity\\.planning\\phases",
-      "C:\\dev\\12ity\\.planning\\phases"
+      "C:\\dev\\12ity\\.planning\\phases",
+      "c:\\dev\\12ity\\docs\\superpowers"
     ]
   }
 }

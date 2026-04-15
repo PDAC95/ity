@@ -43,7 +43,7 @@ const menu_data: MenuItem[] = [
   {
     id: 5,
     title: 'Iniciar Sesion',
-    link: '/auth/login',
+    link: '/login',
     has_dropdown: false,
   },
 ];

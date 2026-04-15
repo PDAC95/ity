@@ -2,8 +2,11 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useLandingI18n } from './i18n/LandingI18nProvider';
 
 const SubscribeSection = () => {
+  const { t } = useLandingI18n();
+
   return (
     <>
       <div className="container">
@@ -39,18 +42,18 @@ const SubscribeSection = () => {
           <div className="cs_section_heading cs_style_1 cs_color_1 text-center">
             <div className="cs_section_heading_text">
               <h2 className="cs_section_title anim_text_upanddowns">
-                Comienza tu Escuela Online <br />Hoy Mismo
+                {t('cta.title')}
               </h2>
             </div>
           </div>
           <div className="cs_height_70 cs_height_lg_40"></div>
           <div className="text-center">
             <Link
-              href="/auth/register"
+              href="/register"
               className="cs_btn cs_style_1 cs_color_1"
               style={{ display: 'inline-flex', fontSize: '18px', padding: '15px 40px' }}
             >
-              <span>Crear mi Escuela Gratis</span>
+              <span>{t('cta.button')}</span>
               <svg
                 width="19"
                 height="13"

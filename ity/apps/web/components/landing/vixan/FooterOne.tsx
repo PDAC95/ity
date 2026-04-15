@@ -2,31 +2,21 @@
 
 import React from 'react';
 import Link from 'next/link';
-
-interface FooterData {
-  email: string;
-  footer_info: string;
-  links: {
-    title: string;
-    link: string;
-  }[];
-}
-
-const footer_data: FooterData = {
-  email: 'hola@12ity.com',
-  footer_info:
-    'La plataforma mas simple para crear tu escuela online. Monetiza tu conocimiento con tu propia marca, sin comisiones por venta.',
-  links: [
-    { title: 'INICIO', link: '/' },
-    { title: 'FUNCIONES', link: '#services' },
-    { title: 'TESTIMONIOS', link: '#testimonials' },
-    { title: 'INICIAR SESION', link: '/auth/login' },
-    { title: 'REGISTRARSE', link: '/auth/register' },
-  ],
-};
-const { footer_info, email, links } = footer_data;
+import { useLandingI18n } from './i18n/LandingI18nProvider';
 
 const FooterOne = () => {
+  const { t } = useLandingI18n();
+
+  const email = 'hola@12ity.com';
+
+  const links = [
+    { titleKey: 'footer.linkHome', link: '/' },
+    { titleKey: 'footer.linkFeatures', link: '#services' },
+    { titleKey: 'footer.linkTestimonials', link: '#testimonials' },
+    { titleKey: 'footer.linkLogin', link: '/login' },
+    { titleKey: 'footer.linkRegister', link: '/register' },
+  ];
+
   return (
     <footer className="cs_footer cs_primary_bg">
       <div className="cs_height_150 cs_height_lg_60"></div>
@@ -44,7 +34,7 @@ const FooterOne = () => {
               >
                 ITY
               </span>
-              <p>{footer_info}</p>
+              <p>{t('footer.info')}</p>
               <a href={`mailto:${email}`} className="cs_primary_font anim_text_upanddowns">
                 <span>{email}</span>
               </a>
@@ -92,14 +82,14 @@ const FooterOne = () => {
         <ul className="cs_footer_nav">
           {links.map((item, index) => (
             <li key={index}>
-              <Link href={item.link}>{item.title}</Link>
+              <Link href={item.link}>{t(item.titleKey)}</Link>
             </li>
           ))}
         </ul>
       </div>
       <div className="cs_copyright text-center">
         <div className="container">
-          Copyright {new Date().getFullYear()} ITY - I Teach You. All Rights Reserved.
+          Copyright {new Date().getFullYear()} ITY - I Teach You. {t('footer.copyright')}.
         </div>
       </div>
     </footer>

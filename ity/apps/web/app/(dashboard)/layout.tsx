@@ -17,7 +17,6 @@ export default async function DashboardLayout({
   }
 
   // Safety net: ensure creator record exists for authenticated user
-  // Catches edge cases from old registration flow or direct OAuth
   const { data: existingCreator } = await supabase
     .from('creators')
     .select('id')
@@ -42,7 +41,6 @@ export default async function DashboardLayout({
   const userName =
     (user.user_metadata?.full_name as string) ?? userEmail.split('@')[0];
 
-  // Fetch creator profile and school in parallel
   const [creator, school] = await Promise.all([
     supabase
       .from('creators')

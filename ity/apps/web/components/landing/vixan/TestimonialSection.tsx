@@ -3,36 +3,23 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import { useLandingI18n } from './i18n/LandingI18nProvider';
 
-interface DataType {
-  img: string;
-  name: string;
-  location: string;
-  des: string;
-}
+const testimonial_keys = [
+  'testimonials.testimonial1',
+  'testimonials.testimonial2',
+  'testimonials.testimonial3',
+];
 
-const testimonial_data: DataType[] = [
-  {
-    img: '/assets/img/avatar_1.jpg',
-    name: 'Maria Gonzalez',
-    location: 'Mexico',
-    des: '"En dos semanas lance mi academia de yoga online con ITY. La facilidad de uso es increible y mis alumnas adoran la experiencia de la plataforma."',
-  },
-  {
-    img: '/assets/img/avatar_1.jpg',
-    name: 'Carlos Mendez',
-    location: 'Colombia',
-    des: '"Deje Udemy porque se quedaban con el 50% de mis ventas. Con ITY recibo el 100% y mis estudiantes ven mi marca, no la de otra empresa."',
-  },
-  {
-    img: '/assets/img/avatar_1.jpg',
-    name: 'Ana Torres',
-    location: 'Espana',
-    des: '"El asistente de IA me ayudo a crear mi landing page en minutos. Ahora tengo una escuela de cocina profesional que genera ingresos cada mes."',
-  },
+const testimonial_images = [
+  '/assets/img/avatar_1.jpg',
+  '/assets/img/avatar_1.jpg',
+  '/assets/img/avatar_1.jpg',
 ];
 
 const TestimonialSection = () => {
+  const { t } = useLandingI18n();
+
   return (
     <>
       <section id="testimonials" className="cs_primary_bg cs_shape_wrap_2">
@@ -67,13 +54,13 @@ const TestimonialSection = () => {
             <div className="col-lg-4">
               <div>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/assets/img/testimonial_thumb_1.jpg" alt="Testimonios" className="w-100" />
+                <img src="/assets/img/testimonial_thumb_1.jpg" alt={t('testimonials.title')} className="w-100" />
               </div>
             </div>
             <div className="col-lg-7 offset-lg-1">
               <div className="cs_testimonial cs_style_1 cs_color_1">
                 <h2 className="cs_testimonial_title">
-                  Lo que Dicen Nuestros Creadores
+                  {t('testimonials.title')}
                 </h2>
                 <Swiper
                   loop={true}
@@ -86,7 +73,7 @@ const TestimonialSection = () => {
                   }}
                   className="cs_slider cs_slider_4"
                 >
-                  {testimonial_data.map((item, index) => (
+                  {testimonial_keys.map((key, index) => (
                     <SwiperSlide key={index} className="swiper-slide">
                       <div className="cs_testimonial_box">
                         <div className="cs_testimonial_quote_icon">
@@ -107,15 +94,15 @@ const TestimonialSection = () => {
                             />
                           </svg>
                         </div>
-                        <blockquote className="cs_testimonial_text">{item.des}</blockquote>
+                        <blockquote className="cs_testimonial_text">{t(`${key}.text`)}</blockquote>
                         <div className="cs_testimonial_meta">
                           <div className="cs_testimonial_avatar">
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={item.img} alt={item.name} />
+                            <img src={testimonial_images[index]} alt={t(`${key}.name`)} />
                           </div>
                           <div className="cs_testimonial_meta_right">
-                            <h3 className="cs_testimonial_avatar_name">{item.name}</h3>
-                            <div className="cs_testimonial_avatar_designation">{item.location}</div>
+                            <h3 className="cs_testimonial_avatar_name">{t(`${key}.name`)}</h3>
+                            <div className="cs_testimonial_avatar_designation">{t(`${key}.role`)}</div>
                           </div>
                         </div>
                       </div>

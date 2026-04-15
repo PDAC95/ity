@@ -1,0 +1,280 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log In"
+  },
+  "hero": {
+    "tagline": "The #1 Platform for",
+    "tagline2": "Course Creators",
+    "title1": "Build Your",
+    "title2": "Online School",
+    "cta": "Get Started",
+    "watchDemo": "See How It Works",
+    "feature1": "Course Builder",
+    "feature2": "Student Management",
+    "feature3": "Built-in Payments",
+    "clients": "Creators Worldwide",
+    "feature4": "AI Assistant",
+    "feature5": "Analytics",
+    "slide1": {
+      "subtitle": "Educational Platform",
+      "title": "Create Your Online School With Your Own Brand",
+      "description": "Launch your online school in minutes. Create courses, manage students, and monetize your knowledge without intermediaries. Your brand, your rules, your earnings."
+    },
+    "slide2": {
+      "subtitle": "For Creators",
+      "title": "Monetize Your Knowledge Without Limits",
+      "description": "Stop depending on platforms that take your earnings. With ITY you have full control over your courses, your prices, and your student community."
+    },
+    "slide3": {
+      "subtitle": "100% Your Brand",
+      "title": "Your School, Your Brand, Your Rules",
+      "description": "Customize every aspect of your online school. Logo, colors, custom domain. Your students will see your brand, not ours."
+    }
+  },
+  "brand": {
+    "trusted": "Trusted by creators from",
+    "countries": "countries"
+  },
+  "about": {
+    "subtitle": "about us",
+    "title": "Empowering educators to share their knowledge",
+    "cta": "know more",
+    "mission": "our mission",
+    "missionText": "Empower anyone to create and monetize their knowledge through beautiful online schools",
+    "vision": "our vision",
+    "visionText": "A world where every expert can reach students globally, regardless of geography or resources",
+    "impact": "our impact",
+    "impactText": "Over 10,000 creators have launched schools, served 50,000+ students across 100+ countries",
+    "description": "ITY gives you everything you need to build a thriving online school -- from course creation and student management to payments and analytics, all in one platform.",
+    "slide1": {
+      "subtitle": "Our Mission",
+      "title": "Empowering Creators to Launch Their Online Schools",
+      "description": "We believe every expert deserves their own educational platform. ITY removes technical barriers so you can focus on what you do best: teaching and sharing your knowledge with the world."
+    },
+    "slide2": {
+      "subtitle": "Your Platform",
+      "title": "Everything You Need in One Place",
+      "description": "From course creation to payment management, ITY integrates all the tools you need. No need for multiple services, no technical complications."
+    },
+    "slide3": {
+      "subtitle": "No Limits",
+      "title": "Scale Your School Without Worries",
+      "description": "Whether you have 10 or 10,000 students, our infrastructure grows with you. Focus on creating amazing content while we handle the technology."
+    }
+  },
+  "features": {
+    "subtitle": "our features",
+    "title": "Everything you need",
+    "titleEverything": "Everything you",
+    "titleNeed": "need",
+    "cta": "get started free",
+    "course": {
+      "title": "Course Builder",
+      "description": "Create structured courses with modules, lessons, videos, quizzes, and downloadable resources. Our drag-and-drop builder makes it easy to organize your content and deliver an engaging learning experience for your students."
+    },
+    "schools": {
+      "title": "Custom Schools",
+      "description": "Launch your own branded online school with a custom domain, logo, and colors. Your school, your brand -- students see your identity, not ours. Create a professional learning environment that reflects your expertise."
+    },
+    "payments": {
+      "title": "Built-in Payments",
+      "description": "Start selling courses instantly with integrated Stripe payments. Accept credit cards, set up one-time or subscription pricing, offer coupons, and track your revenue -- all without any third-party payment plugins or complicated setup."
+    },
+    "students": {
+      "title": "Student Management",
+      "description": "Manage enrollments, track your students' progress, and communicate with them directly. Everything from a centralized dashboard."
+    },
+    "branding": {
+      "title": "Custom Branding",
+      "description": "Your school with your logo, your colors, and your domain. Your students see your brand, not ours. Create a 100% yours experience."
+    },
+    "analytics": {
+      "title": "Analytics Dashboard",
+      "description": "Know your audience with detailed metrics. Sales, engagement, student progress, and more. Make decisions based on real data."
+    },
+    "ai": {
+      "title": "AI Assistant",
+      "description": "Our artificial intelligence assistant helps you create your landing page, generate course content, and optimize your sales strategy."
+    }
+  },
+  "caseStudy": {
+    "subtitle": "Success Stories",
+    "title": "Creators building thriving online schools",
+    "description": "See how educators around the world are using ITY to share their knowledge and grow their businesses",
+    "case1": {
+      "title": "Spanish Academy Online",
+      "category": "LANGUAGE COURSES"
+    },
+    "case2": {
+      "title": "TechSkills Pro",
+      "category": "PROGRAMMING COURSES"
+    },
+    "case3": {
+      "title": "FitLife Academy",
+      "category": "FITNESS & WELLNESS"
+    },
+    "case4": {
+      "title": "UX/UI Design Academy",
+      "category": "CREATIVES / DESIGN"
+    },
+    "case5": {
+      "title": "Online Cooking School",
+      "category": "LIFESTYLE / GASTRONOMY"
+    },
+    "case6": {
+      "title": "Finance Academy",
+      "category": "BUSINESS / FINANCE"
+    }
+  },
+  "testimonials": {
+    "subtitle": "testimonials",
+    "title": "What our creators are saying",
+    "reviews": "Creator Reviews",
+    "testimonial1": {
+      "name": "Maria Gonzalez",
+      "role": "Language Teacher",
+      "text": "ITY helped me grow my Spanish school to over 500 students in just one year. The course builder is incredibly intuitive, and my students love the learning experience. I never thought teaching online could be this easy!"
+    },
+    "testimonial2": {
+      "name": "James Chen",
+      "role": "Tech Educator",
+      "text": "Having my own custom domain makes my coding school feel completely professional. Students trust the platform, and the built-in analytics help me understand exactly which lessons resonate most."
+    },
+    "testimonial3": {
+      "name": "Sarah Williams",
+      "role": "Fitness Coach",
+      "text": "Setting up payments was a breeze with the Stripe integration. I went from zero to selling my fitness programs within a day. ITY handles everything so I can focus on what I love -- coaching!"
+    },
+    "testimonial4": {
+      "name": "David Kim",
+      "role": "Music Instructor",
+      "text": "The analytics dashboard showed me that students were dropping off at a specific lesson. I restructured it, and completion rates jumped by 40%. ITY gives you the insights to constantly improve your courses."
+    }
+  },
+  "pricing": {
+    "subtitle": "Pricing",
+    "title": "Simple Plans, No Surprises",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "yearlySave": "Save 20%",
+    "popular": "Most Popular",
+    "cta": "Get Started",
+    "ctaPro": "Start Free Trial",
+    "perMonth": "/mo",
+    "free": {
+      "name": "Starter",
+      "price": "0",
+      "description": "Perfect for getting started",
+      "f1": "1 course",
+      "f2": "Up to 50 students",
+      "f3": "Basic analytics",
+      "f4": "ITY subdomain",
+      "f5": "Email support"
+    },
+    "pro": {
+      "name": "Pro",
+      "priceMonthly": "29",
+      "priceYearly": "23",
+      "description": "For serious creators",
+      "f1": "Unlimited courses",
+      "f2": "Unlimited students",
+      "f3": "Advanced analytics",
+      "f4": "Custom domain",
+      "f5": "Priority support",
+      "f6": "AI assistant",
+      "f7": "0% commissions"
+    },
+    "business": {
+      "name": "Business",
+      "priceMonthly": "79",
+      "priceYearly": "63",
+      "description": "For teams and academies",
+      "f1": "Everything in Pro",
+      "f2": "Multiple instructors",
+      "f3": "API access",
+      "f4": "White label",
+      "f5": "Dedicated support",
+      "f6": "Custom integrations",
+      "f7": "SLA guarantee"
+    }
+  },
+  "team": {
+    "subtitle": "our team",
+    "title": "Meet Our Team",
+    "member1": {
+      "name": "Alex Rivera",
+      "role": "CEO / Founder"
+    },
+    "member2": {
+      "name": "Jordan Park",
+      "role": "CTO"
+    },
+    "member3": {
+      "name": "Priya Sharma",
+      "role": "Head of Product"
+    },
+    "member4": {
+      "name": "Sam Nguyen",
+      "role": "Head of Growth"
+    }
+  },
+  "blog": {
+    "subtitle": "creator resources",
+    "title": "tips & insights",
+    "cta": "view all articles",
+    "post1": {
+      "category": "GETTING STARTED",
+      "title": "How to launch your first online course in a weekend"
+    },
+    "post2": {
+      "category": "MONETIZATION",
+      "title": "5 pricing strategies that work for online course creators"
+    },
+    "post3": {
+      "category": "COMMUNITY",
+      "title": "Building a community around your online school"
+    }
+  },
+  "stats": {
+    "creators": "Active Creators",
+    "students": "Students",
+    "courses": "Published Courses",
+    "countries": "Countries"
+  },
+  "marquee": {
+    "item1": "Online Courses",
+    "item2": "Your Own Brand",
+    "item3": "Direct Payments",
+    "item4": "No Commissions",
+    "item5": "AI Assistant"
+  },
+  "cta": {
+    "title": "Start Your Online School Today",
+    "button": "Create My School Free"
+  },
+  "footer": {
+    "poweredBy": "Powered by",
+    "copyright": "All rights reserved",
+    "info": "The simplest platform to create your online school. Monetize your knowledge with your own brand, without sales commissions.",
+    "linkHome": "HOME",
+    "linkFeatures": "FEATURES",
+    "linkTestimonials": "TESTIMONIALS",
+    "linkLogin": "LOG IN",
+    "linkRegister": "REGISTER"
+  },
+  "offcanvas": {
+    "aboutTitle": "About ITY",
+    "aboutText": "ITY is the simplest way to create your online school. Build courses, grow your audience, and earn from your knowledge.",
+    "infoTitle": "Information",
+    "email": "Email:",
+    "website": "Website:"
+  },
+  "preloader": {
+    "loading": "Loading"
+  }
+}

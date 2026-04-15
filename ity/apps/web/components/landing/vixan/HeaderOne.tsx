@@ -1,253 +1,404 @@
 'use client';
 
 import Link from 'next/link';
-import MobileMenu from './MobileMenu';
+import LanguageSelector from './i18n/LanguageSelector';
+import { useLandingI18n, SUPPORTED_LANGS, LANG_LABELS } from './i18n/LandingI18nProvider';
 import React, { useEffect, useState } from 'react';
 
-interface MenuItem {
-  id: number;
-  title: string;
-  link: string;
-  has_dropdown: boolean;
-  sub_menu?: {
-    id: number;
-    title: string;
-    link: string;
-  }[];
-}
-
-const menu_data: MenuItem[] = [
-  {
-    id: 1,
-    title: 'Inicio',
-    link: '/',
-    has_dropdown: false,
-  },
-  {
-    id: 2,
-    title: 'Funciones',
-    link: '#services',
-    has_dropdown: false,
-  },
-  {
-    id: 3,
-    title: 'Casos de Exito',
-    link: '#portfolio',
-    has_dropdown: false,
-  },
-  {
-    id: 4,
-    title: 'Testimonios',
-    link: '#testimonials',
-    has_dropdown: false,
-  },
-  {
-    id: 5,
-    title: 'Iniciar Sesion',
-    link: '/auth/login',
-    has_dropdown: false,
-  },
-];
-
 const HeaderOne = () => {
-  const [sticky, setSticky] = useState(false);
+  const { t, lang, setLang } = useLandingI18n();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const stickyHandler = () => {
-      setSticky(window.scrollY > 200);
-    };
-    window.addEventListener('scroll', stickyHandler);
-    return () => window.removeEventListener('scroll', stickyHandler);
-  }, []);
+  const navItems = [
+    { label: t('nav.home'), href: '#', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4' },
+    { label: t('nav.features'), href: '#services', icon: 'M4 6h16M4 10h16M4 14h16M4 18h16' },
+    { label: t('caseStudy.subtitle'), href: '#portfolio', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
+    { label: t('pricing.subtitle'), href: '#pricing', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
+  ];
 
-  const [active, setActive] = useState<boolean>(false);
-  const handleActive = () => {
-    setActive(!active);
-  };
-
-  const [navTitle, setNavTitle] = useState('');
-  const openMobileMenu = (menu: string) => {
-    if (navTitle === menu) {
-      setNavTitle('');
-    } else {
-      setNavTitle(menu);
+  const scrollTo = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    setMobileOpen(false);
+    if (href === '#') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const el = document.querySelector(href);
+    if (el) {
+      const offset = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   };
 
-  const [lastScrollTop, setLastScrollTop] = useState(0);
   useEffect(() => {
-    const handleScroll = () => {
-      const header = document.querySelector('.cs_sticky_header') as HTMLElement | null;
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-      if (!header) return;
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 991) setMobileOpen(false); };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
 
-      const headerHeight = header.offsetHeight + 30;
-      const windowTop = window.pageYOffset || document.documentElement.scrollTop;
-
-      if (windowTop >= headerHeight) {
-        header.classList.add('cs_gescout_sticky');
-      } else {
-        header.classList.remove('cs_gescout_sticky');
-        header.classList.remove('cs_gescout_show');
-      }
-
-      if (header.classList.contains('cs_gescout_sticky')) {
-        if (windowTop < lastScrollTop) {
-          header.classList.add('cs_gescout_show');
-        } else {
-          header.classList.remove('cs_gescout_show');
-        }
-      }
-
-      setLastScrollTop(windowTop);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollTop]);
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
   return (
     <>
       <header
-        className={`cs_site_header cs_style1 cs_sticky_header cs_site_header_full_width ${sticky ? 'cs_gescout_sticky' : ''}`}
+        style={{
+          position: 'fixed',
+          top: scrolled ? '10px' : '20px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: scrolled ? 'calc(100% - 40px)' : 'calc(100% - 80px)',
+          maxWidth: '1320px',
+          zIndex: 9999,
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+        }}
       >
-        <div className="cs_main_header">
-          <div className="container">
-            <div className="cs_main_header_in">
-              <div className="cs_main_header_left">
-                <Link className="cs_site_branding logo-dark" href="/">
-                  <span style={{ fontSize: '28px', fontWeight: 700, color: '#101010', fontFamily: "'Kanit', sans-serif" }}>
-                    ITY
-                  </span>
-                </Link>
-                <Link className="cs_site_branding logo-white" href="/">
-                  <span style={{ fontSize: '28px', fontWeight: 700, color: '#fff', fontFamily: "'Kanit', sans-serif" }}>
-                    ITY
-                  </span>
-                </Link>
-              </div>
-              <div className="cs_main_header_right">
-                <div className="cs_nav cs_medium">
-                  <MobileMenu active={active} navTitle={navTitle} openMobileMenu={openMobileMenu} />
-                  <span
-                    className={`cs_munu_toggle ${active ? 'cs_toggle_active' : ''}`}
-                    onClick={handleActive}
-                  >
-                    <span></span>
-                  </span>
-                </div>
-                <div className="cs_toolbox">
-                  <span className="cs_icon_btn">
-                    <span className="cs_icon_btn_in" onClick={handleActive}>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </span>
-                  </span>
-                </div>
-              </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '12px 28px',
+            borderRadius: '16px',
+            background: scrolled
+              ? 'rgba(16, 16, 16, 0.85)'
+              : 'rgba(16, 16, 16, 0.45)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            boxShadow: scrolled
+              ? '0 8px 32px rgba(0, 0, 0, 0.3)'
+              : '0 4px 16px rgba(0, 0, 0, 0.15)',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
+          {/* Logo */}
+          <Link href="/" style={{ textDecoration: 'none', flexShrink: 0 }}>
+            <span
+              style={{
+                fontSize: '26px',
+                fontWeight: 700,
+                color: '#fff',
+                fontFamily: "'Kanit', sans-serif",
+                letterSpacing: '1px',
+              }}
+            >
+              ITY
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav
+            style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+            className="ity-desktop-nav"
+          >
+            {navItems.map((item, i) => (
+              <a
+                key={i}
+                href={item.href}
+                onClick={(e) => scrollTo(e, item.href)}
+                style={{
+                  color: 'rgba(255, 255, 255, 0.75)',
+                  textDecoration: 'none',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  padding: '8px 16px',
+                  borderRadius: '8px',
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap',
+                  fontFamily: "'Kanit', sans-serif",
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLElement).style.color = '#fff';
+                  (e.target as HTMLElement).style.background = 'rgba(255,255,255,0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLElement).style.color = 'rgba(255, 255, 255, 0.75)';
+                  (e.target as HTMLElement).style.background = 'transparent';
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Right side: Language + CTA */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+            <div className="ity-desktop-nav">
+              <LanguageSelector />
             </div>
+
+            <Link
+              href="/login"
+              className="ity-desktop-nav"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 24px',
+                borderRadius: '10px',
+                background: '#ff6b00',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: 600,
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.25s ease',
+                fontFamily: "'Kanit', sans-serif",
+                border: 'none',
+              }}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.background = '#e55f00';
+                (e.target as HTMLElement).style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.background = '#ff6b00';
+                (e.target as HTMLElement).style.transform = 'translateY(0)';
+              }}
+            >
+              {t('nav.login')}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+
+            {/* Mobile hamburger */}
+            <button
+              className="ity-mobile-toggle"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Menu"
+              style={{
+                display: 'none',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '8px',
+                flexDirection: 'column',
+                gap: '5px',
+                position: 'relative',
+                zIndex: 10001,
+              }}
+            >
+              <span style={{
+                display: 'block', width: '22px', height: '2px', background: '#fff',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                transform: mobileOpen ? 'rotate(45deg) translate(5px, 5px)' : 'none',
+              }} />
+              <span style={{
+                display: 'block', width: '22px', height: '2px', background: '#fff',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                opacity: mobileOpen ? 0 : 1,
+                transform: mobileOpen ? 'translateX(-10px)' : 'none',
+              }} />
+              <span style={{
+                display: 'block', width: '22px', height: '2px', background: '#fff',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                transform: mobileOpen ? 'rotate(-45deg) translate(5px, -5px)' : 'none',
+              }} />
+            </button>
           </div>
         </div>
       </header>
 
-      <div className={`cs_side_header ${active ? 'active' : ''}`}>
-        <button className="cs_close" onClick={handleActive}></button>
-        <div className="cs_side_header_overlay"></div>
-        <div className="cs_side_header_in">
-          <Link className="cs_site_branding" href="/">
-            <span style={{ fontSize: '32px', fontWeight: 700, color: '#fff', fontFamily: "'Kanit', sans-serif" }}>
-              ITY
-            </span>
-          </Link>
-          <div className="row align-items-end">
-            <div className="col-7">
-              <div className="cs_box_one">
-                <div className="cs_nav_black_section cs_font_changes">
-                  <ul>
-                    {menu_data.map((item, i) => (
-                      <li
-                        key={i}
-                        className={`menu-item-has-black-section cs_style_1 ${navTitle === item.title ? 'active' : ''}`}
-                      >
-                        <Link href={item.link}>{item.title}</Link>
-                        {item.has_dropdown && (
-                          <>
-                            <ul style={{ display: navTitle === item.title ? 'block' : 'none' }}>
-                              {item?.sub_menu?.map((sub_item, index) => (
-                                <li key={index}>
-                                  <Link href={sub_item.link}>{sub_item.title}</Link>
-                                </li>
-                              ))}
-                            </ul>
-                            <span
-                              onClick={() => openMobileMenu(item.title)}
-                              className={`cs_munu_dropdown_toggle_1 ${navTitle === item.title ? 'active' : ''}`}
-                            ></span>
-                          </>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="col-4 offset-1">
-              <div className="cs_box_two">
-                <div>
-                  <p>
-                    <svg
-                      width="14"
-                      height="18"
-                      viewBox="0 0 14 19"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M7 0.0195312C3.14027 0.0195312 0 3.01027 0 6.68621C0 7.78973 0.289693 8.88387 0.840408 9.85434L6.6172 17.8047C6.69411 17.9373 6.84065 18.0195 7 18.0195C7.15935 18.0195 7.30589 17.9373 7.3828 17.8047L13.1617 9.85105C13.7103 8.88387 14 7.78969 14 6.68617C14 3.01027 10.8597 0.0195312 7 0.0195312ZM7 10.0195C5.07014 10.0195 3.50002 8.52418 3.50002 6.68621C3.50002 4.84824 5.07014 3.35289 7 3.35289C8.92986 3.35289 10.5 4.84824 10.5 6.68621C10.5 8.52418 8.92986 10.0195 7 10.0195Z"
-                        fill="white"
-                      ></path>
-                    </svg>
-                    <span className="ms-2">100% Online Platform</span>
-                  </p>
+      {/* Mobile fullscreen overlay */}
+      <div
+        className="ity-mobile-overlay"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9998,
+          background: 'rgba(10, 10, 10, 0.97)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          opacity: mobileOpen ? 1 : 0,
+          visibility: mobileOpen ? 'visible' as const : 'hidden' as const,
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '100px 32px 40px',
+        }}
+      >
+        {/* Nav items — large, centered, staggered */}
+        <nav style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '4px',
+          flex: 1,
+          justifyContent: 'center',
+        }}>
+          {navItems.map((item, i) => (
+            <a
+              key={i}
+              href={item.href}
+              onClick={(e) => scrollTo(e, item.href)}
+              className="ity-mobile-nav-item"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '16px',
+                color: '#fff',
+                textDecoration: 'none',
+                fontSize: '28px',
+                fontWeight: 600,
+                padding: '20px 16px',
+                borderRadius: '16px',
+                fontFamily: "'Inter Tight', sans-serif",
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                opacity: mobileOpen ? 1 : 0,
+                transform: mobileOpen ? 'translateY(0)' : 'translateY(20px)',
+                transitionDelay: mobileOpen ? `${i * 0.06}s` : '0s',
+                borderBottom: '1px solid rgba(255,255,255,0.06)',
+              }}
+            >
+              <svg
+                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="rgba(255,107,0,0.7)" strokeWidth="1.5"
+                strokeLinecap="round" strokeLinejoin="round"
+                style={{ flexShrink: 0 }}
+              >
+                <path d={item.icon} />
+              </svg>
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-                  <h4 className="cs_phone_number">
-                    <Link href="/auth/register">
-                      <span className="ms-2">Comienza Gratis</span>
-                    </Link>
-                  </h4>
+        {/* Bottom section: Language + CTA */}
+        <div style={{
+          opacity: mobileOpen ? 1 : 0,
+          transform: mobileOpen ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          transitionDelay: mobileOpen ? '0.3s' : '0s',
+        }}>
+          {/* Language selector — pill style */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '6px',
+            marginBottom: '20px',
+            padding: '6px',
+            background: 'rgba(255,255,255,0.05)',
+            borderRadius: '14px',
+            border: '1px solid rgba(255,255,255,0.08)',
+          }}>
+            {SUPPORTED_LANGS.map((code) => (
+              <button
+                key={code}
+                onClick={() => setLang(code)}
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  padding: '12px 8px',
+                  borderRadius: '10px',
+                  border: 'none',
+                  background: lang === code
+                    ? 'rgba(255, 107, 0, 0.15)'
+                    : 'transparent',
+                  color: lang === code ? '#ff6b00' : 'rgba(255,255,255,0.5)',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontWeight: lang === code ? 600 : 400,
+                  fontFamily: "'Kanit', sans-serif",
+                  transition: 'all 0.25s ease',
+                }}
+              >
+                <span style={{ fontSize: '16px' }}>{LANG_LABELS[code]?.flag}</span>
+                <span>{code.toUpperCase()}</span>
+              </button>
+            ))}
+          </div>
 
-                  <ul className="cs_social_link">
-                    <li>
-                      <a target="_blank" href="https://www.twitter.com/">
-                        Twitter
-                      </a>
-                    </li>
-                    <li>
-                      <a target="_blank" href="https://www.instagram.com/">
-                        Instagram
-                      </a>
-                    </li>
-                    <li>
-                      <a target="_blank" href="https://www.linkedin.com/">
-                        LinkedIn
-                      </a>
-                    </li>
-                  </ul>
-
-                  <hr className="mt-2 me-5 mb-2" />
-                  <h2>
-                    <a href="mailto:hola@12ity.com" className="cs_primary_font cs_text_btn">
-                      <span className="cs_black">hola@12ity.com</span>
-                    </a>
-                  </h2>
-                </div>
-              </div>
-            </div>
+          {/* CTA buttons */}
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <Link
+              href="/register"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                padding: '16px 24px',
+                borderRadius: '14px',
+                background: '#ff6b00',
+                color: '#fff',
+                fontSize: '16px',
+                fontWeight: 600,
+                textDecoration: 'none',
+                fontFamily: "'Kanit', sans-serif",
+                transition: 'all 0.25s ease',
+              }}
+            >
+              {t('hero.cta')}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
+            <Link
+              href="/login"
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '16px 24px',
+                borderRadius: '14px',
+                background: 'transparent',
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: '#fff',
+                fontSize: '16px',
+                fontWeight: 500,
+                textDecoration: 'none',
+                fontFamily: "'Kanit', sans-serif",
+                transition: 'all 0.25s ease',
+              }}
+            >
+              {t('nav.login')}
+            </Link>
           </div>
         </div>
       </div>
+
+      {/* Responsive styles */}
+      <style>{`
+        .ity-desktop-nav { display: flex !important; }
+        .ity-mobile-toggle { display: none !important; }
+        .ity-mobile-overlay { display: none; }
+
+        @media (max-width: 991px) {
+          .ity-desktop-nav { display: none !important; }
+          .ity-mobile-toggle { display: flex !important; }
+          .ity-mobile-overlay { display: flex !important; }
+        }
+
+        .ity-mobile-nav-item:active {
+          background: rgba(255, 107, 0, 0.08) !important;
+          transform: scale(0.98) !important;
+        }
+      `}</style>
     </>
   );
 };

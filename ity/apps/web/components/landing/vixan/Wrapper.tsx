@@ -1,7 +1,6 @@
 // @ts-nocheck
 'use client';
 
-import { gsap } from 'gsap';
 import { useEffect } from 'react';
 import MouseMove from './common/MouseMove';
 import ScrollToTop from './common/ScrollToTop';
@@ -11,6 +10,7 @@ import animationTitle from './utils/animationTitle';
 import { scrollSmother } from './utils/scrollSmother';
 import buttonAnimation from './utils/buttonAnimation';
 
+import { gsap } from 'gsap';
 import {
   ScrollSmoother,
   ScrollToPlugin,

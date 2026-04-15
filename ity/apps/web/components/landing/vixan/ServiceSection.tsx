@@ -2,47 +2,20 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useLandingI18n } from './i18n/LandingI18nProvider';
 
-interface DataType {
-  id: number;
-  title: string;
-  des: string;
-}
-
-const service_data: DataType[] = [
-  {
-    id: 1,
-    title: 'Creador de Cursos',
-    des: 'Crea cursos con video, texto, quizzes y materiales descargables. Organiza tu contenido en modulos y lecciones con nuestro editor intuitivo.',
-  },
-  {
-    id: 2,
-    title: 'Gestion de Alumnos',
-    des: 'Gestiona matriculas, sigue el progreso de tus estudiantes y comunicate con ellos directamente. Todo desde un panel de control centralizado.',
-  },
-  {
-    id: 3,
-    title: 'Marca Personalizada',
-    des: 'Tu escuela con tu logo, tus colores y tu dominio. Tus estudiantes veran tu marca, no la nuestra. Crea una experiencia 100% tuya.',
-  },
-  {
-    id: 4,
-    title: 'Pagos Directos',
-    des: 'Recibe pagos directamente en tu cuenta. Sin comisiones por venta, sin intermediarios. Tu estableces los precios, tu recibes las ganancias.',
-  },
-  {
-    id: 5,
-    title: 'Analytics Dashboard',
-    des: 'Conoce a tu audiencia con metricas detalladas. Ventas, engagement, progreso de alumnos y mas. Toma decisiones basadas en datos reales.',
-  },
-  {
-    id: 6,
-    title: 'Asistente IA',
-    des: 'Nuestro asistente de inteligencia artificial te ayuda a crear tu landing page, generar contenido para cursos y optimizar tu estrategia de ventas.',
-  },
+const service_keys = [
+  'features.course',
+  'features.students',
+  'features.branding',
+  'features.payments',
+  'features.analytics',
+  'features.ai',
 ];
 
 const ServiceSection = () => {
+  const { t } = useLandingI18n();
+
   return (
     <>
       <div id="services" className="cs_height_150 cs_height_lg_60"></div>
@@ -51,14 +24,14 @@ const ServiceSection = () => {
         <div className="container">
           <div className="cs_section_heading cs_style_1 cs_type_1 cs_color_1">
             <div className="cs_section_heading_text">
-              <div className="cs_section_subtitle anim_div_ShowZoom">Nuestras Funciones</div>
+              <div className="cs_section_subtitle anim_div_ShowZoom">{t('features.subtitle')}</div>
               <h2 className="cs_section_title anim_heading_title">
-                Todo lo que Necesitas para tu Escuela Online
+                {t('features.title')}
               </h2>
             </div>
             <div className="cs_section_heading_right cs_btn_anim">
-              <Link href="/auth/register" className="cs_btn cs_style_1 cs_color_1">
-                <span>Comienza Gratis</span>
+              <Link href="/register" className="cs_btn cs_style_1 cs_color_1">
+                <span>{t('features.cta')}</span>
                 <svg
                   width="19"
                   height="13"
@@ -76,7 +49,7 @@ const ServiceSection = () => {
           </div>
           <div className="cs_height_50 cs_height_lg_10"></div>
           <div className="cs_card_1_list">
-            {service_data.map((item, i) => (
+            {service_keys.map((key, i) => (
               <div key={i} className="cs_card cs_style_1 cs_color_1 anim_div_ShowDowns">
                 <div className="cs_card_left">
                   <div
@@ -88,8 +61,8 @@ const ServiceSection = () => {
                 </div>
                 <div className="cs_card_right">
                   <div className="cs_card_right_in">
-                    <h2 className="cs_card_title">{item.title}</h2>
-                    <div className="cs_card_subtitle">{item.des}</div>
+                    <h2 className="cs_card_title">{t(`${key}.title`)}</h2>
+                    <div className="cs_card_subtitle">{t(`${key}.description`)}</div>
                   </div>
                 </div>
                 <div className="cs_card_link_wrap">

@@ -2,42 +2,18 @@
 
 import React from 'react';
 import Count from './common/Count';
+import { useLandingI18n } from './i18n/LandingI18nProvider';
 
-interface DataType {
-  id: number;
-  title: string;
-  number: number;
-  suffix?: string;
-}
-
-const counter_data: DataType[] = [
-  {
-    id: 1,
-    title: 'Creadores Activos',
-    number: 500,
-    suffix: '+',
-  },
-  {
-    id: 2,
-    title: 'Estudiantes',
-    number: 10,
-    suffix: 'K',
-  },
-  {
-    id: 3,
-    title: 'Cursos Publicados',
-    number: 2,
-    suffix: 'K',
-  },
-  {
-    id: 4,
-    title: 'Paises',
-    number: 15,
-    suffix: '+',
-  },
+const counter_data = [
+  { titleKey: 'stats.creators', number: 500, suffix: '+' },
+  { titleKey: 'stats.students', number: 10, suffix: 'K' },
+  { titleKey: 'stats.courses', number: 2, suffix: 'K' },
+  { titleKey: 'stats.countries', number: 15, suffix: '+' },
 ];
 
 const FunFactSection = () => {
+  const { t } = useLandingI18n();
+
   return (
     <>
       <div className="container">
@@ -52,7 +28,7 @@ const FunFactSection = () => {
                   {item.suffix && <span>{item.suffix}</span>}
                 </div>
                 <div className="cs_funfact_text cs_primary_font">
-                  <p>{item.title}</p>
+                  <p>{t(item.titleKey)}</p>
                 </div>
               </div>
             </div>

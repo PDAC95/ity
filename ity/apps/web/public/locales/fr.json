@@ -1,0 +1,279 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "features": "Fonctionnalites",
+    "pricing": "Tarifs",
+    "about": "A propos",
+    "contact": "Contact",
+    "login": "Connexion"
+  },
+  "hero": {
+    "tagline": "La Plateforme #1 pour les",
+    "tagline2": "Createurs de Cours",
+    "title1": "Creez Votre",
+    "title2": "Ecole en Ligne",
+    "cta": "Commencez Gratuitement",
+    "feature1": "Constructeur de Cours",
+    "feature2": "Gestion des Etudiants",
+    "feature3": "Paiements Integres",
+    "clients": "Createurs dans le Monde",
+    "feature4": "Assistant IA",
+    "feature5": "Analytique",
+    "slide1": {
+      "subtitle": "Plateforme Educative",
+      "title": "Creez Votre Ecole en Ligne avec Votre Propre Marque",
+      "description": "Lancez votre ecole en ligne en quelques minutes. Creez des cours, gerez vos etudiants et monetisez vos connaissances sans intermediaires. Votre marque, vos regles, vos revenus."
+    },
+    "slide2": {
+      "subtitle": "Pour les Createurs",
+      "title": "Monetisez Vos Connaissances Sans Limites",
+      "description": "Arretez de dependre des plateformes qui prennent vos revenus. Avec ITY, vous avez le controle total sur vos cours, vos prix et votre communaute d'etudiants."
+    },
+    "slide3": {
+      "subtitle": "100% Votre Marque",
+      "title": "Votre Ecole, Votre Marque, Vos Regles",
+      "description": "Personnalisez chaque aspect de votre ecole en ligne. Logo, couleurs, domaine personnalise. Vos etudiants verront votre marque, pas la notre."
+    }
+  },
+  "brand": {
+    "trusted": "La confiance des createurs de",
+    "countries": "pays"
+  },
+  "about": {
+    "subtitle": "a propos",
+    "title": "Permettre aux educateurs de partager leurs connaissances",
+    "cta": "en savoir plus",
+    "mission": "notre mission",
+    "missionText": "Permettre a quiconque de creer et monetiser ses connaissances grace a de belles ecoles en ligne",
+    "vision": "notre vision",
+    "visionText": "Un monde ou chaque expert peut atteindre des etudiants a l'echelle mondiale, independamment de la geographie ou des ressources",
+    "impact": "notre impact",
+    "impactText": "Plus de 10 000 createurs ont lance des ecoles, servant plus de 50 000 etudiants dans plus de 100 pays",
+    "description": "ITY vous donne tout ce dont vous avez besoin pour creer une ecole en ligne prospere -- de la creation de cours a la gestion des etudiants, en passant par les paiements et les analyses, le tout sur une seule plateforme.",
+    "slide1": {
+      "subtitle": "Notre Mission",
+      "title": "Donner aux Createurs les Moyens de Lancer Leurs Ecoles en Ligne",
+      "description": "Nous croyons que chaque expert merite sa propre plateforme educative. ITY elimine les barrieres techniques pour que vous puissiez vous concentrer sur ce que vous faites le mieux: enseigner et partager vos connaissances avec le monde."
+    },
+    "slide2": {
+      "subtitle": "Votre Plateforme",
+      "title": "Tout ce Dont Vous Avez Besoin en un Seul Endroit",
+      "description": "De la creation de cours a la gestion des paiements, ITY integre tous les outils dont vous avez besoin. Sans services multiples, sans complications techniques."
+    },
+    "slide3": {
+      "subtitle": "Sans Limites",
+      "title": "Faites Evoluer Votre Ecole Sans Soucis",
+      "description": "Que vous ayez 10 ou 10 000 etudiants, notre infrastructure evolue avec vous. Concentrez-vous sur la creation de contenu incroyable pendant que nous gerons la technologie."
+    }
+  },
+  "features": {
+    "subtitle": "nos fonctionnalites",
+    "title": "Tout ce dont vous avez besoin",
+    "titleEverything": "Tout ce dont vous avez",
+    "titleNeed": "besoin",
+    "cta": "commencez gratuitement",
+    "course": {
+      "title": "Constructeur de Cours",
+      "description": "Creez des cours structures avec des modules, des lecons, des videos, des quiz et des ressources telechargeables. Notre constructeur glisser-deposer facilite l'organisation de votre contenu et offre une experience d'apprentissage engageante pour vos etudiants."
+    },
+    "schools": {
+      "title": "Ecoles Personnalisees",
+      "description": "Lancez votre propre ecole en ligne avec un domaine personnalise, un logo et des couleurs. Votre ecole, votre marque -- les etudiants voient votre identite, pas la notre. Creez un environnement d'apprentissage professionnel qui reflete votre expertise."
+    },
+    "payments": {
+      "title": "Paiements Integres",
+      "description": "Commencez a vendre des cours instantanement avec les paiements Stripe integres. Acceptez les cartes de credit, configurez des tarifs uniques ou des abonnements, offrez des coupons et suivez vos revenus -- le tout sans plugins de paiement tiers ni configuration compliquee."
+    },
+    "students": {
+      "title": "Gestion des Etudiants",
+      "description": "Gerez les inscriptions, suivez la progression de vos etudiants et communiquez directement avec eux. Tout depuis un tableau de bord centralise."
+    },
+    "branding": {
+      "title": "Marque Personnalisee",
+      "description": "Votre ecole avec votre logo, vos couleurs et votre domaine. Vos etudiants voient votre marque, pas la notre. Creez une experience 100% a vous."
+    },
+    "analytics": {
+      "title": "Tableau de Bord Analytique",
+      "description": "Connaissez votre audience avec des metriques detaillees. Ventes, engagement, progression des etudiants et plus. Prenez des decisions basees sur des donnees reelles."
+    },
+    "ai": {
+      "title": "Assistant IA",
+      "description": "Notre assistant d'intelligence artificielle vous aide a creer votre page d'accueil, generer du contenu de cours et optimiser votre strategie de vente."
+    }
+  },
+  "caseStudy": {
+    "subtitle": "Histoires de Reussite",
+    "title": "Des createurs qui batissent des ecoles en ligne prosperes",
+    "description": "Decouvrez comment des educateurs du monde entier utilisent ITY pour partager leurs connaissances et developper leurs activites",
+    "case1": {
+      "title": "Academie d'Espagnol en Ligne",
+      "category": "COURS DE LANGUES"
+    },
+    "case2": {
+      "title": "TechSkills Pro",
+      "category": "COURS DE PROGRAMMATION"
+    },
+    "case3": {
+      "title": "FitLife Academy",
+      "category": "FITNESS ET BIEN-ETRE"
+    },
+    "case4": {
+      "title": "Academie de Design UX/UI",
+      "category": "CREATIFS / DESIGN"
+    },
+    "case5": {
+      "title": "Ecole de Cuisine en Ligne",
+      "category": "STYLE DE VIE / GASTRONOMIE"
+    },
+    "case6": {
+      "title": "Academie de Finance",
+      "category": "AFFAIRES / FINANCE"
+    }
+  },
+  "testimonials": {
+    "subtitle": "temoignages",
+    "title": "Ce que disent nos createurs",
+    "reviews": "Avis de Createurs",
+    "testimonial1": {
+      "name": "Maria Gonzalez",
+      "role": "Professeur de Langues",
+      "text": "ITY m'a aide a faire passer mon ecole d'espagnol a plus de 500 etudiants en seulement un an. Le constructeur de cours est incroyablement intuitif, et mes etudiants adorent l'experience d'apprentissage. Je n'aurais jamais pense qu'enseigner en ligne puisse etre aussi facile!"
+    },
+    "testimonial2": {
+      "name": "James Chen",
+      "role": "Educateur Tech",
+      "text": "Avoir mon propre domaine personnalise donne a mon ecole de codage un aspect totalement professionnel. Les etudiants font confiance a la plateforme, et les analyses integrees m'aident a comprendre exactement quelles lecons resonnent le plus."
+    },
+    "testimonial3": {
+      "name": "Sarah Williams",
+      "role": "Coach Fitness",
+      "text": "Configurer les paiements a ete un jeu d'enfant avec l'integration Stripe. Je suis passee de zero a la vente de mes programmes fitness en une journee. ITY gere tout pour que je puisse me concentrer sur ce que j'aime -- le coaching!"
+    },
+    "testimonial4": {
+      "name": "David Kim",
+      "role": "Instructeur de Musique",
+      "text": "Le tableau de bord analytique m'a montre que les etudiants abandonnaient a une lecon specifique. Je l'ai restructuree, et les taux de completion ont bondi de 40%. ITY vous donne les insights pour ameliorer constamment vos cours."
+    }
+  },
+  "pricing": {
+    "subtitle": "Tarifs",
+    "title": "Plans Simples, Sans Surprises",
+    "monthly": "Mensuel",
+    "yearly": "Annuel",
+    "yearlySave": "Economisez 20%",
+    "popular": "Le Plus Populaire",
+    "cta": "Commencer",
+    "ctaPro": "Essai Gratuit",
+    "perMonth": "/mois",
+    "free": {
+      "name": "Starter",
+      "price": "0",
+      "description": "Parfait pour commencer",
+      "f1": "1 cours",
+      "f2": "Jusqu'a 50 etudiants",
+      "f3": "Analytics de base",
+      "f4": "Sous-domaine ITY",
+      "f5": "Support par email"
+    },
+    "pro": {
+      "name": "Pro",
+      "priceMonthly": "29",
+      "priceYearly": "23",
+      "description": "Pour les createurs serieux",
+      "f1": "Cours illimites",
+      "f2": "Etudiants illimites",
+      "f3": "Analytics avance",
+      "f4": "Domaine personnalise",
+      "f5": "Support prioritaire",
+      "f6": "Assistant IA",
+      "f7": "0% de commissions"
+    },
+    "business": {
+      "name": "Business",
+      "priceMonthly": "79",
+      "priceYearly": "63",
+      "description": "Pour les equipes et academies",
+      "f1": "Tout dans Pro",
+      "f2": "Plusieurs instructeurs",
+      "f3": "Acces API",
+      "f4": "Marque blanche",
+      "f5": "Support dedie",
+      "f6": "Integrations personnalisees",
+      "f7": "Garantie SLA"
+    }
+  },
+  "team": {
+    "subtitle": "notre equipe",
+    "title": "Rencontrez Notre Equipe",
+    "member1": {
+      "name": "Alex Rivera",
+      "role": "PDG / Fondateur"
+    },
+    "member2": {
+      "name": "Jordan Park",
+      "role": "Directeur Technique"
+    },
+    "member3": {
+      "name": "Priya Sharma",
+      "role": "Responsable Produit"
+    },
+    "member4": {
+      "name": "Sam Nguyen",
+      "role": "Responsable Croissance"
+    }
+  },
+  "blog": {
+    "subtitle": "ressources pour createurs",
+    "title": "conseils et insights",
+    "cta": "voir tous les articles",
+    "post1": {
+      "category": "DEMARRAGE",
+      "title": "Comment lancer votre premier cours en ligne en un week-end"
+    },
+    "post2": {
+      "category": "MONETISATION",
+      "title": "5 strategies de tarification qui fonctionnent pour les createurs de cours"
+    },
+    "post3": {
+      "category": "COMMUNAUTE",
+      "title": "Construire une communaute autour de votre ecole en ligne"
+    }
+  },
+  "stats": {
+    "creators": "Createurs Actifs",
+    "students": "Etudiants",
+    "courses": "Cours Publies",
+    "countries": "Pays"
+  },
+  "marquee": {
+    "item1": "Cours en Ligne",
+    "item2": "Votre Marque",
+    "item3": "Paiements Directs",
+    "item4": "Sans Commissions",
+    "item5": "Assistant IA"
+  },
+  "cta": {
+    "title": "Commencez Votre Ecole en Ligne Aujourd'hui",
+    "button": "Creer Mon Ecole Gratuitement"
+  },
+  "footer": {
+    "poweredBy": "Propulse par",
+    "copyright": "Tous droits reserves",
+    "info": "La plateforme la plus simple pour creer votre ecole en ligne. Monetisez vos connaissances avec votre propre marque, sans commissions sur les ventes.",
+    "linkHome": "ACCUEIL",
+    "linkFeatures": "FONCTIONNALITES",
+    "linkTestimonials": "TEMOIGNAGES",
+    "linkLogin": "CONNEXION",
+    "linkRegister": "S'INSCRIRE"
+  },
+  "offcanvas": {
+    "aboutTitle": "A propos d'ITY",
+    "aboutText": "ITY est le moyen le plus simple de creer votre ecole en ligne. Creez des cours, developpez votre audience et gagnez de l'argent avec vos connaissances.",
+    "infoTitle": "Informations",
+    "email": "Email:",
+    "website": "Site Web:"
+  },
+  "preloader": {
+    "loading": "Chargement"
+  }
+}

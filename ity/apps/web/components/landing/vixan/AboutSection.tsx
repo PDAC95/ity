@@ -3,36 +3,32 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
-
-interface DataType {
-  img: string;
-  sub_title: string;
-  title: string;
-  des: string;
-}
-
-const about_slider: DataType[] = [
-  {
-    img: '/assets/img/about_img.jpg',
-    sub_title: 'Nuestra Mision',
-    title: 'Empoderar a Creadores para Lanzar sus Escuelas Online',
-    des: 'Creemos que cada experto merece su propia plataforma educativa. ITY elimina las barreras tecnicas para que te enfoques en lo que mejor sabes hacer: ensenar y compartir tu conocimiento con el mundo.',
-  },
-  {
-    img: '/assets/img/about_img.jpg',
-    sub_title: 'Tu Plataforma',
-    title: 'Todo lo que Necesitas en un Solo Lugar',
-    des: 'Desde la creacion de cursos hasta la gestion de pagos, ITY integra todas las herramientas que necesitas. Sin necesidad de multiples servicios, sin complicaciones tecnicas.',
-  },
-  {
-    img: '/assets/img/about_img.jpg',
-    sub_title: 'Sin Limites',
-    title: 'Escala tu Escuela sin Preocupaciones',
-    des: 'Ya sea que tengas 10 o 10,000 estudiantes, nuestra infraestructura crece contigo. Enfocate en crear contenido increible mientras nosotros nos encargamos de la tecnologia.',
-  },
-];
+import { useLandingI18n } from './i18n/LandingI18nProvider';
 
 const AboutSection = () => {
+  const { t } = useLandingI18n();
+
+  const about_slider = [
+    {
+      img: '/assets/img/about_img.jpg',
+      sub_title: t('about.slide1.subtitle'),
+      title: t('about.slide1.title'),
+      des: t('about.slide1.description'),
+    },
+    {
+      img: '/assets/img/about_img.jpg',
+      sub_title: t('about.slide2.subtitle'),
+      title: t('about.slide2.title'),
+      des: t('about.slide2.description'),
+    },
+    {
+      img: '/assets/img/about_img.jpg',
+      sub_title: t('about.slide3.subtitle'),
+      title: t('about.slide3.title'),
+      des: t('about.slide3.description'),
+    },
+  ];
+
   return (
     <>
       <div className="cs_height_130 cs_height_lg_60"></div>
