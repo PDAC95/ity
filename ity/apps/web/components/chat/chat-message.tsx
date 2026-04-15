@@ -1,6 +1,7 @@
 'use client';
 
-import { Bot, User } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Bot } from 'lucide-react';
 import type { UIMessage } from 'ai';
 import { ImageThumbnail } from './image-thumbnail';
 
@@ -59,55 +60,51 @@ export function ChatMessage({
 
   const showCursor = isAssistant && isLastAssistantMessage && isStreaming;
 
-  return (
-    <div className="border-b border-zinc-100 py-6 last:border-b-0">
-      <div className="mx-auto max-w-3xl px-4">
-        <div className="mb-3 flex items-center gap-3">
-          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-zinc-100">
-            {isAssistant ? (
-              <Bot className="h-4 w-4 text-indigo-600" />
-            ) : creatorAvatarUrl ? (
-              <img
-                src={creatorAvatarUrl}
-                alt={creatorName}
-                className="h-8 w-8 rounded-full object-cover"
-              />
-            ) : (
-              <User className="h-4 w-4 text-zinc-500" />
-            )}
+  if (isAssistant) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+      >
+        <div className="flex gap-3 px-4 py-3">
+          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-zinc-700">
+            <Bot className="h-4 w-4 text-[#bfdbfe]" />
           </div>
-          <div className="flex items-baseline gap-2">
-            <span className="text-sm font-semibold text-zinc-900">
-              {isAssistant ? '12ity' : creatorName}
-            </span>
-          </div>
-        </div>
-
-        <div className="pl-11">
-          {isAssistant ? (
-            <p className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-700">
+          <div className="max-w-[80%] rounded-xl rounded-tl-none border border-zinc-700 bg-zinc-800 px-4 py-3">
+            <p className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-200">
               {text}
               {showCursor && (
-                <span className="ml-0.5 inline-block animate-pulse text-indigo-400">|</span>
+                <span className="ml-0.5 inline-block animate-pulse text-[#bfdbfe]">|</span>
               )}
             </p>
-          ) : (
-            <div className="space-y-2">
-              {segments.map((segment, i) =>
-                segment.type === 'image' ? (
-                  <ImageThumbnail key={i} url={segment.url} />
-                ) : (
-                  segment.value.trim() ? (
-                    <p key={i} className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-700">
-                      {segment.value}
-                    </p>
-                  ) : null
-                )
-              )}
-            </div>
-          )}
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+    >
+      <div className="flex gap-3 justify-end px-4 py-3">
+        <div className="max-w-[80%] rounded-xl rounded-tr-none border border-[#bfdbfe]/20 bg-[#bfdbfe]/10 px-4 py-3">
+          <div className="space-y-2">
+            {segments.map((segment, i) =>
+              segment.type === 'image' ? (
+                <ImageThumbnail key={i} url={segment.url} />
+              ) : segment.value.trim() ? (
+                <p key={i} className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-200">
+                  {segment.value}
+                </p>
+              ) : null
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
