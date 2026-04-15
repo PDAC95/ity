@@ -42,10 +42,10 @@ export function GoogleAuthButton({
       type="button"
       onClick={handleGoogleAuth}
       disabled={loading}
-      className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow focus:outline-none focus:ring-2 focus:ring-gray-200 disabled:opacity-50"
+      className="flex w-full items-center justify-center gap-3 rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-2.5 text-sm font-medium text-zinc-200 shadow-sm transition-all hover:bg-zinc-700 focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30 disabled:opacity-50"
     >
       {loading ? (
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-gray-600" />
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-600 border-t-zinc-200" />
       ) : (
         <GoogleIcon className="h-5 w-5" />
       )}
