@@ -204,7 +204,7 @@ export function ChatWizard({
   return (
     <div className="flex h-full flex-col">
       {/* Progress stepper */}
-      <div className="flex-shrink-0 border-b border-zinc-800 px-4 py-3">
+      <div className="flex-shrink-0 border-b border-white/[0.06] px-4 py-3">
         <div className="mx-auto flex max-w-3xl items-center gap-1">
           {[1, 2, 3, 4, 5].map((step, i) => (
             <div key={step} className="flex flex-1 items-center">
@@ -214,13 +214,13 @@ export function ChatWizard({
                     ? 'bg-[#bfdbfe]'
                     : step === currentStep
                       ? 'bg-[#bfdbfe] ring-2 ring-[#bfdbfe]/30'
-                      : 'bg-zinc-700'
+                      : 'bg-white/[0.08]'
                 }`}
               />
               {i < 4 && (
                 <div
                   className={`h-px flex-1 transition-all duration-300 ${
-                    step < currentStep ? 'bg-[#bfdbfe]' : 'bg-zinc-700'
+                    step < currentStep ? 'bg-[#bfdbfe]' : 'bg-white/[0.08]'
                   }`}
                 />
               )}
@@ -249,10 +249,10 @@ export function ChatWizard({
           {/* Typing indicator */}
           {isStreaming && (
             <div className="flex gap-3 px-4 py-3">
-              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-zinc-700">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white/[0.08]">
                 <span className="h-3 w-3 rounded-full bg-[#bfdbfe]/60" />
               </div>
-              <div className="rounded-xl rounded-tl-none border border-zinc-700 bg-zinc-800 px-4 py-3">
+              <div className="rounded-xl rounded-tl-none border border-white/[0.06] bg-white/[0.04] px-4 py-3">
                 <div className="flex gap-1 items-center py-1 px-1">
                   {[0, 1, 2].map((i) => (
                     <span
@@ -268,9 +268,9 @@ export function ChatWizard({
 
           {/* Error retry button */}
           {status === 'error' && (
-            <div className="mx-4 my-4 flex items-center gap-3 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3">
+            <div className="mx-4 my-4 flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.04] px-4 py-3">
               <AlertCircle className="h-4 w-4 flex-shrink-0 text-[#fecaca]" />
-              <span className="flex-1 text-sm text-[#fecaca]">Error al obtener respuesta.</span>
+              <span className="flex-1 text-sm text-red-500">Error al obtener respuesta.</span>
               <button
                 type="button"
                 onClick={handleRetry}
@@ -284,11 +284,11 @@ export function ChatWizard({
 
           {/* Chat finished banner */}
           {chatFinished && (
-            <div className="mx-4 my-4 flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 px-6 py-4">
+            <div className="mx-4 my-4 flex items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.04] px-6 py-4">
               <Lock className="h-4 w-4 text-zinc-400" />
               <div className="text-center">
-                <p className="text-sm font-semibold text-zinc-200">Conversación finalizada</p>
-                <p className="text-xs text-zinc-400">
+                <p className="text-sm font-semibold" style={{ color: 'var(--content-heading)' }}>Conversación finalizada</p>
+                <p className="text-xs" style={{ color: 'var(--content-secondary)' }}>
                   Has completado el asistente de diseño. Tu información fue guardada.
                 </p>
               </div>
@@ -301,14 +301,14 @@ export function ChatWizard({
 
       {/* Rate limit countdown */}
       {isRateLimited && rateLimitCountdown > 0 && (
-        <div className="border-t border-zinc-700 bg-zinc-800 px-4 py-2 text-center text-sm text-[#fef3c7]">
+        <div className="border-t border-white/[0.06] bg-white/[0.04] px-4 py-2 text-center text-sm text-[#fef3c7]">
           Límite de mensajes alcanzado. Puedes continuar en {rateLimitCountdown}s.
         </div>
       )}
 
       {/* Input area — hidden when chat finished */}
       {!chatFinished && (
-        <div className="border-t border-zinc-800">
+        <div className="border-t border-white/[0.06]">
           <ChatInput
             input={input}
             onInputChange={setInput}

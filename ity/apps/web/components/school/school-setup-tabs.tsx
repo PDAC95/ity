@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useUnsavedChanges } from '@/hooks/use-unsaved-changes';
 import { GeneralTab } from './general-tab';
 import { BrandingTab } from './branding-tab';
+import { useI18n } from '@/lib/i18n/context';
 
 type AvailableFont = 'inter' | 'merriweather' | 'space-mono';
 
@@ -30,6 +31,7 @@ interface SchoolSetupTabsProps {
 type TabId = 'general' | 'branding';
 
 export function SchoolSetupTabs({ school }: SchoolSetupTabsProps) {
+  const { t } = useI18n();
   const [activeTab, setActiveTab] = useState<TabId>('general');
   const [generalIsDirty, setGeneralIsDirty] = useState(false);
   const [brandingIsDirty, setBrandingIsDirty] = useState(false);
@@ -68,24 +70,24 @@ export function SchoolSetupTabs({ school }: SchoolSetupTabsProps) {
   };
 
   const tabs: { id: TabId; label: string }[] = [
-    { id: 'general', label: 'General' },
-    { id: 'branding', label: 'Marca' },
+    { id: 'general', label: t('school.general') },
+    { id: 'branding', label: t('school.branding') },
   ];
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900">
+    <div className="glass-card">
       {/* Tab header */}
-      <div className="flex border-b border-zinc-800">
+      <div className="flex border-b border-white/[0.06]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
             onClick={() => handleTabClick(tab.id)}
-            className={`px-6 py-3 text-sm font-medium transition-colors focus:outline-none ${
-              activeTab === tab.id
-                ? 'border-b-2 border-[#bfdbfe] text-[#bfdbfe]'
-                : 'text-zinc-400 hover:text-zinc-200'
-            }`}
+            className="px-6 py-3 text-sm font-medium transition-colors focus:outline-none"
+            style={{
+              color: activeTab === tab.id ? '#bfdbfe' : 'var(--content-secondary)',
+              borderBottom: activeTab === tab.id ? '2px solid #bfdbfe' : '2px solid transparent',
+            }}
           >
             {tab.label}
           </button>
@@ -111,12 +113,12 @@ export function SchoolSetupTabs({ school }: SchoolSetupTabsProps) {
       {/* Discard confirmation dialog */}
       {showDiscardDialog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="w-full max-w-sm rounded-xl border border-zinc-700 bg-zinc-900 p-6 shadow-xl">
-            <h3 className="text-base font-semibold text-zinc-100">
-              Cambios sin guardar
+          <div className="w-full max-w-sm glass-card p-6">
+            <h3 className="text-base font-semibold" style={{ color: 'var(--content-heading)' }}>
+              {t('school.unsavedTitle')}
             </h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              Tienes cambios sin guardar. ¿Descartar o quedarte?
+            <p className="mt-2 text-sm" style={{ color: 'var(--content-secondary)' }}>
+              {t('school.unsavedMsg')}
             </p>
             <div className="mt-5 flex justify-end gap-3">
               <button
@@ -124,14 +126,14 @@ export function SchoolSetupTabs({ school }: SchoolSetupTabsProps) {
                 onClick={handleStay}
                 className="rounded-lg border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:bg-zinc-800"
               >
-                Quedarse
+                {t('school.stay')}
               </button>
               <button
                 type="button"
                 onClick={handleDiscard}
                 className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-500"
               >
-                Descartar
+                {t('school.discard')}
               </button>
             </div>
           </div>

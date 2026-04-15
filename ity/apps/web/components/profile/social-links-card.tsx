@@ -2,6 +2,7 @@
 
 import { useFormContext } from 'react-hook-form';
 import type { ProfileFormInput } from '@/lib/validations/profile';
+import { useI18n } from '@/lib/i18n/context';
 
 const SOCIAL_NETWORKS = [
   { key: 'instagram', label: 'Instagram', prefix: 'instagram.com/' },
@@ -14,24 +15,18 @@ const SOCIAL_NETWORKS = [
 
 export function SocialLinksCard() {
   const { register } = useFormContext<ProfileFormInput>();
+  const { t } = useI18n();
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
-      <h2 className="mb-4 text-sm font-semibold text-zinc-100">Redes sociales</h2>
-
+    <div className="glass-card p-5">
+      <h2 className="mb-4 text-sm font-semibold" style={{ color: 'var(--content-heading)' }}>{t('profile.socialLinks')}</h2>
       <div className="space-y-3">
         {SOCIAL_NETWORKS.map(({ key, label, prefix }) => (
           <div key={key}>
-            <label className="mb-1 block text-xs font-medium text-zinc-400">{label}</label>
-            <div className="flex overflow-hidden rounded-lg border border-zinc-700 bg-zinc-800">
-              <span className="whitespace-nowrap border-r border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-500">
-                {prefix}
-              </span>
-              <input
-                {...register(`socialLinks.${key}`)}
-                placeholder="username"
-                className="flex-1 bg-transparent px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none"
-              />
+            <label className="mb-1 block text-xs font-medium" style={{ color: 'var(--content-secondary)' }}>{label}</label>
+            <div className="flex overflow-hidden rounded-xl" style={{ border: '1px solid var(--content-input-border)', background: 'var(--content-input-bg)' }}>
+              <span className="whitespace-nowrap px-3 py-2.5 text-xs" style={{ borderRight: '1px solid var(--content-subtle-border)', background: 'var(--content-card-bg)', color: 'var(--content-muted)' }}>{prefix}</span>
+              <input {...register(`socialLinks.${key}`)} placeholder="username" className="flex-1 bg-transparent px-3 py-2.5 text-sm focus:outline-none" style={{ color: 'var(--content-heading)' }} />
             </div>
           </div>
         ))}

@@ -45,7 +45,22 @@
       "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs summary-extract .planning/phases/11-ai-chat-wizard/11-P02-SUMMARY.md --fields one_liner)",
       "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs summary-extract .planning/phases/11-ai-chat-wizard/11-P01-SUMMARY.md --fields one_liner)",
       "Bash(ls .planning/debug/*.md)",
-      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs list-todos)"
+      "Bash(node C:/Users/patri/.claude/get-shit-done/bin/gsd-tools.cjs list-todos)",
+      "Bash(ls node_modules/.bin/tsc*)",
+      "Bash(ls node_modules/typescript/bin/)",
+      "Bash(which tsc *)",
+      "Bash(npm run *)",
+      "Bash(pnpm next *)",
+      "Bash(node -e ' *)",
+      "Bash(lsof -ti:3001)",
+      "Bash(xargs kill *)",
+      "Bash(npx next *)",
+      "Bash(netstat -ano)",
+      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 8080 -ErrorAction SilentlyContinue | Select-Object OwningProcess\")",
+      "Bash(powershell -Command \"Get-Process -Id 63972 | Select-Object ProcessName, Path\")",
+      "Bash(powershell -Command \"Get-CimInstance Win32_Process -Filter 'ProcessId = 63972' | Select-Object CommandLine\")",
+      "Bash(xargs grep *)",
+      "Bash(touch app/\\\\\\(dashboard\\\\\\)/dashboard-shell.tsx)"
     ]
   }
 }

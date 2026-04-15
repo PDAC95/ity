@@ -68,11 +68,11 @@ export function ChatMessage({
         transition={{ duration: 0.2, ease: 'easeOut' }}
       >
         <div className="flex gap-3 px-4 py-3">
-          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-zinc-700">
+          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white/[0.08] border border-white/[0.06]">
             <Bot className="h-4 w-4 text-[#bfdbfe]" />
           </div>
-          <div className="max-w-[80%] rounded-xl rounded-tl-none border border-zinc-700 bg-zinc-800 px-4 py-3">
-            <p className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-200">
+          <div className="max-w-[80%] rounded-xl rounded-tl-none border border-white/[0.06] bg-white/[0.04] backdrop-blur-sm px-4 py-3">
+            <p className="whitespace-pre-wrap text-sm leading-relaxed" style={{ color: 'var(--content-body)' }}>
               {text}
               {showCursor && (
                 <span className="ml-0.5 inline-block animate-pulse text-[#bfdbfe]">|</span>
@@ -97,7 +97,7 @@ export function ChatMessage({
               segment.type === 'image' ? (
                 <ImageThumbnail key={i} url={segment.url} />
               ) : segment.value.trim() ? (
-                <p key={i} className="whitespace-pre-wrap text-sm leading-relaxed text-zinc-200">
+                <p key={i} className="whitespace-pre-wrap text-sm leading-relaxed" style={{ color: 'var(--content-body)' }}>
                   {segment.value}
                 </p>
               ) : null

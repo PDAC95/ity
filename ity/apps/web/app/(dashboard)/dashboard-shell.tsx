@@ -21,10 +21,94 @@ import {
   Plus,
   Sparkles,
   ChevronDown,
+  ChevronUp,
+  Sun,
+  Moon,
+  Bell,
 } from 'lucide-react';
 import { cn } from '@ity/ui/utils';
 import { getAvatarColor, getInitials } from '@/lib/utils/avatar';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import { I18nProvider, useI18n } from '@/lib/i18n/context';
+
+const LANGUAGES = [
+  { code: 'en', flag: '🇺🇸', label: 'English' },
+  { code: 'es', flag: '🇪🇸', label: 'Español' },
+  { code: 'fr', flag: '🇫🇷', label: 'Français' },
+  { code: 'pt', flag: '🇧🇷', label: 'Português' },
+] as const;
+
+// ── Custom scroll indicator ──
+function ScrollIndicator({ containerRef }: { containerRef: React.RefObject<HTMLElement | null> }) {
+  const [scrollRatio, setScrollRatio] = useState(0);
+  const [showUp, setShowUp] = useState(false);
+  const [showDown, setShowDown] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const update = () => {
+      const { scrollTop, scrollHeight, clientHeight } = el;
+      const maxScroll = scrollHeight - clientHeight;
+      const canScroll = maxScroll > 10;
+      setVisible(canScroll);
+      if (!canScroll) return;
+      setScrollRatio(scrollTop / maxScroll);
+      setShowUp(scrollTop > 10);
+      setShowDown(scrollTop < maxScroll - 10);
+    };
+
+    update();
+    el.addEventListener('scroll', update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => { el.removeEventListener('scroll', update); ro.disconnect(); };
+  }, [containerRef]);
+
+  if (!visible) return null;
+
+  const scroll = (dir: 'up' | 'down') => {
+    containerRef.current?.scrollBy({ top: dir === 'up' ? -200 : 200, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="absolute right-3 top-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-2">
+      <button
+        onClick={() => scroll('up')}
+        className={cn(
+          'flex h-7 w-7 items-center justify-center rounded-full backdrop-blur-md transition-all duration-200',
+          !showUp && 'opacity-0 pointer-events-none'
+        )}
+        style={{ background: 'var(--content-scroll-btn)', border: '1px solid var(--content-scroll-btn-border)', color: 'var(--content-scroll-btn-text)' }}
+      >
+        <ChevronUp className="h-3.5 w-3.5" />
+      </button>
+
+      {/* Track */}
+      <div className="relative h-20 w-1 rounded-full" style={{ background: 'var(--content-scroll-track)' }}>
+        <motion.div
+          className="absolute left-1/2 h-5 w-5 -translate-x-1/2 rounded-full backdrop-blur-md shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+          style={{ top: `${scrollRatio * (80 - 20)}px`, background: 'var(--content-scroll-thumb)', border: '1px solid var(--content-scroll-btn-border)' }}
+          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        />
+      </div>
+
+      <button
+        onClick={() => scroll('down')}
+        className={cn(
+          'flex h-7 w-7 items-center justify-center rounded-full backdrop-blur-md transition-all duration-200',
+          !showDown && 'opacity-0 pointer-events-none'
+        )}
+        style={{ background: 'var(--content-scroll-btn)', border: '1px solid var(--content-scroll-btn-border)', color: 'var(--content-scroll-btn-text)' }}
+      >
+        <ChevronDown className="h-3.5 w-3.5" />
+      </button>
+    </div>
+  );
+}
 
 export interface CreatorData {
   id: string;
@@ -45,27 +129,27 @@ export interface SchoolData {
   } | null;
 }
 
-const navItems = [
-  { href: '/a', label: 'Inicio', icon: Home },
-  { href: '/a/school-setup', label: 'Escuela', icon: GraduationCap },
-  { href: '/a/landing/templates', label: 'Mi Pagina', icon: Globe },
-  { href: '/a/profile', label: 'Perfil', icon: User },
+const NAV_ITEMS = [
+  { href: '/a', key: 'nav.home', icon: Home },
+  { href: '/a/school-setup', key: 'nav.school', icon: GraduationCap },
+  { href: '/a/landing/templates', key: 'nav.myPage', icon: Globe },
+  { href: '/a/profile', key: 'nav.profile', icon: User },
 ];
 
-const lockedItems = [
-  { label: 'Cursos', icon: BookOpen },
-  { label: 'Alumnos', icon: Users },
-  { label: 'Metricas', icon: BarChart3 },
-  { label: 'Equipo', icon: UserPlus },
+const LOCKED_ITEMS = [
+  { key: 'nav.courses', icon: BookOpen },
+  { key: 'nav.students', icon: Users },
+  { key: 'nav.metrics', icon: BarChart3 },
+  { key: 'nav.team', icon: UserPlus },
 ];
 
-const quickActions = [
-  { href: '/a/landing/templates', label: 'Mi Pagina', icon: Globe, color: '#c4f0c2' },
-  { href: '/a/school-setup', label: 'Escuela', icon: GraduationCap, color: '#f5c2d6' },
-  { href: '/a/landing/chat', label: 'Chat AI', icon: Sparkles, color: '#fef3c7' },
-  { href: '/a/profile', label: 'Perfil', icon: User, color: '#bfdbfe' },
-  { href: '/a/coming-soon', label: 'Cursos', icon: BookOpen, color: '#ddd6fe' },
-  { href: '/a/coming-soon', label: 'Alumnos', icon: Users, color: '#fbcfe8' },
+const QUICK_ACTIONS = [
+  { href: '/a/landing/templates', key: 'nav.myPage', icon: Globe, color: '#c4f0c2' },
+  { href: '/a/school-setup', key: 'nav.school', icon: GraduationCap, color: '#f5c2d6' },
+  { href: '/a/landing/chat', key: 'nav.chatAi', icon: Sparkles, color: '#fef3c7' },
+  { href: '/a/profile', key: 'nav.profile', icon: User, color: '#bfdbfe' },
+  { href: '/a/coming-soon', key: 'nav.courses', icon: BookOpen, color: '#ddd6fe' },
+  { href: '/a/coming-soon', key: 'nav.students', icon: Users, color: '#fbcfe8' },
 ];
 
 interface DashboardShellProps {
@@ -74,17 +158,40 @@ interface DashboardShellProps {
   children: React.ReactNode;
 }
 
-export function DashboardShell({
+export function DashboardShell(props: DashboardShellProps) {
+  return (
+    <I18nProvider>
+      <DashboardShellInner {...props} />
+    </I18nProvider>
+  );
+}
+
+function DashboardShellInner({
   creator,
   school,
   children,
 }: DashboardShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [notchX, setNotchX] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const supabase = createClient();
+  const { theme, setTheme } = useTheme();
+  const { lang: currentLang, setLang: setCurrentLang, t } = useI18n();
+
+  useEffect(() => setMounted(true), []);
+
+  // Close lang dropdown on any click outside
+  useEffect(() => {
+    if (!langDropdownOpen) return;
+    const close = () => setLangDropdownOpen(false);
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
+  }, [langDropdownOpen]);
+
   const navRef = useRef<HTMLDivElement>(null);
   const navItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
   const bubbleRef = useRef<HTMLDivElement>(null);
@@ -95,7 +202,7 @@ export function DashboardShell({
   };
 
   const updateNotchPosition = useCallback(() => {
-    const activeHref = navItems.find((item) => isActive(item.href))?.href;
+    const activeHref = NAV_ITEMS.find((item) => isActive(item.href))?.href;
     if (!activeHref || !bubbleRef.current) {
       setNotchX(null);
       return;
@@ -107,12 +214,13 @@ export function DashboardShell({
     const bubbleRect = bubbleRef.current.getBoundingClientRect();
     const centerX = elRect.left + elRect.width / 2 - bubbleRect.left;
     setNotchX(centerX);
-  }, [pathname]);
+  }, [pathname, currentLang]);
 
   useEffect(() => {
-    updateNotchPosition();
+    // Small delay to let the DOM settle after language change
+    const raf = requestAnimationFrame(updateNotchPosition);
     window.addEventListener('resize', updateNotchPosition);
-    return () => window.removeEventListener('resize', updateNotchPosition);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', updateNotchPosition); };
   }, [updateNotchPosition]);
 
   const handleSignOut = async () => {
@@ -124,6 +232,7 @@ export function DashboardShell({
   const initials = getInitials(creator.name || creator.email);
   const avatarColor = getAvatarColor(creator.name || creator.email);
 
+  const mainRef = useRef<HTMLElement>(null);
   const NOTCH_W = 160;
   const NOTCH_H = 18;
 
@@ -131,19 +240,49 @@ export function DashboardShell({
     <div className="flex h-screen flex-col bg-black p-2 md:p-3">
       {/* Navbar */}
       <nav className="flex h-14 flex-shrink-0 items-center justify-between px-4 md:px-6">
-        {/* Left: Logo */}
-        <Link href="/a" className="flex items-center">
-          <span className="text-xl font-bold text-white tracking-tight">
-            ITY
-          </span>
-        </Link>
+        {/* Left: Logo + theme toggle */}
+        <div className="flex items-center gap-5">
+          <Link href="/a" className="flex items-center">
+            <span className="text-xl font-bold text-white tracking-tight">
+              ITY
+            </span>
+          </Link>
+          {mounted && (
+            <div className="flex items-center gap-1 rounded-full bg-white/[0.06] border border-white/[0.08] p-1">
+              <button
+                onClick={() => setTheme('light')}
+                className={cn(
+                  'flex h-7 w-7 items-center justify-center rounded-full transition-all duration-200',
+                  theme === 'light'
+                    ? 'bg-[#bfdbfe] text-zinc-900 shadow-[0_2px_8px_-2px_rgba(191,219,254,0.4)]'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                )}
+                aria-label="Modo claro"
+              >
+                <Sun className="h-3.5 w-3.5" />
+              </button>
+              <button
+                onClick={() => setTheme('dark')}
+                className={cn(
+                  'flex h-7 w-7 items-center justify-center rounded-full transition-all duration-200',
+                  theme === 'dark'
+                    ? 'bg-[#bfdbfe] text-zinc-900 shadow-[0_2px_8px_-2px_rgba(191,219,254,0.4)]'
+                    : 'text-zinc-500 hover:text-zinc-300'
+                )}
+                aria-label="Modo oscuro"
+              >
+                <Moon className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* Center: Nav icons — desktop */}
         <div
           ref={navRef}
           className="hidden md:flex items-center gap-1 rounded-full bg-zinc-900/80 px-2 py-1.5 border border-zinc-800/50"
         >
-          {navItems.map((item) => {
+          {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const active = isActive(item.href);
             return (
@@ -161,21 +300,21 @@ export function DashboardShell({
                 )}
               >
                 <Icon className="h-4 w-4" />
-                {active && <span>{item.label}</span>}
+                {active && <span>{t(item.key)}</span>}
               </Link>
             );
           })}
 
           {/* Locked items as disabled icons */}
           <div className="mx-1 h-5 w-px bg-zinc-700/50" />
-          {lockedItems.map((item) => {
+          {LOCKED_ITEMS.map((item) => {
             const Icon = item.icon;
             return (
               <Link
-                key={item.label}
+                key={item.key}
                 href="/a/coming-soon"
                 className="relative flex items-center rounded-full px-3 py-2 text-zinc-600 transition-colors hover:text-zinc-500"
-                title={`${item.label} (Proximamente)`}
+                title={`${t(item.key)} (${t('nav.comingSoon')})`}
               >
                 <Icon className="h-4 w-4" />
                 <Lock className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5" />
@@ -184,12 +323,58 @@ export function DashboardShell({
           })}
         </div>
 
-        {/* Right: User */}
-        <div className="flex items-center gap-3">
+        {/* Right: Actions + User */}
+        <div className="flex items-center gap-2">
+          {/* Language selector — desktop */}
+          <div className="relative hidden md:block">
+            <button
+              onClick={(e) => { e.stopPropagation(); setLangDropdownOpen(!langDropdownOpen); setDropdownOpen(false); }}
+              className="flex h-9 items-center gap-1.5 rounded-full bg-white/[0.06] border border-white/[0.08] px-3 text-sm text-white transition-all duration-200 hover:bg-white/[0.1]"
+              aria-label={t('common.changeLang')}
+            >
+              <Globe className="h-3.5 w-3.5" />
+              <span className="text-xs font-medium uppercase">{currentLang}</span>
+            </button>
+
+            {langDropdownOpen && (
+              <div className="absolute right-0 z-50 mt-2 w-44 rounded-2xl border border-white/[0.08] bg-zinc-900/95 backdrop-blur-xl py-1 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.6)]">
+                {LANGUAGES.map((lng) => (
+                  <button
+                    key={lng.code}
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setCurrentLang(lng.code); setLangDropdownOpen(false); }}
+                    className={cn(
+                      'flex w-full items-center gap-3 px-4 py-2.5 text-sm transition-colors',
+                      currentLang === lng.code
+                        ? 'text-[#bfdbfe]'
+                        : 'text-white hover:bg-white/[0.06]'
+                    )}
+                  >
+                    <span className="text-base">{lng.flag}</span>
+                    <span>{lng.label}</span>
+                    {currentLang === lng.code && (
+                      <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#bfdbfe]" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Notification bell — desktop */}
+          <button
+            className="relative hidden md:flex h-9 w-9 items-center justify-center rounded-full bg-white/[0.06] border border-white/[0.08] text-zinc-400 transition-all duration-200 hover:bg-white/[0.1] hover:text-zinc-200"
+            aria-label="Notificaciones"
+          >
+            <Bell className="h-4 w-4" />
+            {/* Red dot for unread */}
+            <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-black" />
+          </button>
+
           {/* Desktop: user dropdown */}
           <div className="relative hidden md:block">
             <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+              onClick={() => { setDropdownOpen(!dropdownOpen); setLangDropdownOpen(false); }}
               className="flex items-center gap-3 rounded-full py-1.5 pl-1.5 pr-3 transition-colors hover:bg-zinc-900/80"
             >
               {creator.avatarUrl ? (
@@ -210,7 +395,7 @@ export function DashboardShell({
               )}
               <div className="flex flex-col items-start">
                 <span className="text-sm font-medium text-zinc-200 leading-tight">{creator.name}</span>
-                <span className="text-xs text-zinc-500 leading-tight">{school?.name ?? 'Mi Escuela'}</span>
+                <span className="text-xs text-zinc-500 leading-tight">{school?.name ?? t('user.mySchool')}</span>
               </div>
               <ChevronDown className="h-4 w-4 text-zinc-500" />
             </button>
@@ -221,8 +406,8 @@ export function DashboardShell({
                   className="fixed inset-0 z-10"
                   onClick={() => setDropdownOpen(false)}
                 />
-                <div className="absolute right-0 z-20 mt-2 w-56 rounded-xl border border-zinc-800 bg-zinc-900 py-1 shadow-2xl">
-                  <div className="border-b border-zinc-800 px-4 py-3">
+                <div className="absolute right-0 z-20 mt-2 w-56 rounded-2xl border border-white/[0.08] bg-zinc-900/90 backdrop-blur-xl py-1 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.6)]">
+                  <div className="border-b border-white/[0.06] px-4 py-3">
                     <p className="text-sm font-medium text-white">
                       {creator.name}
                     </p>
@@ -234,7 +419,7 @@ export function DashboardShell({
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-zinc-300 transition-colors hover:bg-zinc-800"
                   >
                     <User className="h-4 w-4" />
-                    Mi Perfil
+                    {t('user.myProfile')}
                   </Link>
                   <Link
                     href="/a/school-setup"
@@ -242,15 +427,15 @@ export function DashboardShell({
                     className="flex items-center gap-2 px-4 py-2.5 text-sm text-zinc-300 transition-colors hover:bg-zinc-800"
                   >
                     <GraduationCap className="h-4 w-4" />
-                    Configurar Escuela
+                    {t('user.configSchool')}
                   </Link>
-                  <div className="border-t border-zinc-800">
+                  <div className="border-t border-white/[0.06]">
                     <button
                       onClick={handleSignOut}
                       className="flex w-full items-center gap-2 px-4 py-2.5 text-sm text-red-400 transition-colors hover:bg-zinc-800"
                     >
                       <LogOut className="h-4 w-4" />
-                      Cerrar sesion
+                      {t('user.signOut')}
                     </button>
                   </div>
                 </div>
@@ -258,8 +443,22 @@ export function DashboardShell({
             )}
           </div>
 
-          {/* Mobile: avatar + hamburger */}
+          {/* Mobile: lang + bell + avatar + hamburger */}
           <div className="flex items-center gap-2 md:hidden">
+            <button
+              className="flex h-8 items-center gap-1 rounded-full bg-white/[0.06] border border-white/[0.08] px-2 text-sm text-white"
+              aria-label={t('common.changeLang')}
+            >
+              <Globe className="h-3 w-3" />
+              <span className="text-[10px] font-medium uppercase">{currentLang}</span>
+            </button>
+            <button
+              className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.06] border border-white/[0.08] text-zinc-400"
+              aria-label="Notificaciones"
+            >
+              <Bell className="h-3.5 w-3.5" />
+              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 ring-2 ring-black" />
+            </button>
             {creator.avatarUrl ? (
               <img
                 src={creator.avatarUrl}
@@ -302,7 +501,7 @@ export function DashboardShell({
             className="absolute left-2 right-2 top-16 z-50 rounded-2xl border border-zinc-800 bg-zinc-900 p-3 shadow-2xl md:hidden"
           >
             <div className="space-y-1">
-              {navItems.map((item) => {
+              {NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const active = isActive(item.href);
                 return (
@@ -318,24 +517,24 @@ export function DashboardShell({
                     )}
                   >
                     <Icon className="h-5 w-5" />
-                    {item.label}
+                    {t(item.key)}
                   </Link>
                 );
               })}
 
               <div className="mx-2 my-2 border-t border-zinc-800" />
 
-              {lockedItems.map((item) => {
+              {LOCKED_ITEMS.map((item) => {
                 const Icon = item.icon;
                 return (
                   <Link
-                    key={item.label}
+                    key={item.key}
                     href="/a/coming-soon"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-zinc-600"
                   >
                     <Icon className="h-5 w-5" />
-                    <span className="flex-1">{item.label}</span>
+                    <span className="flex-1">{t(item.key)}</span>
                     <Lock className="h-3.5 w-3.5" />
                   </Link>
                 );
@@ -351,7 +550,7 @@ export function DashboardShell({
                 className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm text-red-400 transition-colors hover:bg-zinc-800"
               >
                 <LogOut className="h-5 w-5" />
-                Cerrar sesion
+                {t('user.signOut')}
               </button>
             </div>
           </motion.div>
@@ -373,13 +572,14 @@ export function DashboardShell({
                 Q ${notchX},${-NOTCH_H * 0.1} ${notchX + NOTCH_W / 8},${NOTCH_H * 0.6}
                 C ${notchX + NOTCH_W / 6},${NOTCH_H} ${notchX + NOTCH_W / 3},${NOTCH_H} ${notchX + NOTCH_W / 2},${NOTCH_H}
               `}
-              fill="#1e1e22"
+              fill="var(--notch-fill)"
               stroke="none"
             />
           </svg>
         )}
-        <div className="relative flex-1 overflow-hidden rounded-3xl" style={{ backgroundColor: '#1e1e22' }}>
-          <main className="h-full overflow-auto p-4 pb-20 md:p-8 md:pb-24">
+        <div className="relative flex-1 overflow-hidden rounded-3xl" style={{ backgroundColor: 'var(--content-bg)' }}>
+          <ScrollIndicator containerRef={mainRef} />
+          <main ref={mainRef} className="premium-scroll h-full overflow-auto p-4 pb-20 md:p-8 md:pb-24">
             <motion.div
               key={pathname}
               initial={{ opacity: 0 }}
@@ -401,19 +601,19 @@ export function DashboardShell({
                   transformOrigin: 'bottom center',
                 }}
               >
-                {quickActions.map((action) => {
+                {QUICK_ACTIONS.map((action) => {
                   const Icon = action.icon;
                   return (
                     <Link
-                      key={action.label}
+                      key={action.key}
                       href={action.href}
                       className="group relative flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-200 hover:scale-110"
                       style={{ backgroundColor: action.color }}
-                      title={action.label}
+                      title={t(action.key)}
                     >
                       <Icon className="h-5 w-5 text-zinc-800" />
                       <span className="absolute -top-9 left-1/2 -translate-x-1/2 rounded-lg bg-zinc-800 px-2.5 py-1 text-xs text-white whitespace-nowrap opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none shadow-lg">
-                        {action.label}
+                        {t(action.key)}
                       </span>
                     </Link>
                   );
@@ -422,7 +622,7 @@ export function DashboardShell({
                 <Link
                   href="/a/coming-soon"
                   className="flex h-11 w-11 items-center justify-center rounded-full bg-zinc-700 transition-transform duration-200 hover:scale-110"
-                  title="Mas opciones"
+                  title={t('nav.moreOptions')}
                 >
                   <Plus className="h-5 w-5 text-zinc-300" />
                 </Link>
@@ -433,15 +633,15 @@ export function DashboardShell({
           {/* Mobile dock — floating pill */}
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex md:hidden">
             <div className="flex items-center gap-2 rounded-full bg-black/95 px-3 py-2.5 shadow-2xl">
-              {quickActions.map((action) => {
+              {QUICK_ACTIONS.map((action) => {
                 const Icon = action.icon;
                 return (
                   <Link
-                    key={action.label}
+                    key={action.key}
                     href={action.href}
                     className="flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-200 hover:scale-110"
                     style={{ backgroundColor: action.color }}
-                    title={action.label}
+                    title={t(action.key)}
                   >
                     <Icon className="h-4 w-4 text-zinc-800" />
                   </Link>
@@ -450,7 +650,7 @@ export function DashboardShell({
               <Link
                 href="/a/coming-soon"
                 className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-700"
-                title="Mas opciones"
+                title={t('nav.moreOptions')}
               >
                 <Plus className="h-4 w-4 text-zinc-300" />
               </Link>

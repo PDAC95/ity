@@ -5,6 +5,7 @@ import { AlertTriangle, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { trpc } from '@/lib/trpc/client';
 import { ColorPicker } from './color-picker';
+import { useI18n } from '@/lib/i18n/context';
 
 type AvailableFont = 'inter' | 'merriweather' | 'space-mono';
 
@@ -46,6 +47,7 @@ const DEFAULT_PRIMARY = '#6366F1';
 const DEFAULT_ACCENT = '#EC4899';
 
 export function BrandingTab({ school, onDirtyChange }: BrandingTabProps) {
+  const { t } = useI18n();
   const savedPrimary = school?.branding?.primaryColor ?? DEFAULT_PRIMARY;
   const savedAccent = school?.branding?.secondaryColor ?? DEFAULT_ACCENT;
 
@@ -89,8 +91,8 @@ export function BrandingTab({ school, onDirtyChange }: BrandingTabProps) {
 
   if (school === null) {
     return (
-      <p className="text-sm text-zinc-400">
-        Primero guarda el nombre de tu escuela en la pestaña General
+      <p className="text-sm" style={{ color: 'var(--content-secondary)' }}>
+        {t('school.noSchool')}
       </p>
     );
   }
@@ -117,13 +119,13 @@ export function BrandingTab({ school, onDirtyChange }: BrandingTabProps) {
       {lowContrast && (
         <div className="flex items-center gap-2 text-amber-400 text-sm">
           <AlertTriangle className="h-4 w-4 flex-shrink-0" />
-          <span>Los colores seleccionados pueden ser difíciles de distinguir</span>
+          <span>{t('school.colorWarning')}</span>
         </div>
       )}
 
       {/* Live preview */}
-      <div className="rounded-lg border border-zinc-700 p-4 space-y-3">
-        <p className="text-xs font-medium text-zinc-400 uppercase tracking-wide mb-3">
+      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 space-y-3">
+        <p className="text-xs font-medium uppercase tracking-wide mb-3" style={{ color: 'var(--content-secondary)' }}>
           Vista previa
         </p>
 
@@ -136,14 +138,14 @@ export function BrandingTab({ school, onDirtyChange }: BrandingTabProps) {
         </div>
 
         {/* Sample card with accent button */}
-        <div className="rounded-lg border border-zinc-700 bg-zinc-800 p-4 space-y-3">
+        <div className="rounded-xl border border-white/[0.06] bg-white/[0.04] p-4 space-y-3">
           <h3
             className="text-sm font-semibold"
             style={{ color: primaryColor }}
           >
             Curso de ejemplo
           </h3>
-          <p className="text-xs text-zinc-400">
+          <p className="text-xs" style={{ color: 'var(--content-secondary)' }}>
             Aprende a tu ritmo con acceso de por vida.
           </p>
           <div className="flex items-center gap-3">
@@ -170,9 +172,9 @@ export function BrandingTab({ school, onDirtyChange }: BrandingTabProps) {
           type="button"
           onClick={handleSave}
           disabled={!isDirty || updateBrandingMutation.isPending}
-          className="flex items-center gap-2 rounded-lg bg-[#bfdbfe] px-4 py-2 text-sm font-medium text-zinc-900 transition hover:bg-[#93c5fd] disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex items-center gap-2 glass-btn disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {updateBrandingMutation.isPending ? <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</> : 'Guardar'}
+          {updateBrandingMutation.isPending ? <><Loader2 className="h-4 w-4 animate-spin" /> {t('school.saving')}</> : t('school.save')}
         </button>
       </div>
     </div>

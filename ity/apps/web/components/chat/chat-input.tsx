@@ -3,6 +3,7 @@
 import { useRef, type KeyboardEvent, type ChangeEvent } from 'react';
 import { Paperclip, SendHorizontal, X, Loader2 } from 'lucide-react';
 import { getSignedUploadUrl, getPublicStorageUrl } from '@/app/actions/storage';
+import { useI18n } from '@/lib/i18n/context';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -39,6 +40,7 @@ export function ChatInput({
   onRemovePendingImage,
   schoolId,
 }: ChatInputProps) {
+  const { t } = useI18n();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -129,7 +131,7 @@ export function ChatInput({
         )}
 
         {/* Input row */}
-        <div className="flex items-end gap-2 rounded-xl border border-zinc-700 bg-zinc-800/50 px-3 py-2 focus-within:border-[#bfdbfe] focus-within:ring-2 focus-within:ring-[#bfdbfe]/30">
+        <div className="flex items-end gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-sm px-3 py-2 transition-all duration-200 focus-within:border-[#bfdbfe]/50 focus-within:ring-2 focus-within:ring-[#bfdbfe]/20 focus-within:bg-white/[0.06]">
           {/* Paperclip button */}
           <button
             type="button"
@@ -161,10 +163,10 @@ export function ChatInput({
             onChange={handleTextareaChange}
             onKeyDown={handleKeyDown}
             disabled={isDisabled}
-            placeholder="Escribe tu mensaje..."
+            placeholder={t('chat.placeholder')}
             rows={1}
-            className="flex-1 resize-none bg-transparent py-1.5 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            style={{ minHeight: '24px', maxHeight: `${5 * 24}px` }}
+            className="flex-1 resize-none bg-transparent py-1.5 text-sm focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            style={{ color: 'var(--content-heading)', minHeight: '24px', maxHeight: `${5 * 24}px` }}
           />
 
           {/* Send button */}
@@ -179,15 +181,15 @@ export function ChatInput({
               }
             }}
             disabled={!canSend}
-            className="mb-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#bfdbfe] text-zinc-900 transition-colors hover:bg-[#93c5fd] disabled:cursor-not-allowed disabled:opacity-50"
+            className="mb-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#bfdbfe] text-zinc-900 shadow-[0_2px_8px_-2px_rgba(191,219,254,0.4)] transition-all duration-200 hover:bg-[#93c5fd] hover:shadow-[0_4px_12px_-2px_rgba(191,219,254,0.5)] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
             aria-label="Enviar mensaje"
           >
             <SendHorizontal className="h-4 w-4" />
           </button>
         </div>
 
-        <p className="mt-1.5 text-center text-xs text-zinc-400">
-          Enter para enviar · Shift+Enter para salto de línea
+        <p className="mt-1.5 text-center text-xs" style={{ color: 'var(--content-muted)' }}>
+          {t('chat.enterToSend')}
         </p>
       </div>
     </div>

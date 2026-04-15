@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { cn } from '@ity/ui/utils';
 import { getAvatarColor, getInitials } from '@/lib/utils/avatar';
 import type { ProfileFormInput } from '@/lib/validations/profile';
+import { useI18n } from '@/lib/i18n/context';
 
 // ---------------------------------------------------------------------------
 // Social icons (minimal SVG inline icons)
@@ -63,6 +64,7 @@ interface ProfilePreviewProps {
 
 export function ProfilePreview({ school, avatarUrl, creatorName, creatorBio }: ProfilePreviewProps) {
   const [mode, setMode] = useState<'profile' | 'school'>('profile');
+  const { t } = useI18n();
   const { control } = useFormContext<ProfileFormInput>();
 
   const watchedName = useWatch({ control, name: 'name' });
@@ -82,18 +84,18 @@ export function ProfilePreview({ school, avatarUrl, creatorName, creatorBio }: P
   return (
     <div className="sticky top-8">
       {/* Mode toggle */}
-      <div className="mb-4 flex rounded-lg border border-zinc-800 bg-zinc-900 p-1">
+      <div className="mb-4 flex rounded-xl border border-white/[0.06] bg-white/[0.04] p-1">
         <button
           type="button"
           onClick={() => setMode('profile')}
           className={cn(
             'flex-1 rounded-md py-1.5 text-xs font-medium transition-colors',
             mode === 'profile'
-              ? 'bg-zinc-700 text-zinc-100'
+              ? 'bg-white/[0.1] text-zinc-100'
               : 'text-zinc-400 hover:text-zinc-200'
           )}
         >
-          Perfil público
+          {t('profile.publicProfile')}
         </button>
         <button
           type="button"
@@ -101,23 +103,23 @@ export function ProfilePreview({ school, avatarUrl, creatorName, creatorBio }: P
           className={cn(
             'flex-1 rounded-md py-1.5 text-xs font-medium transition-colors',
             mode === 'school'
-              ? 'bg-zinc-700 text-zinc-100'
+              ? 'bg-white/[0.1] text-zinc-100'
               : 'text-zinc-400 hover:text-zinc-200'
           )}
         >
-          Header escuela
+          {t('profile.schoolHeader')}
         </button>
       </div>
 
       {/* Preview card */}
-      <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-4">
-        <p className="mb-3 text-[10px] font-medium uppercase tracking-wider text-zinc-600">
+      <div className="glass-card p-4">
+        <p className="mb-3 text-[10px] font-medium uppercase tracking-wider" style={{ color: 'var(--content-muted)' }}>
           Vista previa
         </p>
 
         {mode === 'profile' ? (
           /* Profile card mode */
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+          <div className="rounded-xl border border-white/[0.06] bg-white/[0.04] p-4">
             <div className="flex flex-col items-center text-center">
               {/* Avatar */}
               <div className="mb-3">
@@ -140,13 +142,13 @@ export function ProfilePreview({ school, avatarUrl, creatorName, creatorBio }: P
               </div>
 
               {/* Name */}
-              <h3 className="text-sm font-semibold text-zinc-100">
+              <h3 className="text-sm font-semibold" style={{ color: 'var(--content-heading)' }}>
                 {name || 'Tu nombre'}
               </h3>
 
               {/* Bio */}
               {bio && (
-                <p className="mt-1.5 text-xs leading-relaxed text-zinc-400 line-clamp-3">
+                <p className="mt-1.5 text-xs leading-relaxed line-clamp-3" style={{ color: 'var(--content-secondary)' }}>
                   {bio}
                 </p>
               )}
@@ -157,7 +159,8 @@ export function ProfilePreview({ school, avatarUrl, creatorName, creatorBio }: P
                   {activeSocialLinks.map(([network]) => (
                     <span
                       key={network}
-                      className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-800 text-zinc-400"
+                      className="flex h-7 w-7 items-center justify-center rounded-full"
+                      style={{ background: 'var(--content-subtle-bg)', color: 'var(--content-secondary)' }}
                     >
                       {SOCIAL_ICONS[network]}
                     </span>
@@ -168,7 +171,7 @@ export function ProfilePreview({ school, avatarUrl, creatorName, creatorBio }: P
           </div>
         ) : (
           /* School header mode */
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 overflow-hidden">
+          <div className="rounded-xl border border-white/[0.06] bg-white/[0.04] overflow-hidden">
             <div
               className="flex items-center justify-between px-4 py-3"
               style={{

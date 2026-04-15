@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
+import { useI18n } from '@/lib/i18n/context';
 
 interface ChatPageHeaderProps {
   schoolName?: string;
@@ -9,20 +10,22 @@ interface ChatPageHeaderProps {
 
 export function ChatPageHeader({ schoolName }: ChatPageHeaderProps) {
   const router = useRouter();
+  const { t } = useI18n();
 
   const handleClose = () => {
     router.push('/a/landing/templates');
   };
 
   return (
-    <div className="flex-shrink-0 border-b border-zinc-700 bg-zinc-900/50 backdrop-blur-sm px-4 py-3 flex items-center justify-between">
+    <div className="flex-shrink-0 backdrop-blur-sm px-4 py-3 flex items-center justify-between" style={{ borderBottom: '1px solid var(--content-separator)', background: 'var(--content-card-bg)' }}>
       <div>
-        <p className="text-xs text-zinc-500">Creando landing para</p>
-        <p className="text-sm font-semibold text-zinc-100">{schoolName ?? 'Tu escuela'}</p>
+        <p className="text-xs" style={{ color: 'var(--content-muted)' }}>{t('chat.creatingLanding')}</p>
+        <p className="text-sm font-semibold" style={{ color: 'var(--content-heading)' }}>{schoolName ?? t('chat.yourSchool')}</p>
       </div>
       <button
         onClick={handleClose}
-        className="text-zinc-400 hover:text-zinc-200 transition-colors p-1 rounded-lg hover:bg-zinc-800"
+        className="transition-colors p-1 rounded-lg"
+        style={{ color: 'var(--content-secondary)' }}
         aria-label="Cerrar"
       >
         <X className="h-5 w-5" />

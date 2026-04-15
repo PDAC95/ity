@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { trpc } from '@/lib/trpc/client';
 import { generalFormSchema, type GeneralFormInput } from '@/lib/validations/school';
 import { SlugAvailabilityIndicator } from './slug-availability-indicator';
+import { useI18n } from '@/lib/i18n/context';
 
 interface School {
   id: string;
@@ -32,6 +33,7 @@ function slugify(name: string): string {
 }
 
 export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
+  const { t } = useI18n();
   const [rawSlug, setRawSlug] = useState(school?.slug ?? '');
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
   const [slugConflictError, setSlugConflictError] = useState<string | null>(null);
@@ -127,14 +129,14 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
       {/* Name */}
       <div>
         <div className="flex items-center justify-between mb-1">
-          <label className="text-sm font-medium text-zinc-200">Nombre de la escuela</label>
-          <span className="text-xs text-zinc-500">{nameValue?.length ?? 0}/60</span>
+          <label className="text-sm font-medium" style={{ color: 'var(--content-body)' }}>{t('school.name')}</label>
+          <span className="text-xs" style={{ color: 'var(--content-muted)' }}>{nameValue?.length ?? 0}/60</span>
         </div>
         <input
           {...form.register('name')}
           maxLength={60}
-          placeholder="Mi escuela"
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30"
+          placeholder={t('school.namePlaceholder')}
+          className="w-full glass-input"
         />
         {formState.errors.name && (
           <p className="mt-1 text-xs text-red-400">{formState.errors.name.message}</p>
@@ -144,15 +146,15 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
       {/* Description */}
       <div>
         <div className="flex items-center justify-between mb-1">
-          <label className="text-sm font-medium text-zinc-200">Descripción</label>
-          <span className="text-xs text-zinc-500">{(descValue as string)?.length ?? 0}/500</span>
+          <label className="text-sm font-medium" style={{ color: 'var(--content-body)' }}>{t('school.description')}</label>
+          <span className="text-xs" style={{ color: 'var(--content-muted)' }}>{(descValue as string)?.length ?? 0}/500</span>
         </div>
         <textarea
           {...form.register('description')}
           maxLength={500}
           rows={3}
-          placeholder="Una breve descripción de tu escuela..."
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30 resize-none"
+          placeholder={t('school.descPlaceholder')}
+          className="w-full glass-input resize-none"
         />
         {formState.errors.description && (
           <p className="mt-1 text-xs text-red-400">{formState.errors.description.message}</p>
@@ -164,17 +166,17 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
         <button
           type="submit"
           disabled={!formState.isDirty || isSavingInfo}
-          className="flex items-center gap-2 rounded-lg bg-[#bfdbfe] px-4 py-2 text-sm font-medium text-zinc-900 transition hover:bg-[#93c5fd] disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex items-center gap-2 glass-btn disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {isSavingInfo ? <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</> : 'Guardar'}
+          {isSavingInfo ? <><Loader2 className="h-4 w-4 animate-spin" /> {t('school.saving')}</> : t('school.save')}
         </button>
       </div>
 
       {/* Slug section — only shown when school exists */}
       {school?.id && (
-        <div className="border-t border-zinc-800 pt-6">
+        <div className="border-t border-white/[0.06] pt-6">
           <div className="mb-1">
-            <label className="text-sm font-medium text-zinc-200">URL de la escuela</label>
+            <label className="text-sm font-medium" style={{ color: 'var(--content-body)' }}>{t('school.url')}</label>
           </div>
           <div className="flex gap-2">
             <input
@@ -186,16 +188,17 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
               }}
               maxLength={40}
               placeholder="mi-escuela"
-              className="flex-1 rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30"
+              className="flex-1 glass-input"
             />
             <button
               type="button"
               onClick={handleSlugSave}
               disabled={!isSlugSaveable || updateSlugMutation.isPending}
-              className="flex items-center gap-2 rounded-lg bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-200 transition hover:bg-zinc-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50"
+              style={{ background: 'var(--content-subtle-bg)', border: '1px solid var(--content-input-border)', color: 'var(--content-body)' }}
             >
               {updateSlugMutation.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
-              Guardar slug
+              {t('school.saveSlug')}
             </button>
           </div>
           <SlugAvailabilityIndicator
@@ -206,7 +209,7 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
           {slugConflictError && (
             <p className="mt-1 text-xs text-red-400">{slugConflictError}</p>
           )}
-          <p className="mt-2 text-xs text-zinc-500">
+          <p className="mt-2 text-xs" style={{ color: 'var(--content-muted)' }}>
             12ity.com/{rawSlug || '...'}
           </p>
         </div>

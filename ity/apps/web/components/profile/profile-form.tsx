@@ -17,6 +17,7 @@ import { SocialLinksCard } from './social-links-card';
 import { ProfilePreview } from './profile-preview';
 import { AvatarCropModal } from './avatar-crop-modal';
 import type { SocialLinks } from '@ity/db';
+import { useI18n } from '@/lib/i18n/context';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -46,6 +47,7 @@ export interface ProfileFormProps {
 // ---------------------------------------------------------------------------
 
 export function ProfileForm({ creator, school }: ProfileFormProps) {
+  const { t } = useI18n();
   const router = useRouter();
   const [avatarUrl, setAvatarUrl] = useState<string | null>(creator.avatarUrl);
   const [cropImageSrc, setCropImageSrc] = useState<string | null>(null);
@@ -198,7 +200,7 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
             {/* Left column: avatar + cards */}
             <div className="space-y-5">
               {/* Avatar section */}
-              <div className="flex flex-col items-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+              <div className="flex flex-col items-center gap-3 glass-card p-5">
                 <div className="relative">
                   {/* Avatar circle */}
                   <button
@@ -251,7 +253,7 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
                     disabled={avatarUploading}
                     className="text-xs font-medium text-[#bfdbfe] hover:text-[#93c5fd] transition-colors disabled:opacity-50"
                   >
-                    Cambiar foto
+                    {t('profile.changePhoto')}
                   </button>
                   {avatarUrl && (
                     <button
@@ -260,10 +262,10 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
                       disabled={deleteAvatarMutation.isPending || avatarUploading}
                       className="text-xs text-zinc-500 hover:text-red-400 transition-colors disabled:opacity-50"
                     >
-                      Eliminar foto
+                      {t('profile.deletePhoto')}
                     </button>
                   )}
-                  <p className="text-[10px] text-zinc-600">JPG, PNG o WebP · Máx. 5 MB</p>
+                  <p className="text-[10px]" style={{ color: 'var(--content-muted)' }}>JPG, PNG o WebP · Máx. 5 MB</p>
                 </div>
               </div>
 
@@ -271,32 +273,39 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
               <BasicInfoCard />
               <ContactCard />
               <SocialLinksCard />
-
-              {/* Save button */}
-              <div className="sticky bottom-4">
-                <button
-                  type="submit"
-                  disabled={isSubmitting || updateMutation.isPending || !isDirty}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#bfdbfe] px-6 py-3 text-sm font-semibold text-zinc-900 shadow-lg hover:bg-[#93c5fd] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {(isSubmitting || updateMutation.isPending) ? (
-                    <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</>
-                  ) : (
-                    'Guardar cambios'
-                  )}
-                </button>
-              </div>
             </div>
 
-            {/* Right column: live preview */}
-            <div className="hidden lg:block">
+            {/* Right column: live preview + save button */}
+            <div className="hidden lg:block space-y-5">
               <ProfilePreview school={school} avatarUrl={avatarUrl} creatorName={creator.name} creatorBio={creator.bio} />
+              <button
+                type="submit"
+                disabled={isSubmitting || updateMutation.isPending || !isDirty}
+                className="flex w-full items-center justify-center gap-2 glass-btn py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {(isSubmitting || updateMutation.isPending) ? (
+                  <><Loader2 className="h-4 w-4 animate-spin" /> {t('profile.saving')}</>
+                ) : (
+                  t('profile.save')
+                )}
+              </button>
             </div>
           </div>
 
-          {/* Mobile preview (shown below form) */}
-          <div className="mt-8 lg:hidden">
+          {/* Mobile: preview + save button */}
+          <div className="mt-8 space-y-5 lg:hidden">
             <ProfilePreview school={school} avatarUrl={avatarUrl} creatorName={creator.name} creatorBio={creator.bio} />
+            <button
+              type="submit"
+              disabled={isSubmitting || updateMutation.isPending || !isDirty}
+              className="flex w-full items-center justify-center gap-2 glass-btn py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {(isSubmitting || updateMutation.isPending) ? (
+                <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</>
+              ) : (
+                'Guardar cambios'
+              )}
+            </button>
           </div>
         </form>
       </FormProvider>

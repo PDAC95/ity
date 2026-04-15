@@ -7,12 +7,14 @@ import { ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/templates/registry';
 import type { Template, TemplateCategory } from '@/lib/templates/registry';
 import { TemplateCard } from '@/components/landing/template-card';
 import { TemplatePreviewModal } from '@/components/landing/template-preview-modal';
+import { useI18n } from '@/lib/i18n/context';
 
 interface TemplateGalleryProps {
   templates: Template[];
 }
 
 export function TemplateGallery({ templates }: TemplateGalleryProps) {
+  const { t } = useI18n();
   const [activeFilter, setActiveFilter] = useState<TemplateCategory | 'todos'>('todos');
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
@@ -36,11 +38,11 @@ export function TemplateGallery({ templates }: TemplateGalleryProps) {
   return (
     <div>
       {/* Title section */}
-      <h1 className="text-2xl font-bold text-zinc-100">Elige tu template</h1>
-      <p className="text-zinc-400 mt-1">Personaliza tu página con IA después</p>
+      <h1 className="text-2xl font-bold" style={{ color: 'var(--content-heading)' }}>{t('templates.title')}</h1>
+      <p className="mt-1" style={{ color: 'var(--content-secondary)' }}>{t('templates.subtitle')}</p>
 
       {/* Filter chips — sticky */}
-      <div className="sticky top-0 z-10 bg-[#1e1e22]/90 backdrop-blur-sm py-3 -mx-4 px-4 md:-mx-6 md:px-6 mt-4">
+      <div className="sticky top-0 z-10 backdrop-blur-sm py-3 -mx-4 px-4 md:-mx-6 md:px-6 mt-4" style={{ backgroundColor: 'color-mix(in srgb, var(--content-bg) 90%, transparent)' }}>
         <div className="flex gap-2 overflow-x-auto scrollbar-hide">
           <button
             type="button"
@@ -49,10 +51,11 @@ export function TemplateGallery({ templates }: TemplateGalleryProps) {
               'px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
               activeFilter === 'todos'
                 ? 'bg-[#bfdbfe] text-zinc-900'
-                : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                : 'hover:opacity-80'
             )}
+            style={activeFilter !== 'todos' ? { background: 'var(--content-subtle-bg)', color: 'var(--content-body)' } : undefined}
           >
-            Todos
+            {t('templates.all')}
           </button>
           {ALL_CATEGORIES.map((cat) => (
             <button
@@ -63,8 +66,9 @@ export function TemplateGallery({ templates }: TemplateGalleryProps) {
                 'px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
                 activeFilter === cat
                   ? 'bg-[#bfdbfe] text-zinc-900'
-                  : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
+                  : 'hover:opacity-80'
               )}
+              style={activeFilter !== cat ? { background: 'var(--content-subtle-bg)', color: 'var(--content-body)' } : undefined}
             >
               {CATEGORY_LABELS[cat]}
             </button>
@@ -75,16 +79,16 @@ export function TemplateGallery({ templates }: TemplateGalleryProps) {
       {/* Grid with animation */}
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <p className="text-zinc-400">
-            No hay templates en{' '}
-            {activeFilter !== 'todos' ? CATEGORY_LABELS[activeFilter] : ''} aún
+          <p style={{ color: 'var(--content-secondary)' }}>
+            {t('templates.noResults')}{' '}
+            {activeFilter !== 'todos' ? CATEGORY_LABELS[activeFilter] : ''} {t('templates.yet')}
           </p>
           <button
             type="button"
             onClick={() => handleFilterChange('todos')}
             className="mt-3 text-[#bfdbfe] hover:text-[#93c5fd] text-sm font-medium transition-colors"
           >
-            Ver todos
+            {t('templates.viewAll')}
           </button>
         </div>
       ) : (
