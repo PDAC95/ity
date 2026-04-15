@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: completed
-stopped_at: Phase 11.5 context gathered
-last_updated: "2026-04-15T16:19:54.493Z"
+stopped_at: Completed 11.5-P02-PLAN.md
+last_updated: "2026-04-15T17:25:56.872Z"
 last_activity: "2026-04-09 - Completed quick task 1: Landing page login redirect + dashboard routes /a/*"
 progress:
   total_phases: 12
   completed_phases: 11
-  total_plans: 23
-  completed_plans: 23
-  percent: 100
+  total_plans: 27
+  completed_plans: 26
+  percent: 96
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 **Status:** Milestone complete
 **Last activity:** 2026-04-09 - Completed quick task 1: Landing page login redirect + dashboard routes /a/*
 
-**Progress:** [██████████] 100%
+**Progress:** [██████████] 96%
 
 ## Performance Metrics
 
@@ -65,6 +65,8 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 | Phase 10-template-gallery PP01 | 2 | 2 tasks | 3 files |
 | Phase 11-ai-chat-wizard PP01 | 6min | 2 tasks | 6 files |
 | Phase 11-ai-chat-wizard PP02 | 15min | 2 tasks | 7 files |
+| Phase 11.5-ui-refinement PP01 | 4min | 2 tasks | 9 files |
+| Phase 11.5-ui-refinement P02 | 4min | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -113,6 +115,10 @@ Recent decisions affecting current work:
 - [Phase 11-ai-chat-wizard]: useChat ChatInit option is messages (not initialMessages) — matches ChatInit interface
 - [Phase 11-ai-chat-wizard]: Storage action chat/ prefix: same S3 presigned URL pattern as schools/ but for chat image uploads
 - [Phase quick-1]: Dashboard routes use /a/* prefix instead of /dashboard/* — shorter URLs matching app.ity.com domain plan
+- [Phase 11.5-ui-refinement]: Loader2 from lucide-react used for all auth loading spinners — replaces custom border-t-white spin divs for consistency
+- [Phase 11.5-ui-refinement]: AuthDivider bg-zinc-900 on text span matches right panel bg — prevents white ghost behind or-text on dark background
+- [Phase 11.5-ui-refinement]: Icon circles (Mail, ShieldCheck) use bg-zinc-800 with text-[#bfdbfe] — consistent dark palette, no bg-blue-50 remnants
+- [Phase 11.5-ui-refinement]: Content area bg #f8f8f8→#1e1e22 with notch SVG fill matched; all CTA buttons and active indicators use pastel blue #bfdbfe; onBlur validation mode on all useForm calls
 
 ### Pending Todos
 
@@ -135,6 +141,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-15T16:19:54.489Z
-**Stopped at:** Phase 11.5 context gathered
+**Last session:** 2026-04-15T17:25:56.868Z
+**Stopped at:** Completed 11.5-P02-PLAN.md
 Resume file: None

@@ -208,6 +208,6 @@ Plans:
 | 9. DB Schema + tRPC Infrastructure | 2/2 | Complete   | 2026-04-07 | — |
 | 10. Template Gallery | 2/2 | Complete    | 2026-04-08 | — |
 | 11. AI Chat Wizard | 2/2 | Complete    | 2026-04-08 | — |
-| 11.5 UI Refinement | v1.2 | 0/? | **Next** | — |
+| 11.5 UI Refinement | 3/4 | In Progress|  | — |
 | 12. PRD Submission + Landing Hub | v1.2 | 0/? | Pending | — |
 | 13. Notifications | v1.2 | 0/? | Pending | — |
