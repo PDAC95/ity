@@ -170,12 +170,9 @@ export function BrandingTab({ school, onDirtyChange }: BrandingTabProps) {
           type="button"
           onClick={handleSave}
           disabled={!isDirty || updateBrandingMutation.isPending}
-          className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg bg-[#bfdbfe] px-4 py-2 text-sm font-medium text-zinc-900 transition hover:bg-[#93c5fd] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {updateBrandingMutation.isPending && (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          )}
-          Guardar
+          {updateBrandingMutation.isPending ? <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</> : 'Guardar'}
         </button>
       </div>
     </div>

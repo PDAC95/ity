@@ -83,7 +83,7 @@ export function SchoolSetupTabs({ school }: SchoolSetupTabsProps) {
             onClick={() => handleTabClick(tab.id)}
             className={`px-6 py-3 text-sm font-medium transition-colors focus:outline-none ${
               activeTab === tab.id
-                ? 'border-b-2 border-indigo-500 text-indigo-400'
+                ? 'border-b-2 border-[#bfdbfe] text-[#bfdbfe]'
                 : 'text-zinc-400 hover:text-zinc-200'
             }`}
           >

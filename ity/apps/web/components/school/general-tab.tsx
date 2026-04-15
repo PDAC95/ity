@@ -38,6 +38,8 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
 
   const form = useForm<GeneralFormInput>({
     resolver: zodResolver(generalFormSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
     defaultValues: {
       name: school?.name ?? '',
       description: school?.description ?? '',
@@ -132,7 +134,7 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
           {...form.register('name')}
           maxLength={60}
           placeholder="Mi escuela"
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30"
         />
         {formState.errors.name && (
           <p className="mt-1 text-xs text-red-400">{formState.errors.name.message}</p>
@@ -150,7 +152,7 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
           maxLength={500}
           rows={3}
           placeholder="Una breve descripción de tu escuela..."
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 resize-none"
+          className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30 resize-none"
         />
         {formState.errors.description && (
           <p className="mt-1 text-xs text-red-400">{formState.errors.description.message}</p>
@@ -162,10 +164,9 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
         <button
           type="submit"
           disabled={!formState.isDirty || isSavingInfo}
-          className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg bg-[#bfdbfe] px-4 py-2 text-sm font-medium text-zinc-900 transition hover:bg-[#93c5fd] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {isSavingInfo && <Loader2 className="h-4 w-4 animate-spin" />}
-          Guardar
+          {isSavingInfo ? <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</> : 'Guardar'}
         </button>
       </div>
 
@@ -185,7 +186,7 @@ export function GeneralTab({ school, onDirtyChange }: GeneralTabProps) {
               }}
               maxLength={40}
               placeholder="mi-escuela"
-              className="flex-1 rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="flex-1 rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30"
             />
             <button
               type="button"

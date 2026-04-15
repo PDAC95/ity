@@ -55,6 +55,8 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
 
   const form = useForm<ProfileFormInput>({
     resolver: zodResolver(profileFormSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
     defaultValues: {
       name: creator.name ?? '',
       bio: creator.bio ?? '',
@@ -203,7 +205,7 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={avatarUploading}
-                    className="relative h-28 w-28 overflow-hidden rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-zinc-900"
+                    className="relative h-28 w-28 overflow-hidden rounded-full focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30 focus:ring-offset-2 focus:ring-offset-zinc-900"
                     aria-label="Cambiar foto de perfil"
                   >
                     {avatarUrl ? (
@@ -247,7 +249,7 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={avatarUploading}
-                    className="text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors disabled:opacity-50"
+                    className="text-xs font-medium text-[#bfdbfe] hover:text-[#93c5fd] transition-colors disabled:opacity-50"
                   >
                     Cambiar foto
                   </button>
@@ -275,12 +277,13 @@ export function ProfileForm({ creator, school }: ProfileFormProps) {
                 <button
                   type="submit"
                   disabled={isSubmitting || updateMutation.isPending || !isDirty}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#bfdbfe] px-6 py-3 text-sm font-semibold text-zinc-900 shadow-lg hover:bg-[#93c5fd] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {(isSubmitting || updateMutation.isPending) && (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                  {(isSubmitting || updateMutation.isPending) ? (
+                    <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</>
+                  ) : (
+                    'Guardar cambios'
                   )}
-                  Guardar cambios
                 </button>
               </div>
             </div>
