@@ -195,8 +195,40 @@ export function ChatWizard({
     -1
   );
 
+  // ---------------------------------------------------------------------------
+  // Progress stepper (5 steps, each step = 3 user turns)
+  // ---------------------------------------------------------------------------
+
+  const currentStep = Math.min(Math.ceil(userTurnCount / 3), 5);
+
   return (
     <div className="flex h-full flex-col">
+      {/* Progress stepper */}
+      <div className="flex-shrink-0 border-b border-zinc-800 px-4 py-3">
+        <div className="mx-auto flex max-w-3xl items-center gap-1">
+          {[1, 2, 3, 4, 5].map((step, i) => (
+            <div key={step} className="flex flex-1 items-center">
+              <div
+                className={`h-2 w-2 flex-shrink-0 rounded-full transition-all duration-300 ${
+                  step < currentStep
+                    ? 'bg-[#bfdbfe]'
+                    : step === currentStep
+                      ? 'bg-[#bfdbfe] ring-2 ring-[#bfdbfe]/30'
+                      : 'bg-zinc-700'
+                }`}
+              />
+              {i < 4 && (
+                <div
+                  className={`h-px flex-1 transition-all duration-300 ${
+                    step < currentStep ? 'bg-[#bfdbfe]' : 'bg-zinc-700'
+                  }`}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Messages area */}
       <div
         ref={messagesContainerRef}
@@ -214,15 +246,35 @@ export function ChatWizard({
             />
           ))}
 
+          {/* Typing indicator */}
+          {isStreaming && (
+            <div className="flex gap-3 px-4 py-3">
+              <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-zinc-700">
+                <span className="h-3 w-3 rounded-full bg-[#bfdbfe]/60" />
+              </div>
+              <div className="rounded-xl rounded-tl-none border border-zinc-700 bg-zinc-800 px-4 py-3">
+                <div className="flex gap-1 items-center py-1 px-1">
+                  {[0, 1, 2].map((i) => (
+                    <span
+                      key={i}
+                      className="h-2 w-2 rounded-full bg-zinc-400 animate-pulse"
+                      style={{ animationDelay: `${i * 150}ms` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Error retry button */}
           {status === 'error' && (
-            <div className="flex items-center justify-center gap-2 py-4">
-              <AlertCircle className="h-4 w-4 text-red-500" />
-              <span className="text-sm text-red-600">Error al obtener respuesta.</span>
+            <div className="mx-4 my-4 flex items-center gap-3 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3">
+              <AlertCircle className="h-4 w-4 flex-shrink-0 text-[#fecaca]" />
+              <span className="flex-1 text-sm text-[#fecaca]">Error al obtener respuesta.</span>
               <button
                 type="button"
                 onClick={handleRetry}
-                className="flex items-center gap-1 rounded-md bg-red-50 px-3 py-1.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-100"
+                className="flex items-center gap-1 rounded-md border border-zinc-600 px-3 py-1.5 text-sm font-medium text-zinc-200 transition-colors hover:bg-zinc-700"
               >
                 <RefreshCw className="h-3 w-3" />
                 Reintentar
@@ -232,11 +284,11 @@ export function ChatWizard({
 
           {/* Chat finished banner */}
           {chatFinished && (
-            <div className="mx-4 my-4 flex items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-zinc-50 px-6 py-4">
-              <Lock className="h-4 w-4 text-zinc-500" />
+            <div className="mx-4 my-4 flex items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-zinc-800 px-6 py-4">
+              <Lock className="h-4 w-4 text-zinc-400" />
               <div className="text-center">
-                <p className="text-sm font-semibold text-zinc-700">Conversación finalizada</p>
-                <p className="text-xs text-zinc-500">
+                <p className="text-sm font-semibold text-zinc-200">Conversación finalizada</p>
+                <p className="text-xs text-zinc-400">
                   Has completado el asistente de diseño. Tu información fue guardada.
                 </p>
               </div>
@@ -249,14 +301,14 @@ export function ChatWizard({
 
       {/* Rate limit countdown */}
       {isRateLimited && rateLimitCountdown > 0 && (
-        <div className="border-t border-amber-100 bg-amber-50 px-4 py-2 text-center text-sm text-amber-700">
+        <div className="border-t border-zinc-700 bg-zinc-800 px-4 py-2 text-center text-sm text-[#fef3c7]">
           Límite de mensajes alcanzado. Puedes continuar en {rateLimitCountdown}s.
         </div>
       )}
 
       {/* Input area — hidden when chat finished */}
       {!chatFinished && (
-        <div className="border-t border-zinc-100">
+        <div className="border-t border-zinc-800">
           <ChatInput
             input={input}
             onInputChange={setInput}

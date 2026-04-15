@@ -129,13 +129,13 @@ export function ChatInput({
         )}
 
         {/* Input row */}
-        <div className="flex items-end gap-2 rounded-xl border border-zinc-200 bg-zinc-50 px-3 py-2 focus-within:border-indigo-300 focus-within:ring-1 focus-within:ring-indigo-200">
+        <div className="flex items-end gap-2 rounded-xl border border-zinc-700 bg-zinc-800/50 px-3 py-2 focus-within:border-[#bfdbfe] focus-within:ring-2 focus-within:ring-[#bfdbfe]/30">
           {/* Paperclip button */}
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isDisabled}
-            className="mb-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:bg-zinc-200 hover:text-zinc-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="mb-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-zinc-400 transition-colors hover:bg-zinc-700 hover:text-zinc-200 disabled:cursor-not-allowed disabled:opacity-50"
             aria-label="Adjuntar imagen"
           >
             {isUploading ? (
@@ -163,7 +163,7 @@ export function ChatInput({
             disabled={isDisabled}
             placeholder="Escribe tu mensaje..."
             rows={1}
-            className="flex-1 resize-none bg-transparent py-1.5 text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 resize-none bg-transparent py-1.5 text-sm text-zinc-100 placeholder:text-zinc-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
             style={{ minHeight: '24px', maxHeight: `${5 * 24}px` }}
           />
 
@@ -179,7 +179,7 @@ export function ChatInput({
               }
             }}
             disabled={!canSend}
-            className="mb-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-indigo-600 text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-40"
+            className="mb-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-[#bfdbfe] text-zinc-900 transition-colors hover:bg-[#93c5fd] disabled:cursor-not-allowed disabled:opacity-50"
             aria-label="Enviar mensaje"
           >
             <SendHorizontal className="h-4 w-4" />

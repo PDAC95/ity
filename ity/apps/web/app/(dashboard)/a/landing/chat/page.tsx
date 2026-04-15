@@ -5,6 +5,7 @@ import { generateId } from 'ai';
 import type { UIMessage } from 'ai';
 import type { ChatHistory } from '@ity/db';
 import { ChatWizard } from '@/components/chat/chat-wizard';
+import { ChatPageHeader } from '@/components/chat/chat-page-header';
 
 interface ChatPageProps {
   searchParams: Promise<{ templateId?: string }>;
@@ -91,13 +92,18 @@ Trabajaremos juntos en 5 secciones:
   }
 
   return (
-    <ChatWizard
-      initialMessages={initialMessages}
-      schoolId={school.id}
-      templateId={templateId}
-      creatorName={creatorName}
-      creatorAvatarUrl={creatorAvatarUrl}
-      schoolName={schoolName}
-    />
+    <div className="flex h-full flex-col">
+      <ChatPageHeader schoolName={schoolName} />
+      <div className="flex-1 overflow-hidden">
+        <ChatWizard
+          initialMessages={initialMessages}
+          schoolId={school.id}
+          templateId={templateId}
+          creatorName={creatorName}
+          creatorAvatarUrl={creatorAvatarUrl}
+          schoolName={schoolName}
+        />
+      </div>
+    </div>
   );
 }
