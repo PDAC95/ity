@@ -158,6 +158,13 @@ Plans:
 
 **Requirements:** PRD-01, PRD-02, PRD-03, PRD-04, PRD-05, SEC-04
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 12-01-PLAN.md — PRD Zod schema + generateObject API route + system prompt marker
+- [ ] 12-02-PLAN.md — Chat UI: summary/success/error cards + ChatWizard PRD state machine
+- [ ] 12-03-PLAN.md — Landing Hub page + sidebar nav update
+
 **Success criteria:**
 - [ ] PRD JSON is validated against Zod schema before DB write
 - [ ] Summary screen shows all collected info accurately
@@ -209,5 +216,5 @@ Plans:
 | 10. Template Gallery | 2/2 | Complete    | 2026-04-08 | — |
 | 11. AI Chat Wizard | 2/2 | Complete    | 2026-04-08 | — |
 | 11.5 UI Refinement | 3/4 | In Progress|  | — |
-| 12. PRD Submission + Landing Hub | v1.2 | 0/? | Pending | — |
+| 12. PRD Submission + Landing Hub | v1.2 | 0/3 | Pending | — |
 | 13. Notifications | v1.2 | 0/? | Pending | — |
