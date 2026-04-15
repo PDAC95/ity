@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { createClient } from '@/lib/supabase/client';
 import { registerSchema, type RegisterInput } from '@/lib/validations/auth';
 import { GoogleAuthButton, AuthDivider, PasswordInput } from '@/components/auth';
+import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -50,15 +51,13 @@ export default function RegisterPage() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900">Crea tu cuenta</h2>
-      <p className="mt-2 text-sm text-gray-500">
+      <h2 className="text-2xl font-bold text-zinc-100">Crea tu cuenta</h2>
+      <p className="mt-2 text-sm text-zinc-400">
         Comienza a construir tu escuela en linea hoy
       </p>
 
       {serverError && (
-        <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
-          {serverError}
-        </div>
+        <p className="mt-4 text-sm text-[#fecaca]">{serverError}</p>
       )}
 
       {/* Google OAuth */}
@@ -73,7 +72,7 @@ export default function RegisterPage() {
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-zinc-400"
           >
             Nombre completo
           </label>
@@ -81,18 +80,18 @@ export default function RegisterPage() {
             id="name"
             type="text"
             {...register('name')}
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-500 shadow-sm transition-colors focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30"
             placeholder="Juan Perez"
           />
           {errors.name && (
-            <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+            <p className="mt-1 text-sm text-[#fecaca]">{errors.name.message}</p>
           )}
         </div>
 
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-zinc-400"
           >
             Correo electronico
           </label>
@@ -100,11 +99,11 @@ export default function RegisterPage() {
             id="email"
             type="email"
             {...register('email')}
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-500 shadow-sm transition-colors focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30"
             placeholder="tu@ejemplo.com"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+            <p className="mt-1 text-sm text-[#fecaca]">{errors.email.message}</p>
           )}
         </div>
 
@@ -119,35 +118,35 @@ export default function RegisterPage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#bfdbfe] px-4 py-2.5 text-sm font-semibold text-zinc-900 transition-colors hover:bg-[#93c5fd] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
-            <span className="flex items-center justify-center gap-2">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Creando cuenta...
-            </span>
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Guardando...
+            </>
           ) : (
             'Crear cuenta'
           )}
         </button>
 
-        <p className="text-center text-xs text-gray-400">
+        <p className="text-center text-xs text-zinc-500">
           Al crear una cuenta, aceptas nuestros{' '}
-          <Link href="/terms" className="text-blue-600 hover:underline">
+          <Link href="/terms" className="text-[#bfdbfe] hover:text-[#93c5fd]">
             Terminos de Servicio
           </Link>{' '}
           y{' '}
-          <Link href="/privacy" className="text-blue-600 hover:underline">
+          <Link href="/privacy" className="text-[#bfdbfe] hover:text-[#93c5fd]">
             Politica de Privacidad
           </Link>
         </p>
       </form>
 
-      <p className="mt-6 text-center text-sm text-gray-500">
+      <p className="mt-6 text-center text-sm text-zinc-400">
         Ya tienes cuenta?{' '}
         <Link
           href="/login"
-          className="font-semibold text-blue-600 hover:text-blue-500"
+          className="font-semibold text-[#bfdbfe] hover:text-[#93c5fd]"
         >
           Inicia sesion
         </Link>

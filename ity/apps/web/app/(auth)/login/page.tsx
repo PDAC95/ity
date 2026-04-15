@@ -7,6 +7,7 @@ import { loginSchema, type LoginInput } from '@/lib/validations/auth';
 import { GoogleAuthButton, AuthDivider, PasswordInput } from '@/components/auth';
 import { isAllowedRedirect } from '@/lib/auth/redirect';
 import { AuthErrorCode, getAuthMessage } from '@/lib/auth/errors';
+import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
@@ -99,26 +100,24 @@ function LoginForm() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900">Bienvenido de nuevo</h2>
-      <p className="mt-2 text-sm text-gray-500">
+      <h2 className="text-2xl font-bold text-zinc-100">Bienvenido de nuevo</h2>
+      <p className="mt-2 text-sm text-zinc-400">
         Inicia sesion para acceder a tu panel
       </p>
 
       {/* Error banner for server/callback errors */}
       {errorParam && (
-        <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
+        <p className="mt-4 text-sm text-[#fecaca]">
           {errorParam === 'auth_callback_error'
             ? 'Authentication error. Please try again.'
             : errorParam === 'too_many_requests'
               ? 'Too many attempts. Please try again later.'
               : 'An error occurred. Please try again.'}
-        </div>
+        </p>
       )}
 
       {serverError && (
-        <div className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-600">
-          {serverError}
-        </div>
+        <p className="mt-4 text-sm text-[#fecaca]">{serverError}</p>
       )}
 
       {/* Google OAuth */}
@@ -133,7 +132,7 @@ function LoginForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-zinc-400"
           >
             Correo electronico
           </label>
@@ -147,11 +146,11 @@ function LoginForm() {
                 sessionToastId.current = null;
               }
             }}
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="mt-1 block w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-zinc-100 placeholder:text-zinc-500 shadow-sm transition-colors focus:border-[#bfdbfe] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30"
             placeholder="tu@ejemplo.com"
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+            <p className="mt-1 text-sm text-[#fecaca]">{errors.email.message}</p>
           )}
         </div>
 
@@ -159,13 +158,13 @@ function LoginForm() {
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-zinc-400"
             >
               Contrasena
             </label>
             <Link
               href="/forgot-password"
-              className="text-xs font-medium text-blue-600 hover:text-blue-500"
+              className="text-xs font-medium text-[#bfdbfe] hover:text-[#93c5fd]"
             >
               Olvidaste tu contrasena?
             </Link>
@@ -182,24 +181,24 @@ function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#bfdbfe] px-4 py-2.5 text-sm font-semibold text-zinc-900 transition-colors hover:bg-[#93c5fd] focus:outline-none focus:ring-2 focus:ring-[#bfdbfe]/30 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
-            <span className="flex items-center justify-center gap-2">
-              <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-              Iniciando sesion...
-            </span>
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Guardando...
+            </>
           ) : (
             'Iniciar sesion'
           )}
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-gray-500">
+      <p className="mt-6 text-center text-sm text-zinc-400">
         No tienes cuenta?{' '}
         <Link
           href="/register"
-          className="font-semibold text-blue-600 hover:text-blue-500"
+          className="font-semibold text-[#bfdbfe] hover:text-[#93c5fd]"
         >
           Crea una gratis
         </Link>
