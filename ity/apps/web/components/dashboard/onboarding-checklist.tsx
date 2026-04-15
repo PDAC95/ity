@@ -93,7 +93,7 @@ export function OnboardingChecklist({
       {/* Progress bar */}
       <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-zinc-800">
         <div
-          className="h-full rounded-full bg-indigo-500 transition-all duration-500"
+          className="h-full rounded-full bg-[#bfdbfe] transition-all duration-500"
           style={{ width: `${(completedCount / steps.length) * 100}%` }}
         />
       </div>
@@ -115,7 +115,7 @@ export function OnboardingChecklist({
                 {step.href ? (
                   <Link
                     href={step.href}
-                    className="flex items-center gap-1 text-sm text-zinc-200 hover:text-indigo-400 transition-colors"
+                    className="flex items-center gap-1 text-sm text-zinc-200 hover:text-[#bfdbfe] transition-colors"
                   >
                     {step.label}
                     <ArrowRight className="h-3 w-3" />

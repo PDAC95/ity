@@ -40,7 +40,7 @@ export function TemplateGallery({ templates }: TemplateGalleryProps) {
       <p className="text-zinc-400 mt-1">Personaliza tu página con IA después</p>
 
       {/* Filter chips — sticky */}
-      <div className="sticky top-0 z-10 bg-zinc-950 py-3 -mx-4 px-4 md:-mx-6 md:px-6 mt-4">
+      <div className="sticky top-0 z-10 bg-[#1e1e22]/90 backdrop-blur-sm py-3 -mx-4 px-4 md:-mx-6 md:px-6 mt-4">
         <div className="flex gap-2 overflow-x-auto scrollbar-hide">
           <button
             type="button"
@@ -48,7 +48,7 @@ export function TemplateGallery({ templates }: TemplateGalleryProps) {
             className={cn(
               'px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
               activeFilter === 'todos'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#bfdbfe] text-zinc-900'
                 : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
             )}
           >
@@ -62,7 +62,7 @@ export function TemplateGallery({ templates }: TemplateGalleryProps) {
               className={cn(
                 'px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors',
                 activeFilter === cat
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-[#bfdbfe] text-zinc-900'
                   : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'
               )}
             >
@@ -82,7 +82,7 @@ export function TemplateGallery({ templates }: TemplateGalleryProps) {
           <button
             type="button"
             onClick={() => handleFilterChange('todos')}
-            className="mt-3 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+            className="mt-3 text-[#bfdbfe] hover:text-[#93c5fd] text-sm font-medium transition-colors"
           >
             Ver todos
           </button>

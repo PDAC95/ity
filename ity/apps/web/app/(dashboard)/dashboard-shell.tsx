@@ -373,12 +373,12 @@ export function DashboardShell({
                 Q ${notchX},${-NOTCH_H * 0.1} ${notchX + NOTCH_W / 8},${NOTCH_H * 0.6}
                 C ${notchX + NOTCH_W / 6},${NOTCH_H} ${notchX + NOTCH_W / 3},${NOTCH_H} ${notchX + NOTCH_W / 2},${NOTCH_H}
               `}
-              fill="#f8f8f8"
+              fill="#1e1e22"
               stroke="none"
             />
           </svg>
         )}
-        <div className="relative flex-1 overflow-hidden rounded-3xl" style={{ backgroundColor: '#f8f8f8' }}>
+        <div className="relative flex-1 overflow-hidden rounded-3xl" style={{ backgroundColor: '#1e1e22' }}>
           <main className="h-full overflow-auto p-4 pb-20 md:p-8 md:pb-24">{children}</main>
 
           {/* Dock — connected to bottom black background */}

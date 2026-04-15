@@ -116,7 +116,7 @@ export function TemplatePreviewModal({
             <span className="text-lg font-semibold text-zinc-100 truncate">
               {template.name}
             </span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-900/60 text-indigo-300 whitespace-nowrap">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[#bfdbfe]/20 text-[#bfdbfe] whitespace-nowrap">
               {CATEGORY_LABELS[template.category]}
             </span>
           </div>
@@ -174,7 +174,7 @@ export function TemplatePreviewModal({
               <button
                 type="button"
                 onClick={handleRetry}
-                className="mt-3 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+                className="mt-3 text-[#bfdbfe] hover:text-[#93c5fd] text-sm font-medium transition-colors"
               >
                 Reintentar
               </button>
@@ -186,7 +186,7 @@ export function TemplatePreviewModal({
               <button
                 type="button"
                 onClick={handleRetry}
-                className="mt-3 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition-colors"
+                className="mt-3 text-[#bfdbfe] hover:text-[#93c5fd] text-sm font-medium transition-colors"
               >
                 Reintentar
               </button>
@@ -196,7 +196,7 @@ export function TemplatePreviewModal({
               {/* Loading spinner overlay */}
               {!iframeLoaded && (
                 <div className="absolute inset-0 bg-zinc-900 flex items-center justify-center z-10">
-                  <div className="border-2 border-zinc-600 border-t-indigo-500 rounded-full w-8 h-8 animate-spin" />
+                  <div className="border-2 border-zinc-600 border-t-[#bfdbfe] rounded-full w-8 h-8 animate-spin" />
                 </div>
               )}
 
@@ -270,7 +270,7 @@ export function TemplatePreviewModal({
           <button
             type="button"
             onClick={handleChoose}
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 rounded-lg transition-colors"
+            className="w-full bg-[#bfdbfe] hover:bg-[#93c5fd] text-zinc-900 font-medium py-2.5 rounded-lg transition-colors"
           >
             Elegir este template
           </button>
