@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: completed
-stopped_at: Completed 11.5-P02-PLAN.md
-last_updated: "2026-04-15T17:25:56.872Z"
+stopped_at: "Completed 11.5-ui-refinement P03: Chat wizard premium redesign"
+last_updated: "2026-04-15T17:26:06.572Z"
 last_activity: "2026-04-09 - Completed quick task 1: Landing page login redirect + dashboard routes /a/*"
 progress:
   total_phases: 12
@@ -67,6 +67,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 | Phase 11-ai-chat-wizard PP02 | 15min | 2 tasks | 7 files |
 | Phase 11.5-ui-refinement PP01 | 4min | 2 tasks | 9 files |
 | Phase 11.5-ui-refinement P02 | 4min | 2 tasks | 11 files |
+| Phase 11.5-ui-refinement P03 | 12 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -119,6 +120,8 @@ Recent decisions affecting current work:
 - [Phase 11.5-ui-refinement]: AuthDivider bg-zinc-900 on text span matches right panel bg — prevents white ghost behind or-text on dark background
 - [Phase 11.5-ui-refinement]: Icon circles (Mail, ShieldCheck) use bg-zinc-800 with text-[#bfdbfe] — consistent dark palette, no bg-blue-50 remnants
 - [Phase 11.5-ui-refinement]: Content area bg #f8f8f8→#1e1e22 with notch SVG fill matched; all CTA buttons and active indicators use pastel blue #bfdbfe; onBlur validation mode on all useForm calls
+- [Phase 11.5-ui-refinement]: ChatPageHeader extracted as separate client component — page.tsx is RSC, useRouter requires use client
+- [Phase 11.5-ui-refinement]: Stepper uses userTurnCount heuristic (ceil(turns/3), capped at 5) — no server round-trip needed for progress display
 
 ### Pending Todos
 
@@ -141,6 +144,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-15T17:25:56.868Z
-**Stopped at:** Completed 11.5-P02-PLAN.md
+**Last session:** 2026-04-15T17:26:06.568Z
+**Stopped at:** Completed 11.5-ui-refinement P03: Chat wizard premium redesign
 Resume file: None
