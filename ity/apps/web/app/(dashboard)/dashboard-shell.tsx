@@ -379,7 +379,16 @@ export function DashboardShell({
           </svg>
         )}
         <div className="relative flex-1 overflow-hidden rounded-3xl" style={{ backgroundColor: '#1e1e22' }}>
-          <main className="h-full overflow-auto p-4 pb-20 md:p-8 md:pb-24">{children}</main>
+          <main className="h-full overflow-auto p-4 pb-20 md:p-8 md:pb-24">
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+            >
+              {children}
+            </motion.div>
+          </main>
 
           {/* Dock — connected to bottom black background */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 hidden md:block">
