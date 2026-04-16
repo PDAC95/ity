@@ -216,5 +216,5 @@ Plans:
 | 10. Template Gallery | 2/2 | Complete    | 2026-04-08 | — |
 | 11. AI Chat Wizard | 2/2 | Complete    | 2026-04-08 | — |
 | 11.5 UI Refinement | 3/4 | In Progress|  | — |
-| 12. PRD Submission + Landing Hub | 3/3 | Complete   | 2026-04-16 | — |
+| 12. PRD Submission + Landing Hub | 3/3 | Complete    | 2026-04-16 | — |
 | 13. Notifications | v1.2 | 0/? | Pending | — |
