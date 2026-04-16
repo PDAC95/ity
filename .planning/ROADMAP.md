@@ -158,7 +158,7 @@ Plans:
 
 **Requirements:** PRD-01, PRD-02, PRD-03, PRD-04, PRD-05, SEC-04
 
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 - [ ] 12-01-PLAN.md — PRD Zod schema + generateObject API route + system prompt marker
@@ -216,5 +216,5 @@ Plans:
 | 10. Template Gallery | 2/2 | Complete    | 2026-04-08 | — |
 | 11. AI Chat Wizard | 2/2 | Complete    | 2026-04-08 | — |
 | 11.5 UI Refinement | 3/4 | In Progress|  | — |
-| 12. PRD Submission + Landing Hub | 1/3 | In Progress|  | — |
+| 12. PRD Submission + Landing Hub | 2/3 | In Progress|  | — |
 | 13. Notifications | v1.2 | 0/? | Pending | — |

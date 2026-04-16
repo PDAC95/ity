@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: completed
-stopped_at: Completed 12-01-PLAN.md
-last_updated: "2026-04-16T13:18:26.804Z"
+stopped_at: Completed 12-03-PLAN.md
+last_updated: "2026-04-16T13:19:25.786Z"
 last_activity: "2026-04-09 - Completed quick task 1: Landing page login redirect + dashboard routes /a/*"
 progress:
   total_phases: 13
   completed_phases: 11
   total_plans: 30
-  completed_plans: 27
-  percent: 90
+  completed_plans: 28
+  percent: 93
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 **Status:** Milestone complete
 **Last activity:** 2026-04-09 - Completed quick task 1: Landing page login redirect + dashboard routes /a/*
 
-**Progress:** [█████████░] 90%
+**Progress:** [█████████░] 93%
 
 ## Performance Metrics
 
@@ -69,6 +69,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 | Phase 11.5-ui-refinement P02 | 4min | 2 tasks | 11 files |
 | Phase 11.5-ui-refinement P03 | 12 | 2 tasks | 5 files |
 | Phase 12-prd-submission-landing-hub P01 | 5 | 2 tasks | 3 files |
+| Phase 12-prd-submission-landing-hub P03 | 8min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -126,6 +127,8 @@ Recent decisions affecting current work:
 - [Phase 12-prd-submission-landing-hub]: generateObject validates against prdSchema before returning — SEC-04 satisfied at API boundary
 - [Phase 12-prd-submission-landing-hub]: Use .nullable() not .optional() for optional PRD fields — reliable Anthropic structured output
 - [Phase 12-prd-submission-landing-hub]: [PRD_READY] marker in system prompt: emitted only after all 5 sections confirmed, triggers Plan 02 auto-processing
+- [Phase 12-prd-submission-landing-hub]: Landing Hub page is RSC — fetches school + latest landing request, passes effectiveStatus to client component; draft treated as 'none'
+- [Phase 12-prd-submission-landing-hub]: NAV_ITEMS and QUICK_ACTIONS myPage href changed to /a/landing so sidebar always goes to hub, not templates directly
 
 ### Pending Todos
 
@@ -148,6 +151,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-16T13:18:26.801Z
-**Stopped at:** Completed 12-01-PLAN.md
+**Last session:** 2026-04-16T13:19:25.783Z
+**Stopped at:** Completed 12-03-PLAN.md
 Resume file: None
