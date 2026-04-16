@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Globe, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { TEMPLATES } from '@/lib/templates/registry';
+import { useI18n } from '@/lib/i18n/context';
 
 interface LandingHubViewProps {
   status: string; // 'none' | 'pending' | 'in_progress' | 'completed'
@@ -18,12 +19,14 @@ export function LandingHubView({
   templateId,
   submittedAt,
 }: LandingHubViewProps) {
+  const { t, lang } = useI18n();
+
   const template = templateId
     ? TEMPLATES.find((t) => t.id === templateId) ?? null
     : null;
 
   const formattedDate = submittedAt
-    ? new Date(submittedAt).toLocaleDateString('es-MX', {
+    ? new Date(submittedAt).toLocaleDateString(lang === 'es' ? 'es-MX' : lang === 'fr' ? 'fr-FR' : lang === 'pt' ? 'pt-BR' : 'en-US', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
@@ -37,11 +40,11 @@ export function LandingHubView({
         className="text-2xl font-bold mb-8"
         style={{ color: 'var(--content-heading)' }}
       >
-        Mi Página Web
+        {t('landingHub.title')}
       </h1>
 
       {status === 'none' ? (
-        /* ── "Sin solicitud" empty state ── */
+        /* ── Empty state ── */
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -58,11 +61,10 @@ export function LandingHubView({
               className="text-xl font-semibold"
               style={{ color: 'var(--content-heading)' }}
             >
-              Aún no has creado tu landing page
+              {t('landingHub.emptyTitle')}
             </h2>
             <p className="text-sm" style={{ color: 'var(--content-secondary)' }}>
-              Crea la página web de tu escuela con la ayuda de nuestro asistente
-              de IA
+              {t('landingHub.emptySubtitle')}
             </p>
           </div>
 
@@ -71,11 +73,11 @@ export function LandingHubView({
             className="glass-btn flex items-center gap-2"
           >
             <Sparkles className="h-4 w-4" />
-            Crear mi landing page
+            {t('landingHub.emptyCta')}
           </Link>
         </motion.div>
       ) : (
-        /* ── "En proceso" state ── */
+        /* ── "In progress" state ── */
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -92,7 +94,7 @@ export function LandingHubView({
                 border: '1px solid rgba(191, 219, 254, 0.2)',
               }}
             >
-              En proceso
+              {t('landingHub.inProgress')}
             </span>
           </div>
 
@@ -107,7 +109,7 @@ export function LandingHubView({
           {/* Template info */}
           {template && (
             <p className="text-sm" style={{ color: 'var(--content-secondary)' }}>
-              Plantilla:{' '}
+              {t('landingHub.template')}{' '}
               <span className="font-medium">{template.name}</span>
             </p>
           )}
@@ -115,7 +117,7 @@ export function LandingHubView({
           {/* Submitted date */}
           {formattedDate && (
             <p className="text-xs" style={{ color: 'var(--content-muted)' }}>
-              Enviado: {formattedDate}
+              {t('landingHub.submitted')} {formattedDate}
             </p>
           )}
 
@@ -127,7 +129,7 @@ export function LandingHubView({
               borderColor: 'rgba(255,255,255,0.06)',
             }}
           >
-            Estamos trabajando en tu página. Te avisaremos cuando esté lista.
+            {t('landingHub.statusMessage')}
           </p>
         </motion.div>
       )}
