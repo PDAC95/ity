@@ -132,7 +132,7 @@ export interface SchoolData {
 const NAV_ITEMS = [
   { href: '/a', key: 'nav.home', icon: Home },
   { href: '/a/school-setup', key: 'nav.school', icon: GraduationCap },
-  { href: '/a/landing/templates', key: 'nav.myPage', icon: Globe },
+  { href: '/a/landing', key: 'nav.myPage', icon: Globe },
   { href: '/a/profile', key: 'nav.profile', icon: User },
 ];
 
@@ -144,7 +144,7 @@ const LOCKED_ITEMS = [
 ];
 
 const QUICK_ACTIONS = [
-  { href: '/a/landing/templates', key: 'nav.myPage', icon: Globe, color: '#c4f0c2' },
+  { href: '/a/landing', key: 'nav.myPage', icon: Globe, color: '#c4f0c2' },
   { href: '/a/school-setup', key: 'nav.school', icon: GraduationCap, color: '#f5c2d6' },
   { href: '/a/landing/chat', key: 'nav.chatAi', icon: Sparkles, color: '#fef3c7' },
   { href: '/a/profile', key: 'nav.profile', icon: User, color: '#bfdbfe' },
