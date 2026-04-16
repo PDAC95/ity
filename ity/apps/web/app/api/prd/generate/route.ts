@@ -33,7 +33,7 @@ export async function POST(req: Request) {
   try {
     // --- Generate structured PRD from conversation (SEC-04: Zod validation before return) ---
     const { object } = await generateObject({
-      model: anthropic('claude-sonnet-4.5'),
+      model: anthropic('claude-sonnet-4-20250514'),
       schema: prdSchema,
       maxRetries: 1,
       system: `You are a structured data extractor. Your task is to extract landing page information from a conversation between a creator and an assistant into a structured JSON format. Extract only information that was explicitly mentioned or confirmed in the conversation. For required fields with no data, use reasonable defaults based on the school context. For optional nullable fields with no data, use null.`,

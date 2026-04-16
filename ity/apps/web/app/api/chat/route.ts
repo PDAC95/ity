@@ -60,7 +60,7 @@ export async function POST(req: Request) {
 
   // --- Stream LLM response ---
   const result = streamText({
-    model: anthropic('claude-sonnet-4.5'),
+    model: anthropic('claude-sonnet-4-20250514'),
     system: systemPrompt,
     messages: await convertToModelMessages(messages),
     maxOutputTokens: 1024,
