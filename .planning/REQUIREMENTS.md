@@ -25,7 +25,7 @@
 
 ### PRD Generation (PRD)
 
-- [ ] **PRD-01**: At chat completion, LLM generates a structured PRD (JSON) validated against Zod schema
+- [x] **PRD-01**: At chat completion, LLM generates a structured PRD (JSON) validated against Zod schema
 - [ ] **PRD-02**: Creator sees a summary of their answers before confirming submission
 - [ ] **PRD-03**: On confirmation, PRD is stored in DB as JSONB (internal — never exposed to creator)
 - [ ] **PRD-04**: Creator sees confirmation screen: "Estamos trabajando en tu pagina web"
@@ -46,7 +46,7 @@
 - [x] **SEC-01**: Template preview iframes use `sandbox` attribute (no parent navigation, no form submission)
 - [x] **SEC-02**: Template preview URLs validated against server-side allowlist
 - [x] **SEC-03**: User input never interpolated into LLM system prompt (role separation enforced)
-- [ ] **SEC-04**: LLM output validated via Zod schema before any DB write
+- [x] **SEC-04**: LLM output validated via Zod schema before any DB write
 - [x] **SEC-05**: Notifications scoped to creator via RLS or query-level filtering
 
 ## v1.3+ Requirements (Deferred)
@@ -96,7 +96,7 @@
 | CHAT-05 | Phase 11 | Complete |
 | CHAT-06 | Phase 11 | Complete |
 | CHAT-07 | Phase 11 | Complete |
-| PRD-01 | Phase 12 | Pending |
+| PRD-01 | Phase 12 | Complete |
 | PRD-02 | Phase 12 | Pending |
 | PRD-03 | Phase 12 | Pending |
 | PRD-04 | Phase 12 | Pending |
@@ -111,7 +111,7 @@
 | SEC-01 | Phase 10 | Complete |
 | SEC-02 | Phase 10 | Complete |
 | SEC-03 | Phase 11 | Complete |
-| SEC-04 | Phase 12 | Pending |
+| SEC-04 | Phase 12 | Complete |
 | SEC-05 | Phase 13 | Complete |
 
 **Coverage:**
