@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: Landing Page del Creador
 status: completed
-stopped_at: Completed 12-03-PLAN.md
-last_updated: "2026-04-16T13:19:25.786Z"
+stopped_at: Completed 12-02-PLAN.md
+last_updated: "2026-04-16T13:24:52.134Z"
 last_activity: "2026-04-09 - Completed quick task 1: Landing page login redirect + dashboard routes /a/*"
 progress:
   total_phases: 13
-  completed_phases: 11
+  completed_phases: 12
   total_plans: 30
-  completed_plans: 28
-  percent: 93
+  completed_plans: 29
+  percent: 97
 ---
 
 # Project State
@@ -30,7 +30,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 **Status:** Milestone complete
 **Last activity:** 2026-04-09 - Completed quick task 1: Landing page login redirect + dashboard routes /a/*
 
-**Progress:** [█████████░] 93%
+**Progress:** [██████████] 97%
 
 ## Performance Metrics
 
@@ -70,6 +70,7 @@ See: .planning/PROJECT.md (updated 2026-04-02)
 | Phase 11.5-ui-refinement P03 | 12 | 2 tasks | 5 files |
 | Phase 12-prd-submission-landing-hub P01 | 5 | 2 tasks | 3 files |
 | Phase 12-prd-submission-landing-hub P03 | 8min | 2 tasks | 3 files |
+| Phase 12-prd-submission-landing-hub P02 | 3min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -129,6 +130,9 @@ Recent decisions affecting current work:
 - [Phase 12-prd-submission-landing-hub]: [PRD_READY] marker in system prompt: emitted only after all 5 sections confirmed, triggers Plan 02 auto-processing
 - [Phase 12-prd-submission-landing-hub]: Landing Hub page is RSC — fetches school + latest landing request, passes effectiveStatus to client component; draft treated as 'none'
 - [Phase 12-prd-submission-landing-hub]: NAV_ITEMS and QUICK_ACTIONS myPage href changed to /a/landing so sidebar always goes to hub, not templates directly
+- [Phase 12-prd-submission-landing-hub]: PrdFlowState discriminated union with 6 phases — idle/generating/summary/confirming/done/error — gives type-safe access to prdData only in phases where it exists
+- [Phase 12-prd-submission-landing-hub]: prdTriggeredRef prevents re-triggering PRD generation on re-renders when [PRD_READY] is present
+- [Phase 12-prd-submission-landing-hub]: onError in requestPageMutation reverts to summary phase so user can retry confirmation without re-generating PRD
 
 ### Pending Todos
 
@@ -151,6 +155,6 @@ None.
 
 ## Session Continuity
 
-**Last session:** 2026-04-16T13:19:25.783Z
-**Stopped at:** Completed 12-03-PLAN.md
+**Last session:** 2026-04-16T13:24:52.131Z
+**Stopped at:** Completed 12-02-PLAN.md
 Resume file: None

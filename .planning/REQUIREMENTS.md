@@ -26,10 +26,10 @@
 ### PRD Generation (PRD)
 
 - [x] **PRD-01**: At chat completion, LLM generates a structured PRD (JSON) validated against Zod schema
-- [ ] **PRD-02**: Creator sees a summary of their answers before confirming submission
+- [x] **PRD-02**: Creator sees a summary of their answers before confirming submission
 - [x] **PRD-03**: On confirmation, PRD is stored in DB as JSONB (internal — never exposed to creator)
 - [x] **PRD-04**: Creator sees confirmation screen: "Estamos trabajando en tu pagina web"
-- [ ] **PRD-05**: If PRD generation fails, creator sees a retry option with friendly error message
+- [x] **PRD-05**: If PRD generation fails, creator sees a retry option with friendly error message
 
 ### Notifications (NOTF)
 
@@ -97,10 +97,10 @@
 | CHAT-06 | Phase 11 | Complete |
 | CHAT-07 | Phase 11 | Complete |
 | PRD-01 | Phase 12 | Complete |
-| PRD-02 | Phase 12 | Pending |
+| PRD-02 | Phase 12 | Complete |
 | PRD-03 | Phase 12 | Complete |
 | PRD-04 | Phase 12 | Complete |
-| PRD-05 | Phase 12 | Pending |
+| PRD-05 | Phase 12 | Complete |
 | NOTF-01 | Phase 13 | Pending |
 | NOTF-02 | Phase 13 | Pending |
 | NOTF-03 | Phase 13 | Pending |
