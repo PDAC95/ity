@@ -4,10 +4,17 @@ import * as schema from './schema';
 
 const connectionString = process.env.DATABASE_URL!;
 
-// For use in serverless environments
-const client = postgres(connectionString, {
+// Singleton to prevent connection pool exhaustion during dev hot-reloads
+const globalForDb = globalThis as unknown as { pgClient: ReturnType<typeof postgres> };
+
+const client = globalForDb.pgClient ?? postgres(connectionString, {
   prepare: false,
+  max: 3,
 });
+
+if (process.env.NODE_ENV !== 'production') {
+  globalForDb.pgClient = client;
+}
 
 export const db = drizzle(client, { schema });
 

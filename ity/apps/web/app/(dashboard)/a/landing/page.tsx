@@ -4,6 +4,8 @@ import { db, eq, desc } from '@ity/db';
 import { schools, landingPageRequests } from '@ity/db';
 import { LandingHubView } from '@/components/landing/landing-hub-view';
 
+export const dynamic = 'force-dynamic';
+
 export default async function LandingHubPage() {
   const supabase = await createClient();
   const {
