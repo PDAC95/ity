@@ -51,6 +51,20 @@ export default async function ChatPage({ searchParams }: ChatPageProps) {
   const creatorAvatarUrl = creator?.avatarUrl ?? undefined;
   const schoolName = school.name;
 
+  // Redirect to landing hub if request already submitted (status is pending or in_progress)
+  const existingRequest = await db.query.landingPageRequests.findFirst({
+    where: and(
+      eq(landingPageRequests.schoolId, school.id),
+      ne(landingPageRequests.status, 'draft'),
+      ne(landingPageRequests.status, 'completed')
+    ),
+    columns: { status: true },
+  });
+
+  if (existingRequest) {
+    redirect('/a/landing');
+  }
+
   // Check for existing draft with chat history
   const existingDraft = await db.query.landingPageRequests.findFirst({
     where: and(

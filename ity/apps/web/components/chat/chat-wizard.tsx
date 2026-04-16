@@ -5,9 +5,14 @@ import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import type { UIMessage } from 'ai';
 import { toast } from 'sonner';
-import { AlertCircle, RefreshCw, Lock } from 'lucide-react';
+import { AlertCircle, RefreshCw, Lock, Loader2 } from 'lucide-react';
 import { ChatMessage } from './chat-message';
 import { ChatInput } from './chat-input';
+import { PrdSummaryCard } from './prd-summary-card';
+import { PrdSuccessCard } from './prd-success-card';
+import { PrdErrorCard } from './prd-error-card';
+import { trpc } from '@/lib/trpc/client';
+import type { PrdSummary } from '@/lib/prd/schema';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -21,6 +26,16 @@ interface ChatWizardProps {
   creatorAvatarUrl?: string;
   schoolName: string;
 }
+
+type PrdFlowState =
+  | { phase: 'idle' }
+  | { phase: 'generating' }
+  | { phase: 'summary'; prdData: PrdSummary }
+  | { phase: 'confirming'; prdData: PrdSummary }
+  | { phase: 'done' }
+  | { phase: 'error'; retryCount: number };
+
+const MAX_MANUAL_RETRIES = 3;
 
 // ---------------------------------------------------------------------------
 // ChatWizard
@@ -40,10 +55,13 @@ export function ChatWizard({
   const [chatFinished, setChatFinished] = useState(false);
   const [rateLimitedUntil, setRateLimitedUntil] = useState<number | null>(null);
   const [rateLimitCountdown, setRateLimitCountdown] = useState(0);
+  const [prdFlow, setPrdFlow] = useState<PrdFlowState>({ phase: 'idle' });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const isNearBottomRef = useRef(true);
+  // Track whether PRD generation has been triggered for the current [PRD_READY] marker
+  const prdTriggeredRef = useRef(false);
 
   // ---------------------------------------------------------------------------
   // useChat with DefaultChatTransport
@@ -116,6 +134,117 @@ export function ChatWizard({
   const isRateLimited = rateLimitedUntil !== null && Date.now() < rateLimitedUntil;
 
   // ---------------------------------------------------------------------------
+  // [PRD_READY] marker detection
+  // ---------------------------------------------------------------------------
+
+  const lastAssistantMessage = [...messages].reverse().find((m) => m.role === 'assistant');
+  const lastAssistantText =
+    lastAssistantMessage?.parts
+      .filter((p): p is { type: 'text'; text: string } => p.type === 'text')
+      .map((p) => p.text)
+      .join('') ?? '';
+
+  useEffect(() => {
+    if (
+      lastAssistantText.includes('[PRD_READY]') &&
+      prdFlow.phase === 'idle' &&
+      !prdTriggeredRef.current
+    ) {
+      prdTriggeredRef.current = true;
+      void triggerPrdGeneration();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastAssistantText, prdFlow.phase]);
+
+  // ---------------------------------------------------------------------------
+  // PRD generation
+  // ---------------------------------------------------------------------------
+
+  async function triggerPrdGeneration(retryCount = 0) {
+    setPrdFlow({ phase: 'generating' });
+
+    const chatHistory = messages
+      .filter((m) => m.role === 'user' || m.role === 'assistant')
+      .map((m) => ({
+        role: m.role as 'user' | 'assistant',
+        content: m.parts
+          .filter((p): p is { type: 'text'; text: string } => p.type === 'text')
+          .map((p) => p.text)
+          .join(''),
+      }));
+
+    async function attemptGeneration(): Promise<PrdSummary | null> {
+      try {
+        const res = await fetch('/api/prd/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chatHistory, schoolId, templateId }),
+        });
+        if (!res.ok) return null;
+        const json = (await res.json()) as { prdData: PrdSummary };
+        return json.prdData;
+      } catch {
+        return null;
+      }
+    }
+
+    // First attempt
+    let prdData = await attemptGeneration();
+
+    // 1 automatic retry (transparent to user)
+    if (!prdData) {
+      prdData = await attemptGeneration();
+    }
+
+    if (prdData) {
+      setPrdFlow({ phase: 'summary', prdData });
+    } else {
+      setPrdFlow({ phase: 'error', retryCount });
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // tRPC mutation for confirmation
+  // ---------------------------------------------------------------------------
+
+  const requestPageMutation = trpc.landing.requestPage.useMutation({
+    onSuccess: () => {
+      setPrdFlow({ phase: 'done' });
+    },
+    onError: () => {
+      toast.error('Error al enviar la solicitud.');
+      // Revert to summary so user can retry confirmation
+      setPrdFlow((prev) =>
+        prev.phase === 'confirming' ? { phase: 'summary', prdData: prev.prdData } : prev
+      );
+    },
+  });
+
+  // ---------------------------------------------------------------------------
+  // PRD flow handlers
+  // ---------------------------------------------------------------------------
+
+  function handleConfirm() {
+    if (prdFlow.phase !== 'summary') return;
+    const { prdData } = prdFlow;
+    setPrdFlow({ phase: 'confirming', prdData });
+    requestPageMutation.mutate({ schoolId, prdData: prdData as Record<string, unknown> });
+  }
+
+  function handleRequestChange() {
+    setPrdFlow({ phase: 'idle' });
+    prdTriggeredRef.current = false;
+    sendMessage({ text: 'Quiero cambiar algo de mi información.' });
+  }
+
+  function handleManualRetry() {
+    if (prdFlow.phase !== 'error') return;
+    const newRetryCount = prdFlow.retryCount + 1;
+    if (newRetryCount > MAX_MANUAL_RETRIES) return;
+    void triggerPrdGeneration(newRetryCount);
+  }
+
+  // ---------------------------------------------------------------------------
   // Auto-scroll (pause when user scrolls up)
   // ---------------------------------------------------------------------------
 
@@ -138,7 +267,7 @@ export function ChatWizard({
     if (isNearBottomRef.current && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages]);
+  }, [messages, prdFlow]);
 
   // ---------------------------------------------------------------------------
   // Send handler
@@ -184,7 +313,11 @@ export function ChatWizard({
   // Compute disabled state for input
   // ---------------------------------------------------------------------------
 
-  const inputDisabled = isStreaming || isRateLimited || chatFinished;
+  const prdActive = prdFlow.phase !== 'idle';
+  const inputDisabled = isStreaming || isRateLimited || chatFinished || prdActive;
+
+  // Chat is visually finished when PRD flow is done OR turn limit reached
+  const showFinishedBanner = chatFinished && !prdActive;
 
   // ---------------------------------------------------------------------------
   // Render
@@ -235,16 +368,31 @@ export function ChatWizard({
         className="flex-1 overflow-y-auto"
       >
         <div className="mx-auto max-w-3xl">
-          {messages.map((message, idx) => (
-            <ChatMessage
-              key={message.id}
-              message={message}
-              creatorName={creatorName}
-              creatorAvatarUrl={creatorAvatarUrl}
-              isStreaming={isStreaming}
-              isLastAssistantMessage={idx === lastAssistantIndex}
-            />
-          ))}
+          {messages.map((message, idx) => {
+            // Strip [PRD_READY] marker from displayed text
+            const strippedMessage =
+              message.role === 'assistant'
+                ? {
+                    ...message,
+                    parts: message.parts.map((p) =>
+                      p.type === 'text'
+                        ? { ...p, text: (p as { type: 'text'; text: string }).text.replace('[PRD_READY]', '').trim() }
+                        : p
+                    ),
+                  }
+                : message;
+
+            return (
+              <ChatMessage
+                key={message.id}
+                message={strippedMessage as UIMessage}
+                creatorName={creatorName}
+                creatorAvatarUrl={creatorAvatarUrl}
+                isStreaming={isStreaming}
+                isLastAssistantMessage={idx === lastAssistantIndex}
+              />
+            );
+          })}
 
           {/* Typing indicator */}
           {isStreaming && (
@@ -282,8 +430,37 @@ export function ChatWizard({
             </div>
           )}
 
-          {/* Chat finished banner */}
-          {chatFinished && (
+          {/* PRD flow cards */}
+          {prdFlow.phase === 'generating' && (
+            <div className="glass-card mx-4 my-4 flex items-center gap-3 p-6">
+              <Loader2 className="h-5 w-5 animate-spin" style={{ color: '#bfdbfe' }} />
+              <span className="text-sm" style={{ color: 'var(--content-secondary)' }}>
+                Generando resumen...
+              </span>
+            </div>
+          )}
+
+          {(prdFlow.phase === 'summary' || prdFlow.phase === 'confirming') && (
+            <PrdSummaryCard
+              prdData={prdFlow.prdData}
+              onConfirm={handleConfirm}
+              onRequestChange={handleRequestChange}
+              isConfirming={prdFlow.phase === 'confirming'}
+            />
+          )}
+
+          {prdFlow.phase === 'done' && <PrdSuccessCard schoolName={schoolName} />}
+
+          {prdFlow.phase === 'error' && (
+            <PrdErrorCard
+              onRetry={handleManualRetry}
+              retryCount={prdFlow.retryCount}
+              maxRetries={MAX_MANUAL_RETRIES}
+            />
+          )}
+
+          {/* Chat finished banner — only shown when PRD flow is NOT active */}
+          {showFinishedBanner && (
             <div className="mx-4 my-4 flex items-center justify-center gap-2 rounded-xl border border-white/[0.06] bg-white/[0.04] px-6 py-4">
               <Lock className="h-4 w-4 text-zinc-400" />
               <div className="text-center">
@@ -306,8 +483,8 @@ export function ChatWizard({
         </div>
       )}
 
-      {/* Input area — hidden when chat finished */}
-      {!chatFinished && (
+      {/* Input area — hidden when chat finished or PRD flow active */}
+      {!inputDisabled && (
         <div className="border-t border-white/[0.06]">
           <ChatInput
             input={input}
